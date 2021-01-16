@@ -48,7 +48,7 @@ function dataTypes() {
 function operators() {
   // Assignment
   // = + - * / % += -= /= ++ --
-  const test1 = (12 + 10);
+  const test1 = 12 + 10;
   test1 += 1;
   test1++;
   const test2 = ++test1;
@@ -57,7 +57,7 @@ function operators() {
 
   const num = 10;
   if (num % 2) {
-    console.log('good number')
+    console.log("good number");
   }
 
   // Comparison
@@ -65,28 +65,27 @@ function operators() {
   const num1 = 50;
   if (num1 !== undefined) {
     if (100 > num1) {
-      console.log('true');
+      console.log("true");
     }
   }
 
-  // Logical 
+  // Logical
   // ! && ||  ??
   // ! highest priority among logical operators, then &&, then ||
   if (!num1) {
-    console.log('нет такой переменной');
+    console.log("нет такой переменной");
   } else if (num1 > 0 && num1 < 100) {
-    console.log('от 0 до 100');
+    console.log("от 0 до 100");
   } else if (num1 === 50 || num1 === 100) {
-    console.log('50 или 100')
+    console.log("50 или 100");
   }
 
   let firstName = null;
   let lastName = null;
-  let nickName = 'Pav';
+  let nickName = "Pav";
 
-  console.log(firstName ?? lastName ?? nickName ?? 'Anonimous');
-
-};
+  //console.log(firstName ?? lastName ?? nickName ?? "Anonimous");
+}
 // operators();
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -273,7 +272,6 @@ function numbers() {
   // Math.sin()
 
   // Math.cos()
-
 }
 //numbers();
 
@@ -345,7 +343,6 @@ function strings() {
   //  .search() returns index or -1
   let testSearch = longStr.search(/z/);
   //console.log(testSearch); // 3
-
 
   //  .localeCompare()
   //  ???
@@ -422,7 +419,7 @@ function splice() {
 
 // Iterate array items:
 function iterArr() {
-  let arr = ['MC', 'Arsenal', 'Liverpool', 'Tottenham', 'St. Albans'];
+  let arr = ["MC", "Arsenal", "Liverpool", "Tottenham", "St. Albans"];
 
   // 1 way
   for (let i = 0; i < arr.length; i++) {
@@ -432,7 +429,7 @@ function iterArr() {
   // 2 way
   arr.forEach((club, i) => {
     console.log(`Number ${i} is ${club}`);
-  })
+  });
 
   // 3 way
   for (let i of arr) {
@@ -441,7 +438,6 @@ function iterArr() {
 
   // alphabetic sort
   console.log(arr.sort());
-
 }
 //iterArr();
 
@@ -536,10 +532,21 @@ function sort() {
 //sort();
 
 function find() {
-
+  let arr = [
+    {
+      id: 1,
+      item: "book",
+    },
+    {
+      id: 2,
+      item: "glasses",
+    },
+  ];
+  const book = arr.find((item) => item.id === 1);
+  console.log(book);
+  console.log(book.item);
 }
-//find();
-
+find();
 
 ////////////////////////////////////////////////////////////////////////////////
 //  OBJECTS
@@ -569,7 +576,7 @@ function object() {
   newObj1["Hulk"] = "7";
 
   //  Add new item
-  newObj1.newOne = 'the new';
+  newObj1.newOne = "the new";
   newObj1["Witsel"] = "28";
   newObj1["Danny"] = "10";
 
