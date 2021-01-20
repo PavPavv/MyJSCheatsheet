@@ -80,6 +80,7 @@ function operators() {
     console.log("50 или 100");
   }
 
+  // Operator '??' - check if null
   let firstName = null;
   let lastName = null;
   let nickName = "Pav";
@@ -228,8 +229,9 @@ function editDOM() {
 //  In JS all the numbers are stored in 64-bit format (8B) IEEE-754 ('double precision')
 //  Special numbers are Infinity, -Infinity, NaN
 function numbers() {
+  const newNum = 1_000_000_000.234_405;
   //  parseInt()
-  var num = 2.54;
+  let num = 2.54;
   //console.log(parseInt(num)); // 2
 
   //  .toFixed()
@@ -239,7 +241,7 @@ function numbers() {
   //console.log(isNaN(num)); // false
 
   //  parseFloat
-  var elSize = "12px";
+  let elSize = "12px";
   //console.log(parseFloat(elSize)); // 12
 
   //  .toString()
@@ -292,46 +294,50 @@ function strings() {
   //  .toString()
   //console.log(num.toString()); // '23'
 
-  //  .split()
+  //  .split(mark)
   let newArr = longStr.split(" ");
   //console.log(newArr); // ['Graziano', 'Pelle']
 
-  //  .replace()
+  //  .replace(exp)
   let modStr = longStr.replace(/Pelle/g, "Feyenoord");
   //console.log(modStr); // 'Graziano Feyenoord'
 
-  //  .charAt()
+  // .replaceAll(str)
+  const strangeStr = "one+two+three";
+  const normalizedStr = strangeStr.replaceAll("+", " ");
+
+  //  .charAt(i)
   //console.log(modStr.charAt(0)); // G
 
-  //  .charCodeAt()
+  //  .charCodeAt(num)
   //console.log(modStr.charCodeAt(0)); // 71
 
-  //  .concat()
+  //  .concat(str)
   let comStr = longStr.concat(modStr);
   //console.log(comStr); // 'GrazianoPelle GrazianoFeyenoord'
 
-  //  .slice()
+  //  .slice(from, to)
   //console.log(comStr.slice(0,8)); //  'Graziano'
 
-  //  .substr()
+  //  .substr(from, amount)
   //console.log(comStr.substr(0,8)); //  'Graziano'
 
-  //  .toUpperCase()
+  //  .toUpperCase(strOrLetter)
   //console.log(comStr.toUpperCase());
 
-  //  .toLowerCase()
+  //  .toLowerCase(strOrLetter)
   //console.log(comStr.toLowerCase());
 
-  //  .includes()
+  //  .includes(str)
   let checked = longStr.includes("Graziano");
   //console.log(checked); // true
 
-  //  .match()  returns data type - string in an array
+  //  .match(regEx)  returns data type - string in an array
   let res = longStr.match(/Graziano/gi);
   //console.log(res); // ['Graziano']
 
   // Works with regEx
-  //  .exec() returns data type - array
+  //  .exec(var) returns data type - array
   let result = /Graziano/.exec(longStr);
   //console.log(result); // ['Graziano', index:0, input: "Graziano Pelle", 'groups: undefined']
 
@@ -340,22 +346,22 @@ function strings() {
     //console.log('It is passed the test');
   }
 
-  //  .search() returns index or -1
+  //  .search(regEx) returns index or -1
   let testSearch = longStr.search(/z/);
   //console.log(testSearch); // 3
 
   //  .localeCompare()
   //  ???
 
-  // .indexOf()
+  // .indexOf(strOrSubStr)
   let res1 = longStr.indexOf("Pelle");
   //console.log(res1); // 9
 
-  //  .eval()
+  //  .eval(str)
   let nums = "3 + 2";
   //console.log(eval(nums)); // 5
 
-  //  .trim()
+  //  .trim(str)
   let someStr = " something ";
   //console.log(someStr.trim()); // 'something'
 }
