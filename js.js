@@ -601,17 +601,21 @@ function object() {
   }
 
   //  Get object keys
-  let keys = Object.keys(newObj1);
+  const keys = Object.keys(newObj1);
   //console.log('keys are ' + keys);
 
   //  Get the object values
-  let values = Object.values(newObj1);
+  const values = Object.values(newObj1);
   //console.log(values);
 
-  //  Freeze the object, make it immutable
-  let frozen = Object.freeze(newObj1);
+  // Get properties as [['key': 'value'], ['key': 'value'], ...];
+  const props = Object.entries(newObj1);
+  //console.log(props);
 
-  let isFrozen = Object.isFrozen(newObj1);
+  //  Freeze the object, make it immutable
+  const frozen = Object.freeze(newObj1);
+
+  const isFrozen = Object.isFrozen(newObj1);
   //console.log(isFrozen) //true
 
   let seal = Object.seal(newObj1);
