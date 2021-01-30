@@ -626,10 +626,12 @@ function object() {
 
   let newObjProto = Object.create(null);
 
+  // shallow copy
   let copyObj = Object.assign(newObj2);
-  const lightCopy = {
+  const shallowCopy = {
     ...newObj2,
   };
+  // deep copy
   const deepCopy = JSON.parse(JSON.stringify(newObj2));
 
   console.log("assign copyObj", copyObj);
