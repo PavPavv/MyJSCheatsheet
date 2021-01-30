@@ -627,7 +627,33 @@ function object() {
   let newObjProto = Object.create(null);
 
   let copyObj = Object.assign(newObj2);
-  console.log(copyObj);
+  const lightCopy = {
+    ...newObj2,
+  };
+  const deepCopy = JSON.parse(JSON.stringify(newObj2));
+
+  console.log("assign copyObj", copyObj);
+  console.log("lightCopy", lightCopy);
+  console.log("deepCopy", deepCopy);
+
+  // JSON
+  function json() {
+    const obj = {
+      name: "Charles",
+      age: "23",
+      knoweledge: {
+        language: "JavaScript",
+        framework: "React",
+      },
+    };
+
+    // from object to JSON
+    console.log(JSON.stringify(obj));
+    /// from JSON to object
+    console.log(JSON.parse(JSON.stringify(obj)));
+  }
+
+  //json();
 
   //  ES6 OO Object
   class Test {
@@ -667,7 +693,7 @@ function object() {
 
   //console.log(newObj1)
 }
-//object();
+object();
 
 //  get Object Arrays
 function getObjectArrays() {
