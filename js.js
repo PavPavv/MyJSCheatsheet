@@ -132,28 +132,36 @@ function navDOM() {
 ////////////////////////////////////////////////////////////////////////////////
 // Coordinates in DOM
 function getCoords() {
-  //  without border
-  elem.clientTop;
-  elem.clientLeft;
-  elem.clientWidth;
-  elem.clientHeight;
-
-  //  with border
+  // Element:
+  //  with border & padding
+  elem.offsetParent;
   elem.offsetLeft;
   elem.offsetTop;
   elem.offsetWidth;
   elem.offsetHeight;
 
+  //  element's border
+  elem.clientTop;
+  elem.clientLeft;
+
+  //  without border
+  elem.clientWidth;
+  elem.clientHeight;
+
   //  with scroll
-  elem.scrollLeft;
-  elem.scrollTop;
   elem.scrollWidth;
   elem.scrollHeight;
+
+  // scrolled part's height
+  elem.scrollTop;
+  // scrolled part's width
+  elem.scrollLeft;
 
   //  The scrollIntoView() method scrolls the specified element into the visible
   //  area of the browser window.
   elem.scrollIntoView();
 
+  // Pointer:
   //  coords without scroll for mouse
   elem.clientX;
   elem.clientY;
@@ -204,11 +212,16 @@ function editContent() {
 function editDOM() {
   const newElem = document.createElement("div");
   elem.append(newElem);
-  elem.appendChild(newElem);
+  elem.prepend(newElem);
+  elem.before(newElem);
+  elem.after(newElem);
+  elem.appendChild(newElem); // old method
   parent.inserBefore(newElem, elem);
   parent.removeChild(elem);
   parent.replaceChild(newElem, elem);
+  parent.replaceWith(elem);
   parent.remove(elem);
+  let div2 = div.cloneNode(true);
 
   //  Manipulate attributes, CSS
   elem.hasAttribute("id");
@@ -217,11 +230,20 @@ function editDOM() {
   elem.removeAttribute("attr");
   elem.attributes;
   elem.className = "super-new-class";
+  div.style.cssText = `color: red !important;
+    background-color: yellow;
+    width: 100px;
+    text-align: center;
+  `;
+  document.body.style.background = "gray";
   elem.matches("super-new-class");
   elem.classList.contains("super-new-class");
   elem.classList.add("another-class");
   elem.classList.remove("another-class");
   elem.classList.toggle("new-class");
+
+  let computedStyleBody = getComputedStyle(document.body);
+  computedStyleBody.background;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
