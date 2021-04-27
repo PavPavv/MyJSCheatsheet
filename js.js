@@ -162,11 +162,11 @@ function getCoords() {
   elem.scrollIntoView();
 
   // Pointer:
-  //  coords without scroll for mouse
+  //  coords without scroll for mouse (viewport)
   elem.clientX;
   elem.clientY;
 
-  //  coords with scroll for mouse
+  //  coords with scroll for mouse (document)
   elem.pageX;
   elem.pageY;
 
