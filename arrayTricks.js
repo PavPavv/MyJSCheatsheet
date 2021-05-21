@@ -1,5 +1,6 @@
 "use strict";
 const script = () => {
+
   const sortArray = () => {
     let arr = [20, 11, 0, 2, -4, 10, 100, 23];
     arr.sort((a, b) => a - b);
@@ -45,5 +46,6 @@ const script = () => {
     console.log("combineStringArraysIntoUniqueOne", mergedUniqueArr);
   };
   //combineStringArraysIntoUniqueOne();
+
 };
 script();

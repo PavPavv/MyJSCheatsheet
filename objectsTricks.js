@@ -1,5 +1,6 @@
 //  get Object Arrays
 function getObjectArrays() {
+
   const myFavoriteAuthors = {
     allAuthors: {
       fiction: ["Leo Tolstoy", "Albert Camus", "Jack Kerouac"],
@@ -141,5 +142,6 @@ function symbolIterator() {
   // for (let item in myFavoriteAuthors) {
   //   console.log(myFavoriteAuthors[item]);
   // }
+  
 }
 //symbolIterator();

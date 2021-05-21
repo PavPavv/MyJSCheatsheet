@@ -90,7 +90,7 @@ function operators() {
 // operators();
 
 ////////////////////////////////////////////////////////////////////////////////
-// Getting elemets from document
+// Getting elements from document
 function getEl() {
   const idEl = document.getElementById("test");
   const nameEl = document.getElementsByName("test-name");
@@ -216,7 +216,7 @@ function editDOM() {
   elem.before(newElem);
   elem.after(newElem);
   elem.appendChild(newElem); // old method
-  parent.inserBefore(newElem, elem);
+  parent.insertBefore(newElem, elem);
   parent.removeChild(elem);
   parent.replaceChild(newElem, elem);
   parent.replaceWith(elem);

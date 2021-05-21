@@ -196,10 +196,10 @@ function builder() {
 
 
   const myCar = new CarBuilder()
-                  .addAutoPilot(true)
-                  .addParktronic(true)
-                  .updateEngine('V8')
-                  .build();
+    .addAutoPilot(true)
+    .addParktronic(true)
+    .updateEngine('V8')
+    .build();
 
   console.log(myCar);
 
@@ -514,8 +514,8 @@ function composite() {
 
     getPrice() {
       return this.equipments
-                    .map(equipment => equipment.getPrice())
-                    .reduce((a, b) => a + b);
+        .map(equipment => equipment.getPrice())
+        .reduce((a, b) => a + b);
     }
   }
 
@@ -723,9 +723,9 @@ function iterator() {
 
   //const collection = new Iterator(['Audi', 'Peugeot', 'BMW', 'Toyota']);
   let cars = {
-    audi : {model: 'Audi', color: 'black', price: 20000},
-    bmw : {model: 'BMW', color: 'black', price: 29000},
-    peugeot : {model: 'Peugeot', color: 'white', price: 14000 },
+    audi: { model: 'Audi', color: 'black', price: 20000 },
+    bmw: { model: 'BMW', color: 'black', price: 29000 },
+    peugeot: { model: 'Peugeot', color: 'white', price: 14000 },
   }
   const collection = new Iterator(cars);
 
@@ -1164,7 +1164,7 @@ function state() {
 
     cancelOrder() {
       this.state.name === 'WaitingForPayment' ? console.log('Order is canceled') :
-                                                console.log('Order can not be canceled!');
+        console.log('Order can not be canceled!');
     }
   }
 
