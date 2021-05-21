@@ -47,5 +47,46 @@ const script = () => {
   };
   //combineStringArraysIntoUniqueOne();
 
+  // Arithmetical mean of an array
+  const arMeanArr = () => {
+    let arr = [2, 4, 5, 12, 40, 1];
+    let result = 0;
+
+    for (let i = 0; i < arr.length; i++) {
+      result += arr[i];
+    }
+
+    return parseInt(result / arr.length);
+  };
+  //console.log(arMeanArr())
+
+  // Find central element of an array
+  const centralArrayElem = arr => {
+    return arr[Math.floor((arr.length - 1) / 2)];
+  };
+  //console.log(centralArrayElem([1, 2, 3, 4, 5]))
+
+  // Find two elements in an array which are equal to a certain number
+  const findCouple = (arr, num) => {
+    let result = [];
+
+    for (let i = 0; i < arr.length; i++) {
+
+      for (let j = i + 1; j < arr.length; j++) {
+        if (arr[i] + arr[j] === num) {
+          result.push('There are a couple: ' + arr[i] + ' and ' + arr[j] + ' are equals ' + num);
+        }
+      }
+    }
+
+    if (result) {
+      return result;
+    } else {
+      return 'Sorry, there are no matches.';
+    }
+  }
+  let results = findCouple([1, 2, 3, 4, 5, 6, 7, 8, 9, 0], 10);
+  //for (let i of results) console.log(i)
+
 };
 script();

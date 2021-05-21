@@ -136,12 +136,12 @@ function symbolIterator() {
     //console.log(author);
   }
 
-  console.log(...myFavoriteAuthors);
+  //console.log(...myFavoriteAuthors);
 
   //  Not a solid technique of mine
   // for (let item in myFavoriteAuthors) {
   //   console.log(myFavoriteAuthors[item]);
   // }
-  
+
 }
 //symbolIterator();
