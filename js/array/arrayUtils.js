@@ -1,5 +1,10 @@
-"use strict";
-const script = () => {
+'use strict';
+
+const arrays = () => {
+  const arrSum = arr => {
+    return arr.reduce((a, b) => a + b);
+  };
+  //console.log(arrSum([1, 2, 3]))
 
   const sortArray = () => {
     let arr = [20, 11, 0, 2, -4, 10, 100, 23];
@@ -25,6 +30,15 @@ const script = () => {
     console.log("getUniqueElsOf2Arrs1", arr3);
   };
   //getUniqueElsOf2Arrs1();
+
+  const getCommonElsOf2Arrs = () => {
+    let arr1 = [1, 2, 3, 4, 5];
+    let arr2 = [0, 1, 3, 4, 5, 6];
+
+    let arr3 = arr2.filter((x) => arr1.includes(x));
+    console.log("getUniqueElsOf2Arrs1", arr3);
+  };
+  //getCommonElsOf2Arrs();
 
   const combineNumArraysIntoUniqueOne = () => {
     let arr1 = [1, 2, 3, 4, 5];
@@ -60,6 +74,11 @@ const script = () => {
   };
   //console.log(arMeanArr())
 
+  const averageArrValue = arr => {
+    return parseInt(arr.reduce((a, b) => a + b) / arr.length);
+  };
+  //console.log(averageArrValue([2, 4, 5, 12, 40, 1]));
+
   // Find central element of an array
   const centralArrayElem = arr => {
     return arr[Math.floor((arr.length - 1) / 2)];
@@ -88,6 +107,7 @@ const script = () => {
   let results = findCouple([1, 2, 3, 4, 5, 6, 7, 8, 9, 0], 10);
   //for (let i of results) console.log(i)
 
+  // Find black ship
   const findOutlier = arr => {
     let oddCount = 0;
     let evenCount = 0;
@@ -112,8 +132,8 @@ const script = () => {
       }
     }
   };
-  findOutlier([2, 3, 4, 6, 8, 2, 22, 2]);
-  findOutlier([3, 1, 55, 31, 44, 21]);
+  //console.log(findOutlier([2, 3, 4, 6, 8, 2, 22, 2]));
+  //console.log(findOutlier([3, 1, 55, 31, 44, 21]));
 
   const findException = arr => {
     const isEven = arr.slice(0, 3).filter(item => item % 2).length < 1;
@@ -139,15 +159,6 @@ const script = () => {
     return maxSum;
   };
   //console.log(getMaxSubSum([1, 2, 3, -4]));
-
-  const getNumArrSum = arr => {
-    let result = 0;
-    for (let i = 0; i < arr.length; i++) {
-      result += i;
-    }
-    return result;
-  };
-  //console.log(getNumArrSum([1, 2, 3, -4]));
 
   const findElemsBefore = (arr, elem) => {
     let newArr = [];
@@ -216,6 +227,7 @@ const script = () => {
     let user1TransactionsPerWeekArr = userTransactionsArr(json, 'heisrenard');
     let user1TransactionsPerWeekSum = SubArraysSum(user1TransactionsPerWeekArr);
     console.log(user1TransactionsPerWeekSum)
+
     let user2TransactionsPerWeekArr = userTransactionsArr(json, 'rielkie');
     let user2TransactionsPerWeekSum = SubArraysSum(user2TransactionsPerWeekArr);
     console.log(user2TransactionsPerWeekSum)
@@ -262,7 +274,12 @@ const script = () => {
     console.log(subArrSum(user1TransactionsPerWeekArr))
   };
 
-  getDataArrSum2()
+  //getDataArrSum2()
+
+  const fillArrWithElems = (nums, elem) => {
+    return new Array(nums).fill(elem);
+  }
+  //console.log(fillArrWithElems(9, { "Test": "test" }));
 
 };
-script();
+arrays();
