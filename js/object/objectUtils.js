@@ -157,7 +157,22 @@ const objects = () => {
     }
     return charObj;
   };
-  console.log(buildCharObj('test'))
+  //console.log(buildCharObj('test'))
+
+
+  const data = [
+    { name: "Joe", date: '2018-07-01', amt: 250 },
+    { name: "Mars", date: '2018-07-01', amt: 250 },
+    { name: "Joe", date: '2018-07-02', amt: 250 },
+    { name: "Saturn", date: '2018-07-01', amt: 250 },
+    { name: "Joe", date: '2018-07-02', amt: 250 },
+    { name: "Jupiter", date: '2018-07-01', amt: 250 },
+  ];
+
+  const getMainKeys = Object.keys(Object.assign({}, ...data));
+  //console.log(getMainKeys)
+  const getUniqueObjVals = [... new Set(data.map(obj => { return obj.name }))];
+  // console.log(getUniqueObjVals)
 
 };
 objects();
