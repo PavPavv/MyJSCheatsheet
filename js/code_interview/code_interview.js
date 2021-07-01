@@ -1,4 +1,16 @@
-'use strict';
+const now = require('performance-now');
+
+const funcSpeed = func => {
+  const start = now();
+
+  for (let i = 0; i < 100000; i++) {
+    func;
+  }
+
+  const end = now();
+  return end - start;
+};
+
 // 1
 /*
   Example:
@@ -51,7 +63,7 @@ const queues = () => {
 //////////////////////////////////////////////////////////////////
 
 // 3
-/* 
+/**
   * @param {string} J
   * @param {string} S
   * @return {number}
@@ -109,7 +121,7 @@ const stonesAndJewels = () => {
 
 // 4
 const stonesAndJewelsPrecise = () => {
-  /* 
+  /** 
     * @param {string} J
     * @param {string} S
     * @return {number} amount of unique symbols
@@ -206,7 +218,7 @@ const fizzbuzz1 = n => {
 /////////////////////////////////////////////////////////////////////////
 
 //  8
-/*
+/** 
 @param {string}
 @return {number}
 findVowels('anna') -> 2
@@ -219,7 +231,7 @@ const findVowels = str => {
 /////////////////////////////////////////////////////////////////////////
 
 // 9
-/*
+/** 
   @param {string}
   @param {string}
   @return {boolean}
@@ -284,7 +296,7 @@ const twoSum1 = (numsArr, target) => {
 //////////////////////////////////////////////////////////////////////
 
 // 11
-/*
+/** 
   * @param {number} x
   * @return {number} 
   * func(123) -> 321
@@ -299,7 +311,7 @@ const reverseInt = int => {
 ////////////////////////////////////////////////////////////////////////
 
 // 12
-/*
+/** 
   * @param {number}
   * @return {boolean}
   * func(121) -> true
@@ -321,7 +333,7 @@ const middlePalindrome = x => {
 ////////////////////////////////////////////////////////////////////////
 
 // 13
-/*
+/**
   * @param {string[]} strs
   * @return {string}
   * func(['strs', 'string']) -> 'str'
@@ -432,7 +444,7 @@ const loops = () => {
 /////////////////////////////////////////////////////////////////
 
 // 17
-/*
+/** 
   * @param {number} int
   * @return {number[]}
   * func(10) -> [2,3,5,7];
@@ -455,7 +467,7 @@ const allPrimeNumsFromTo = int => {
 //////////////////////////////////////////////////////////////////
 
 // 18
-/* 
+/** 
   * @param {number[]} numArr
   * @return {number[]}
   * func([1,0,-5]) -> [-5, 0, 1]
@@ -485,5 +497,65 @@ const bubbleSort = numArr => {
 
 const newBubbleArr = bubbleSort(bubbleArr);
 
-console.log('bubbleArr', bubbleArr)
-console.log('newBubbleArr', newBubbleArr);
+// console.log('bubbleArr', bubbleArr)
+// console.log('newBubbleArr', newBubbleArr);
+////////////////////////////////////////////////////////////////
+
+// 19
+/**
+ * @param {number} a
+ * @param {number} b
+ * @return {number}
+ * func(2,1) -> 1
+*/
+
+const min = (a, b) => {
+  return Math.min(a, b);
+};
+
+const min1 = (a, b) => {
+  return a < b ? a : b;
+}
+
+// console.log(min(10, 5));
+// console.log(min1(10, 5));
+
+// console.log(funcSpeed(min(2, 1)));
+// console.log(funcSpeed(min1(2, 1)));
+
+// 20
+/**
+ * @param {number} a
+ * @param {number} b
+ * @return {number}
+ * func(2,3) -> 8
+ */
+const pow = (x, n) => {
+  return Math.pow(x, n);
+};
+//console.log('pow', pow(2, 3));
+
+const pow1 = (x, n) => {
+  let i = 1;
+  let basic = x;
+  while (i < n) {
+    x *= basic;
+    i++;
+  }
+  return x;
+};
+//console.log('pow1', pow1(2, 3));
+
+pow2 = (x, n) => {
+  let result = x;
+  for (let i = 1; i < n; i++) {
+    result *= x;
+  }
+  return result;
+};
+//console.log('pow2', pow2(2, 3));
+
+// console.log('pow', funcSpeed(pow(2, 3)));
+// console.log('pow1', funcSpeed(pow1(2, 3)));
+// console.log('pow2', funcSpeed(pow2(2, 3)));
+///////////////////////////////////////////////////////

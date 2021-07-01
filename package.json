@@ -1,0 +1,11 @@
+{
+  "name": "MyJSCheatSheet",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/PavPavv/MyJSCheatsheet.git",
+  "author": "Pavel Durnov <pavel.durnov@simbirsoft.com>",
+  "license": "MIT",
+  "dependencies": {
+    "performance-now": "^2.1.0"
+  }
+}
