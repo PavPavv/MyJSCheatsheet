@@ -88,6 +88,8 @@ const js = () => {
     let nickName = "Pav";
 
     //console.log(firstName ?? lastName ?? nickName ?? "Anonimous");
+
+    // height = height ?? 100;
   }
   // operators();
 

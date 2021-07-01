@@ -356,7 +356,7 @@ const varTest = () => {
   let b = 1;
   let c = ++a;
   let d = b++;
-  return `${a} ${b} ${c} ${d}`;
+  return `${a} | ${b} | ${c} | ${d}`;
 };
 // console.log(varTest());
 
@@ -364,7 +364,7 @@ const varTest = () => {
 const varTest1 = () => {
   let a = 2;
   let x = 1 + (a *= 2);
-  return `${a} ${x}`;
+  return `${a} | ${x}`;
 };
 //console.log(varTest1());
 
@@ -385,6 +385,105 @@ const valTest = () => {
   let n = undefined + 1; // NaN
   let o = " \t \n" - 2; // -2
 
-  return `${a} ${b} ${c} ${d} ${e} ${f} ${g} ${h} ${i} ${j} ${k} ${l} ${m} ${n} ${o}`;
+  return `${a} | ${b} | ${c} | ${d} | ${e} | ${f} | ${g} | ${h} | ${i} | ${j} | ${k} | ${l} | ${m} | ${n} | ${o}`;
 };
-console.log(valTest());
+//console.log(valTest());
+
+const valTest1 = () => {
+  let a = 5 > 4; // true
+  let b = "ананас" > "яблоко"; // false
+  let c = "2" > "12"; // true
+  let d = undefined == null; // true
+  let e = undefined === null; // false
+  let f = null == "\n0\n";  // false
+  let g = null === +"\n0\n"; // false
+
+  return `${a} | ${b} | ${c} | ${d} | ${e} | ${f} | ${g}`;
+};
+//console.log(valTest1());
+
+const valTest2 = () => {
+  let a = null || 2 || undefined; // 2
+  let b = 1 && null && 2; // null
+  let c = null || 2 && 3 || 4; // 3
+  let d = Boolean(-1 || 0); // -1 -> true
+  let e = Boolean(-1 && 0); // false
+  let f = Boolean(null || -1 && 1); // true
+
+  return `${a} | ${b} | ${c} | ${d} | ${e} | ${f}`;
+};
+//console.log(valTest2())
+//////////////////////////////////////////////////////////////////
+
+// 16
+const loops = () => {
+  for (let i = 0; i < 3; i++) {
+    console.log(`number ${i}!`);
+  }
+
+  let i = 0;
+  while (i < 3) {
+    console.log(`number ${i}!`)
+    i++;
+  }
+
+}
+//loops();
+/////////////////////////////////////////////////////////////////
+
+// 17
+/*
+  * @param {number} int
+  * @return {number[]}
+  * func(10) -> [2,3,5,7];
+*/
+const allPrimeNumsFromTo = int => {
+  let result = [];
+
+  nextPrime:
+  for (let i = 2; i <= parseInt(int); i++) {
+
+    for (let j = 2; j < i; j++) {
+      if (i % j === 0) continue nextPrime;
+    }
+
+    result.push(i);
+  }
+  return result;
+};
+//console.log(allPrimeNumsFromTo(10));
+//////////////////////////////////////////////////////////////////
+
+// 18
+/* 
+  * @param {number[]} numArr
+  * @return {number[]}
+  * func([1,0,-5]) -> [-5, 0, 1]
+*/
+const bubbleArr = [10, 3, -5, 0];
+
+const bubbleSort = numArr => {
+  if (!numArr) {
+    console.log('Нет данных')
+    return;
+  }
+
+  for (let i = 0; i < numArr.length; i++) {
+
+    for (let j = 0; j < numArr.length - i - 1; j++) {
+      if (numArr[j] > numArr[j + 1]) {
+        const leftHand = numArr[j];
+        numArr[j] = numArr[j + 1];
+        numArr[j + 1] = leftHand;
+      }
+    }
+
+  }
+
+  return numArr;
+};
+
+const newBubbleArr = bubbleSort(bubbleArr);
+
+console.log('bubbleArr', bubbleArr)
+console.log('newBubbleArr', newBubbleArr);
