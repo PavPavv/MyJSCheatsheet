@@ -15,7 +15,7 @@ const objects = () => {
     function getObjArrs() {
       let temp = [];
       for (let key in myFavoriteAuthors["allAuthors"]) {
-        console.log(key); //  genres
+        //console.log(key); //  genres
         console.log("------------------------------");
         if (Array.isArray(myFavoriteAuthors["allAuthors"][key])) {
           const array = myFavoriteAuthors["allAuthors"][key];
@@ -52,7 +52,7 @@ const objects = () => {
       },
     };
 
-    console.log(myFavoriteAuthors.getAllAuthors());
+    //console.log(myFavoriteAuthors.getAllAuthors());
   }
   //getObjectArraysByInnerMethod();
 
@@ -150,14 +150,10 @@ const objects = () => {
   //symbolIterator();
 
   // Find number of repetitions of the substring
-  const buildCharObj = str => {
-    const charObj = {};
-    for (let char of str.replace(/[^\w]/g).toLowerCase()) {
-      charObj[char] = charObj[char] + 1 || 1;
-    }
-    return charObj;
+  const countSameLetters = str => {
+    return [...str].reduce((res, char) => (res[char] = (res[char] || 0) + 1, res), {});
   };
-  //console.log(buildCharObj('test'))
+  //console.log(countSameLetters('test'))
 
 
   const data = [
@@ -174,5 +170,56 @@ const objects = () => {
   const getUniqueObjVals = [... new Set(data.map(obj => { return obj.name }))];
   // console.log(getUniqueObjVals)
 
+  const isEmptyObj = obj => {
+    return (Object.keys(obj).length) ? false : true;
+  };
+  //console.log(isEmptyObj({}));
+
+
+  //
+  const objScope = () => {
+    function testThis() {
+      return this;
+    }
+    console.log(testThis()) // undefined
+
+    function testThis1() {
+      return {
+        a: 'a',
+        test: this,
+      }
+    }
+    console.log(testThis1.a) // undefined
+
+    function testThis2() {
+      return {
+        a: 'a',
+        test: this,
+      }
+    }
+    let test2 = testThis2(); // test2 = {a: 'a', test: this}
+    console.log(test2); // {a: 'a', test: this}
+    console.log(test2.a) // a
+    console.log(test2.test) // undefined
+
+    function testThis3() {
+      return {
+        name: 'Джон',
+        test() {
+          return this;
+        }
+      }
+    }
+    let test3 = testThis3(); // test3 = { name: 'Джон', test: [Function: test] }
+    console.log(test3); // { name: 'Джон', test: [Function: test] }
+    console.log(test3.name) // 'Джон'
+    console.log(test3.test) // [Function: test] 
+    console.log(test3.test()); // { name: 'Джон', test: [Function: test] }
+    console.log(test3.test().name) // 'Джон'
+
+  };
+  objScope();
+
 };
+
 objects();

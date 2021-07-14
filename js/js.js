@@ -702,7 +702,7 @@ const js = () => {
 
     //json();
 
-    //  ES6 OO Object
+    //  ES6 OO Object - Classes
     class Test {
       constructor(name) {
         this.name = name;
@@ -740,6 +740,7 @@ const js = () => {
 
     //console.log(newObj1)
 
+
     function interators() {
       const range = {
         band: 1,
@@ -765,7 +766,7 @@ const js = () => {
         //console.log(num);
       }
     }
-    interators();
+    //interators();
   }
   object();
 

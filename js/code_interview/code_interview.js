@@ -3,7 +3,7 @@ const now = require('performance-now');
 const funcSpeed = func => {
   const start = now();
 
-  for (let i = 0; i < 100000; i++) {
+  for (let i = 0; i < 1_000_000; i++) {
     func;
   }
 
@@ -546,7 +546,7 @@ const pow1 = (x, n) => {
 };
 //console.log('pow1', pow1(2, 3));
 
-pow2 = (x, n) => {
+const pow2 = (x, n) => {
   let result = x;
   for (let i = 1; i < n; i++) {
     result *= x;
@@ -558,4 +558,226 @@ pow2 = (x, n) => {
 // console.log('pow', funcSpeed(pow(2, 3)));
 // console.log('pow1', funcSpeed(pow1(2, 3)));
 // console.log('pow2', funcSpeed(pow2(2, 3)));
-///////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+
+// 21
+/**
+ * @param {string} str
+ * @return {object}
+ * func('aaba') -> {a: 3, b : 1} 
+ */
+const countSameLetters = str => {
+  let obj = {};
+
+  for (let letter of str) {
+    if (!obj[letter]) {
+      obj[letter] = 1;
+    } else {
+      obj[letter] += 1;
+    }
+  }
+
+  return obj;
+}
+//console.log(countSameLetters('aaba'));
+
+const countSameLetters1 = str => {
+  return [...str].reduce((a, e) => { a[e] = a[e] ? a[e] + 1 : 1; return a }, {});
+};
+//console.log(countSameLetters1('aaba'));
+
+const countSameLetters2 = str => {
+  return [...str].reduce((res, char) => (res[char] = (res[char] || 0) + 1, res), {});
+};
+//console.log(countSameLetters2('aaba'));
+
+const countSameLetters3 = str => {
+  const obj = {};
+
+  str.replace(/\S/g, letter => obj[letter] = (isNaN(obj[letter]) ? 1 : obj[letter] + 1));
+  return obj;
+};
+//console.log(countSameLetters3('aaba'));
+
+const countSameLetters4 = str => {
+  const charObj = {};
+  for (let char of str.replace(/[^\w]/g).toLowerCase()) {
+    charObj[char] = charObj[char] + 1 || 1;
+  }
+  return charObj;
+};
+
+// console.log('countSameLetters', funcSpeed(countSameLetters('aabacvvccccvcbx')));
+// console.log('countSameLetters1', funcSpeed(countSameLetters1('aabacvvccccvcbx')));
+// console.log('countSameLetters2', funcSpeed(countSameLetters2('aabacvvccccvcbx')));
+// console.log('countSameLetters3', funcSpeed(countSameLetters3('aabacvvccccvcbx')));
+// console.log('countSameLetters4', funcSpeed(countSameLetters4('aabacvvccccvcbx')));
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+// 22
+/**
+ * @param {object} obj
+ * @return {boolean}
+ * func({}) -> true
+ */
+const isEmptyObj = obj => {
+  return (Object.keys(obj).length) ? false : true;
+};
+//console.log(isEmptyObj({}));
+
+const isEmptyObj1 = obj => {
+  for (let key in obj) {
+    return false;
+  }
+  return true;
+};
+//console.log(isEmptyObj1({ a: 1, }));
+
+// console.log('isEmptyObj', funcSpeed(isEmptyObj({ a: 1, b: 2, c: 3 })));
+// console.log('isEmptyObj1', funcSpeed(isEmptyObj1({ a: 1, b: 2, c: 3 })));
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+// 23
+/**
+ * @param {object} obj
+ * @return {number}
+ * func(salary: object) -> 1000000;
+ */
+const salaries = {
+  john: 100,
+  ann: 100,
+  pete: 300,
+};
+
+const getObjNumValues = obj => {
+  return Array.from(Object.values(obj)).reduce((a, b) => a + b, 0)
+};
+//console.log(getObjNumValues(salaries));
+
+const getObjNumValues1 = obj => {
+  let sum = 0;
+  for (let key in obj) {
+    sum += obj[key];
+  }
+  return sum;
+};
+//console.log(getObjNumValues1(salaries));
+// console.log('getObjNumValues', funcSpeed(getObjNumValues(salaries)));
+// console.log('getObjNumValues1', funcSpeed(getObjNumValues1(salaries)));
+/////////////////////////////////////////////////////////////////////////////////
+
+// 24
+/**
+ * @param {object} obj
+ * @return {object}
+ * const newObj = func(obj); 
+ */
+let menu = {
+  width: 200,
+  height: 300,
+  title: "My menu"
+};
+const multiplyNumeric = obj => {
+  for (key in obj) {
+    if (typeof (obj[key]) === 'number') {
+      obj[key] *= 2;
+    }
+  }
+};
+multiplyNumeric(menu);
+// console.log(menu);
+///////////////////////////////////////////////////////////////////////////////
+
+// 25
+let ladder = {
+  step: 0,
+
+  up() {
+    this.step++;
+    return this;
+  },
+
+  down() {
+    this.step--;
+    return this;
+  },
+
+  showStep() {
+    console.log(this.step);
+    return this;
+  }
+
+};
+
+// ladder.showStep();
+// ladder.up().up();
+// ladder.showStep();
+/////////////////////////////////////////////////////////////////////////////
+
+// 26
+/**
+ * @param {string} str
+ * @param {number} max
+ * @return {string}
+ * func('Such a long word', 7) -> 'Such a ...' 
+ */
+
+const truncate = (str, max) => {
+  if (str.length > max) {
+    const newStr = str.slice(0, max);
+    return newStr + '...';
+  }
+
+  return str;
+};
+//console.log(truncate('You are so cool, you are so Rock\'n\'Roll', 10));
+
+const truncate1 = (str, max) => {
+  return (str.length > max) ? str.slice(0, max - 1) + '...' : str;
+};
+//console.log(truncate1('You are so cool, you are so Rock\'n\'Roll', 10));
+
+// console.log('getObjNumValues', funcSpeed(truncate('You are so cool, you are so Rock\'n\'Roll', 10)));
+// console.log('getObjNumValues1', funcSpeed(truncate1('You are so cool, you are so Rock\'n\'Roll', 10)));
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//27
+/**
+ * @param {string} value
+ * @return {number}
+ * func('100р') -> 100;
+ * func('$100') -> 100;
+ */
+
+const extractNumber = (value) => {
+  return value
+              .split('')
+              .map(s => s - 0)
+              .filter(s => isNaN(s) !== true)
+              .join('');
+};
+
+console.log(extractNumber('$100'));
+console.log(extractNumber('200р'));
+console.log(extractNumber('sdfsdf200dsfg'));
+
+const extractNumber1 = (value) => {
+  const result = [];
+
+  for (let s of value) {
+    let elem = s - 0;
+    if (!isNaN(elem)) {
+      result.push(elem);
+    }
+  }
+  return result.join('');
+};
+
+console.log(extractNumber1('$100'));
+console.log(extractNumber1('200р'));
+console.log(extractNumber1('sdfsdf200dsfg'));
+
+console.log('getObjNumValues', funcSpeed(extractNumber('sdfsdf200dsfg')));
+console.log('getObjNumValues1', funcSpeed(extractNumber1('sdfsdf200dsfg')));
+
+

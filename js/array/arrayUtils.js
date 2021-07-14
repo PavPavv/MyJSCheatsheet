@@ -281,5 +281,10 @@ const arrays = () => {
   }
   //console.log(fillArrWithElems(9, { "Test": "test" }));
 
+  const checkSubStr = (str, target) => {
+    return str.toLowerCase().includes(target);
+  };
+  //console.log(checkSubStr('Hi there, yo !', 'yo'));
+
 };
 arrays();
