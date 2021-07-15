@@ -751,15 +751,15 @@ const truncate1 = (str, max) => {
 
 const extractNumber = (value) => {
   return value
-              .split('')
-              .map(s => s - 0)
-              .filter(s => isNaN(s) !== true)
-              .join('');
+    .split('')
+    .map(s => s - 0)
+    .filter(s => isNaN(s) !== true)
+    .join('');
 };
 
-console.log(extractNumber('$100'));
-console.log(extractNumber('200р'));
-console.log(extractNumber('sdfsdf200dsfg'));
+// console.log(extractNumber('$100'));
+// console.log(extractNumber('200р'));
+// console.log(extractNumber('sdfsdf200dsfg'));
 
 const extractNumber1 = (value) => {
   const result = [];
@@ -773,11 +773,124 @@ const extractNumber1 = (value) => {
   return result.join('');
 };
 
-console.log(extractNumber1('$100'));
-console.log(extractNumber1('200р'));
-console.log(extractNumber1('sdfsdf200dsfg'));
+// console.log(extractNumber1('$100'));
+// console.log(extractNumber1('200р'));
+// console.log(extractNumber1('sdfsdf200dsfg'));
 
-console.log('getObjNumValues', funcSpeed(extractNumber('sdfsdf200dsfg')));
-console.log('getObjNumValues1', funcSpeed(extractNumber1('sdfsdf200dsfg')));
+// console.log('getObjNumValues', funcSpeed(extractNumber('sdfsdf200dsfg')));
+// console.log('getObjNumValues1', funcSpeed(extractNumber1('sdfsdf200dsfg')));
+///////////////////////////////////////////////////////////////////////////////////////
+
+// 28
+/**
+ * @param {string} str
+ * @return {string}
+ * func('AABCEEEDDCAAYYY') -> 'A2B1C1E3D2Y3';
+ */
+
+const numberifyStr = str => {
+  let obj = {};
+  let prevLetter = '';
+
+  str.split('').forEach(letter => {
+    if (letter === prevLetter) {
+      obj[letter]++;
+    } else {
+      prevLetter = letter;
+      obj[letter] = 1;
+    }
+  });
+
+  const result = [];
+  const keys = Object.keys(obj);
+  keys.forEach(key => {
+    result.push(`${key}${obj[key]}`);
+  });
+
+  return result.join('');
+};
+// console.log(numberifyStr('AABCEEEDDCAAYYY'));
+// console.log('numberifyStr', funcSpeed(numberifyStr('AABCEEEDDCAAYYY')));
+///////////////////////////////////////////////////////////////////////////////////////
+
+// 29
+/**
+ * @param {string} str
+ * @return {string}
+ * func('AABCEEEDDCAAYYY') -> 'A2B1C1E3D2C1A2Y3';
+ */
+const numberifyStrWithReapeat = str => {
+  return str
+    .split('')
+    .reduce((acc, str, i, arr) => {
+      if (str === arr[i + 1]) {
+        acc.count += 1;
+      } else {
+        acc.result += `${str}${acc.count + 1}`;
+        acc.count = 0;
+      }
+
+      return acc;
+    }, { result: '', count: 0 }).result
+
+};
+//console.log(numberifyStrWithReapeat('AABCEEEDDCAAYYY'));
+
+const numberifyStrWithReapeat1 = str => {
+  return str.replace(/([A-Z])(\1*)?/g, (x => {
+    return `${x.charAt(0)}${x.length}`;
+  }))
+};
+//console.log(numberifyStrWithReapeat1('AABCEEEDDCAAYYY'));
+////////////////////////////////////////////////////////////////////////////////////////
+
+// 30
+/**
+ * @param {string} str
+ * @return {string}
+ * func('AABCEEEDDCAAYYY') -> 'A4B1C2E3D2Y3';
+ */
+
+const numberifyStrTillEnd = str => {
+  const obj = {};
+  const result = [];
+
+  for (let letter of str) {
+    if (obj[letter]) {
+      obj[letter] += 1;
+    } else {
+      obj[letter] = 1;
+    }
+  }
+
+  Object.keys(obj).forEach(key => result.push(`${key}${obj[key]}`));
+  return result.join('');
+
+};
+// console.log(numberifyStrTillEnd('AABCEEEDDCAAYYY'));
+
+const numberifyStrTillEnd1 = str => {
+  const obj = {};
+  const result = [];
+  str.replace(/\S/g, letter => {
+    obj[letter] = (isNaN(obj[letter])) ? 1 : obj[letter] + 1
+  });
+
+  for (const key in obj) {
+    result.push(`${key}${obj[key]}`);
+  }
+  return result.join('');
+
+};
+// console.log(numberifyStrTillEnd1('AABCEEEDDCAAYYY'));
+
+// console.log('numberifyStrTillEnd', funcSpeed(numberifyStrTillEnd('AABCEEEDDCAAYYY')));
+// console.log('numberifyStrTillEnd1', funcSpeed(numberifyStrTillEnd1('AABCEEEDDCAAYYY')));
+///////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
 
 
