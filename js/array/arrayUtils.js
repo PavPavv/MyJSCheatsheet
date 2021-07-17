@@ -286,5 +286,53 @@ const arrays = () => {
   };
   //console.log(checkSubStr('Hi there, yo !', 'yo'));
 
+
+  const changeMidArrElem = (arr, elem) => {
+    arr[Math.floor((arr.length - 1) / 2)] = elem;
+    return arr;
+  };
+  //console.log(changeMidArrElem(['Arsenal', 'Tottenham', 'Chelsea', 'MU', 'MC'], 'KS'));
+
+  const camelize = str => {
+    return str
+      .split('-')
+      .map(word => word[0]
+        .toUpperCase() + word.slice(1))
+      .join('');
+  };
+  //console.log(camelize('some-kind-of-monster'));
+
+
+  const filterRange = (arr, a, b) => {
+    return arr.splice(a, (b - a - 1));
+  };
+  //console.log(filterRange([1, 2, 3, 4, 5, 6, 7, 8, 9], 3, 7));
+
+  const filterRange1 = (arr, a, b) => {
+    return arr.filter(item => (a <= item && item <= b));
+  };
+  //console.log(filterRange1([1, 2, 3, 4, 5, 6, 7, 8, 9], 3, 7));
+
+  const fisherYatesShuffle = arr => {
+    for (let i = arr.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1)); // случайный индекс от 0 до i
+
+      // перетасовка 
+      // с деструктуризацией было бы так: [arr[i], arr[j]] = [arr[j], arr[i]];
+      let t = arr[i];
+      arr[i] = arr[j];
+      arr[j] = t;
+    }
+
+    return arr;
+  };
+
+  const testShuffle = arr => {
+    let newArr = fisherYatesShuffle(arr);
+    return newArr[0];
+  }
+  console.log(testShuffle([1, 2, 3, 4, 5, 6, 7, 8, 9]));
+
+
 };
 arrays();
