@@ -75,8 +75,41 @@ function Accumulator(startingValue) {
 }
 
 const accum = new Accumulator(3);
-console.log(accum.getValue());
+// console.log(accum.getValue());
 accum.read(18);
-console.log(accum.getValue());
+// console.log(accum.getValue());
 
 ////////////////////////////////////////////////////////
+
+function CalculatArr() {
+  this.methods = {
+    '+': (a, b) => a + b,
+    '-': (a, b) => a - b,
+  };
+
+  this.calculate = function (str) {
+    const split = str.split(' ');
+    let a = +split[0];
+    let op = split[1];
+    let b = +split[2];
+
+    if (!this.methods[op] || isNaN(a) || isNaN(b)) {
+      return NaN;
+    }
+
+    return this.methods[op](a, b);
+  }
+
+  this.addMethod = function (name, func) {
+    this.methods[name] = func;
+  };
+}
+const calculatArr = new CalculatArr();
+// console.log(calculatArr.calculate('3 + 5'));
+calculatArr.addMethod('*', (a, b) => a * b);
+// console.log(calculatArr.calculate('3 * 5'));
+//////////////////////////////////////////////////////////////
+
+
+
+

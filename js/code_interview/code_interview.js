@@ -43,22 +43,28 @@ const counter2 = count(21);
 
 // 2
 const queues = () => {
+  // 0 текущий контекст вызова - это МАКРОзадача 1
+
   setTimeout(() => {
     console.log('setTimeout')
   }, 0);
 
-
+  // 1 микрозадача текущего контекста вызова 
   let p = new Promise((resolve, reject) => {
     console.log('create promise');
     resolve();
   });
 
+  // 3 микрозадача второй макрозадачи
   p.then(() => {
     console.log('handling promise')
   });
 
+  // 2 следующая МАКРОзадача 2
   console.log('clg');
 };
+
+// create promise -> clg -> handling promise -> setTimeout
 //queues();
 //////////////////////////////////////////////////////////////////
 
@@ -888,8 +894,83 @@ const numberifyStrTillEnd1 = str => {
 // console.log('numberifyStrTillEnd1', funcSpeed(numberifyStrTillEnd1('AABCEEEDDCAAYYY')));
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+// 31
+/**
+ * @param {number} from
+ * @param {number} to
+ * @return {number}
+ * func(3,9) -> 5;
+ */
+const randomNumber = (min, max) => {
+  return parseInt(min + Math.random() * (max - min));
+};
+// console.log(randomNumber(3, 9));
 
 
+// 32
+class UserTest1 {
+  constructor(name) {
+    this.name = name;
+  }
+
+  sayHello() {
+    console.log(this.name);
+  }
+}
+
+const userT1 = new UserTest1('Malcom');
+const { sayHello } = userT1;
+
+//userT1.sayHello(); // 'Malcom'
+//sayHello(); // "TypeError: Cannot read property 'name' of undefined"
+/////////////////////////////////////////////////////////////////////////
+
+// 33
+/**
+ * @param {string} str
+ * @return {object}
+ * func('a.b.d.e') -> { a: { b: { d: { e: {} } } } } 
+ */
+// const strToDeepObj = (str, divider) => {
+//   const obj = {};
+//   let tmp = obj;
+//   const arr = str.split(divider);
+//   console.log(arr)
+
+//   for (let i = 0; i < arr.length; i++) {
+//     let key = arr[i];
+//     console.log('key', key)
+//     let value = (key === undefined) ? '' : {};
+//     console.log('tmp[key]', tmp[key]);
+//     tmp[key] = tmp[key] || value;
+//     console.log('tmp[key]', tmp[key]);
+//     tmp = tmp[key];
+
+//   }
+//   return obj;
+// };
+// console.log(strToDeepObj('a.b.d.e', '.'));
+
+
+
+const strToDeepObj1 = (str, divider) => {
+  let obj = {};
+  const arr = str.split(divider);
+
+  for (let i = 0; i < arr.length; i++) {
+    let key = arr[i];
+
+    obj[key] = {
+      key: obj[arr[i + 1]]
+    };
+  }
+  return obj;
+};
+
+//console.log(strToDeepObj1('a.b.d.e', '.'));
+//////////////////////////////////////////////////////////
+
+// 34
 
 
 

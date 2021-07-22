@@ -26,8 +26,8 @@ const objects = () => {
         }
       }
       //  authors
-      console.log(temp); // array
-      console.log(...temp); //  strings
+      //console.log(temp); // array
+      //console.log(...temp); //  strings
     }
     getObjArrs();
   }
@@ -166,9 +166,11 @@ const objects = () => {
   ];
 
   const getMainKeys = Object.keys(Object.assign({}, ...data));
-  //console.log(getMainKeys)
+  //console.log('getMainKeys', getMainKeys)
+  const getVals1 = data.map(item => item.name);
+  //console.log('getVals1', getVals1)
   const getUniqueObjVals = [... new Set(data.map(obj => { return obj.name }))];
-  // console.log(getUniqueObjVals)
+  //console.log('getUniqueObjVals', getUniqueObjVals)
 
   const isEmptyObj = obj => {
     return (Object.keys(obj).length) ? false : true;
@@ -181,7 +183,7 @@ const objects = () => {
     function testThis() {
       return this;
     }
-    console.log(testThis()) // undefined
+    //console.log(testThis()) // undefined
 
     function testThis1() {
       return {
@@ -189,7 +191,7 @@ const objects = () => {
         test: this,
       }
     }
-    console.log(testThis1.a) // undefined
+    //console.log(testThis1.a) // undefined
 
     function testThis2() {
       return {
@@ -198,9 +200,9 @@ const objects = () => {
       }
     }
     let test2 = testThis2(); // test2 = {a: 'a', test: this}
-    console.log(test2); // {a: 'a', test: this}
-    console.log(test2.a) // a
-    console.log(test2.test) // undefined
+    //console.log(test2); // {a: 'a', test: this}
+    //console.log(test2.a) // a
+    //console.log(test2.test) // undefined
 
     function testThis3() {
       return {
@@ -211,14 +213,38 @@ const objects = () => {
       }
     }
     let test3 = testThis3(); // test3 = { name: 'Джон', test: [Function: test] }
-    console.log(test3); // { name: 'Джон', test: [Function: test] }
-    console.log(test3.name) // 'Джон'
-    console.log(test3.test) // [Function: test] 
-    console.log(test3.test()); // { name: 'Джон', test: [Function: test] }
-    console.log(test3.test().name) // 'Джон'
+    //console.log(test3); // { name: 'Джон', test: [Function: test] }
+    //console.log(test3.name) // 'Джон'
+    //console.log(test3.test) // [Function: test] 
+    //console.log(test3.test()); // { name: 'Джон', test: [Function: test] }
+    //console.log(test3.test().name) // 'Джон'
 
   };
   objScope();
+
+  const one = { id: 1, name: 'Paul', surname: 'Kemp', age: 27, }
+  const two = { id: 2, name: 'Andrei', surname: 'Platonov', age: 32, }
+  const three = { id: 3, name: 'Alex', surname: 'Ferguson', age: 30, }
+
+  const users = [one, two, three];
+  //console.log(users)
+  const names = users.map(item => item.name);
+  console.log(names);
+  const usersMapped = users.map(item => (
+    {
+      id: item.id,
+      fullName: `${item.name} ${item.surname}`,
+    }
+  ));
+  //console.log(usersMapped);
+  const usersByAge = users.sort((a, b) => a.age - b.age);
+  //console.log(usersByAge);
+
+  const getAverageAge = usersObjArr => {
+    return parseInt(usersObjArr.reduce((prev, user) => prev + user.age, 0) / users.length);
+  };
+
+  //console.log(getAverageAge([one, two, three]));
 
 };
 

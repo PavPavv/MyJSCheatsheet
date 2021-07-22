@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>animation</title>
+  <style>
+    body{
+      box-sizing: border-box;
+    }
+
+    .box {
+      position: absolute;
+      right: 0;
+      width: 100px;
+      height: 100px;
+    }
+    .box-1 {
+      top: 0;
+      background: blue;
+      transition: right 2.5s ease-out;
+    }
+    .box-2 {
+      top: 200px;
+      background: green;
+    }
+    .box-3 {
+      top: 400px;
+      background: red;
+    }
+    .box-4 {
+      top: 600px;
+      background: gray;
+    }
+
+    .run {
+      right: calc(100% - 100px);
+    }
+
+    @keyframes custanimation {
+      from {
+        right: 0;
+      }
+      to {
+        right: calc(100% - 100px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="box box-1"></div>
+  <div class="box box-2"></div>
+  <div class="box box-3"></div>
+  <div class="box box-4"></div>
+
+
+
+
+  <script>
+    'use strict';
+    const box1 = document.querySelector('.box.box-1');
+    const box2 = document.querySelector('.box.box-2');
+    const box3 = document.querySelector('.box.box-3');
+    const box4 = document.querySelector('.box.box-4');
+
+    box1.addEventListener('click', () => {
+      box1.className = "box box-1 run"
+    });
+
+    box1.addEventListener('transitionend', () => {
+      console.log('transitionend')
+      box1.style.background = 'cyan';
+    });
+
+    box2.addEventListener('click', () => {
+      box2.style.animation = "custanimation 3s ease-out .4s 1 normal";
+    });
+
+
+    const moveLeft = (box, passTime) => {
+      box.style.right = passTime / 3 + 'px';
+    };
+
+    const runMove = (box) => {
+      let start = Date.now();
+
+      let timer = setInterval(() => {
+        let timePassed = Date.now() - start;
+        if (timePassed >= 2000) {
+          clearInterval(timer);
+          return;
+        }
+
+        moveLeft(box, timePassed);
+      }, 20)
+    };
+
+    runMove(box3);
+
+
+
+    // добавить requestAnimationFrame function
+    const animate = ({timing, draw, duration}) => {
+
+      let start = performance.now();
+
+      requestAnimationFrame(function animate(time) {
+        // timeFraction изменяется от 0 до 1
+        let timeFraction = (time - start) / duration;
+        if (timeFraction > 1) timeFraction = 1;
+
+        // вычисление текущего состояния анимации
+        let progress = timing(timeFraction);
+        console.log('progress', progress)
+
+        draw(progress); // отрисовать её
+
+        if (timeFraction < 1) {
+          requestAnimationFrame(animate);
+        }
+
+      });
+    }
+
+    box4.addEventListener('click', () => {
+
+      console.log('box4');
+      animate({
+        duration: 9000,
+        timing: timeFraction => {
+          return timeFraction;
+        },
+        draw: progress => {
+          box4.style.right = `${progress * 90}%`;
+        }
+      })
+    });
+
+
+  </script>
+
+</body>
+</html>

@@ -60,8 +60,8 @@ const usefulFunctions = () => {
   };
   //console.log(countBy([1, 2, 3, 4, 5], n => n > 2));
 
-  const optimunCountBy = arr => arr.filter(item => item > 2).length;
-  console.log(optimunCountBy([1, 2, 3, 4, 5]));
+  const optimCountBy = arr => arr.filter(item => item > 2).length;
+  console.log(optimCountBy([1, 2, 3, 4, 5]));
 
 };
 usefulFunctions();
