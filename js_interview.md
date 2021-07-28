@@ -163,6 +163,160 @@ o.name = "Mark";
 console.log(o.greeting); // Hi, I'm Mark
 ```
 
+
+## Как в JS скопировать объект?
+
+1. Object.assign(target):
+
+```javascript
+const obj = {
+  name: 'Paul',
+  age: 27,
+  favorites: {
+    band: 'Beirut',
+    girls: 'brunette',
+    car: 'Peugeot',
+    movies: ['Office', 'Ace Ventura', 'Under Great White Northern Lights'],
+  }
+};
+const obj1 = Object.assign(obj);
+```
+но тогда два объекта связаны по ссылке друг с другом, изменится один, изменится и другой.
+
+2. Функция-конструктор:
+
+```javascript
+const obj = {
+  name: 'Paul',
+  age: 27,
+  favorites: {
+    band: 'Beirut',
+    girls: 'brunette',
+    car: 'Peugeot',
+    movies: ['Office', 'Ace Ventura', 'Under Great White Northern Lights'],
+  }
+};
+const obj1 = {...obj}
+```
+тут объекты никак не связаны друг с другом, создается независимая копия.
+
+3. Метод Object.create:
+
+```javascript
+const obj = {
+  name: 'Paul',
+  age: 27,
+  favorites: {
+    band: 'Beirut',
+    girls: 'brunette',
+    car: 'Peugeot',
+    movies: ['Office', 'Ace Ventura', 'Under Great White Northern Lights'],
+  }
+};
+const obj3 = JSON.parse(JSON.stringify(obj2));
+```
+также объекты никак не связаны друг с другом, создается независимая копия
+
+
+## Как в JS смержить объекты?
+
+1. Object.assign(target, source1, source2...):
+
+```javascript
+const state = {
+  number: 1,
+  club: 'Arsenal',
+};
+
+const newS = {
+  year: '2021',
+};
+
+const m1 = Object.assign(state, newS);
+```
+но тогда объекта связаны по ссылке друг с другом, изменится один, изменится и другой.
+
+2. Функция-конструктор:
+
+```javascript
+const state = {
+  number: 1,
+  club: 'Arsenal',
+};
+
+const newS = {
+  year: '2021',
+};
+
+const m2 = {
+  ...state,
+  ...newS,
+};
+```
+тут объекты никак не связаны друг с другом, создается новая независимая копия.
+
+3. Для глубокой копии потребуется кастомное рекурсивное решение:
+
+```javascript
+const merge = (...arguments) => {
+
+    // create a new object
+    let target = {};
+
+    // deep merge the object into the target object
+    const merger = (obj) => {
+        for (let prop in obj) {
+            if (obj.hasOwnProperty(prop)) {
+                if (Object.prototype.toString.call(obj[prop]) === '[object Object]') {
+                    // if the property is a nested object
+                    target[prop] = merge(target[prop], obj[prop]);
+                } else {
+                    // for regular property
+                    target[prop] = obj[prop];
+                }
+            }
+        }
+    };
+
+    // iterate through all objects and 
+    // deep merge them with target
+    for (let i = 0; i < arguments.length; i++) {
+        merger(arguments[i]);
+    }
+
+    return target;
+};
+
+
+const profile = {
+    name: 'John Doe',
+    age: 25,
+    address: {
+        city: 'Berlin',
+        country: 'DE'
+    }
+};
+
+const job = {
+    profession: 'IT Engineer',
+    skills: ['JavaScript', 'React', 'Node']
+};
+
+// perform deep merge
+const user = merge(profile, job);
+
+console.log(user);
+
+// {
+//     name: 'John Doe',
+//     age: 25,
+//     address: { city: 'Berlin', country: 'DE' },
+//     profession: 'IT Engineer',
+//     skills: ['JavaScript', 'React', 'Node']
+// }
+```
+
+
 ## Что такое DOM?
 
 Document Object Model - это API браузера для работы с HTML- и XML-документами.

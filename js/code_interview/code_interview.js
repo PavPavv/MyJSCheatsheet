@@ -45,6 +45,8 @@ const counter2 = count(21);
 const queues = () => {
   // 0 текущий контекст вызова - это МАКРОзадача 1
 
+
+  // 4 МАКРОзадача крайняя, т.к. по умолчанию у любого setTimeout мин задержка 4мс
   setTimeout(() => {
     console.log('setTimeout')
   }, 0);
@@ -70,15 +72,16 @@ const queues = () => {
 
 // 3
 /**
-  * @param {string} J
-  * @param {string} S
+  * @param {string} j
+  * @param {string} s
   * @return {number}
+  * func('cool', 'location') -> 
 */
 const stonesAndJewels = () => {
   const j = 'cool';
   const s = 'location';
 
-  const commonLetters = (str1, str2) => {
+  const amountOfCommonLetter = (str1, str2) => {
     let counter = 0;
     let set = new Set;
 
@@ -94,15 +97,15 @@ const stonesAndJewels = () => {
 
     return counter;
   };
-  //console.log('answer', commonLetters(j, s));
+  //console.log('answer', amountOfCommonLetter(j, s));
 
-  const commonLetters1 = (str1, str2) => {
+  const amountOfCommonLetter1 = (str1, str2) => {
     let set = new Set(str1);
     return [...str2].reduce((ac, s) => set.has(s) + ac, 0);
   };
-  //console.log(commonLetters1(j, s));
+  //console.log(amountOfCommonLetter1(j, s));
 
-  const commonLetters2 = (str1, str2) => {
+  const amountOfCommonLetter2 = (str1, str2) => {
     let counter = 0;
     let set = {};
 
@@ -116,10 +119,15 @@ const stonesAndJewels = () => {
 
     return counter;
   };
-  console.log(commonLetters2(j, s));
+  //console.log(amountOfCommonLetter2(j, s));
 
-  const commonLetters3 = (str1, str2) => str2.replace(new RegExp(`[^${str1}]`, 'g'), '').length;
-  console.log('commonLetters3', commonLetters3(j, s))
+  const amountOfCommonLetter3 = (str1, str2) => str2.replace(new RegExp(`[^${str1}]`, 'g'), '').length;
+  //console.log('amountOfCommonLetter3', amountOfCommonLetter3(j, s))
+
+  // console.log('amountOfCommonLetter', funcSpeed(amountOfCommonLetter(j, s)));   // 4
+  // console.log('amountOfCommonLetter1', funcSpeed(amountOfCommonLetter1(j, s))); // 3
+  // console.log('amountOfCommonLetter2', funcSpeed(amountOfCommonLetter2(j, s))); // 2
+  // console.log('amountOfCommonLetter3', funcSpeed(amountOfCommonLetter3(j, s))); // 1
 
 };
 //stonesAndJewels();
@@ -132,7 +140,7 @@ const stonesAndJewelsPrecise = () => {
     * @param {string} S
     * @return {number} amount of unique symbols
   */
-  const commonLetters = (str1, str2) => {
+  const amountOfCommonLetter = (str1, str2) => {
     let counter = 0;
     let set = new Set([...str1]);
     let uniqueStr2 = new Set([...str2]);
@@ -145,15 +153,19 @@ const stonesAndJewelsPrecise = () => {
 
     return counter;
   };
-  console.log('answer', commonLetters('cool', 'location'));
+  console.log('amountOfCommonLetter', amountOfCommonLetter('cool', 'location'));
+  console.log('amountOfCommonLetter', funcSpeed(amountOfCommonLetter('cool', 'location')));
 };
 //stonesAndJewelsPrecise();
 /////////////////////////////////////////////////////////////////////
 
 // 5
-/*
-  0, 1,1,2,3,5,8,13,21,34,55,89,144
-  func(9) => 34
+/**
+  * 0, 1,1,2,3,5,8,13,21,34,55,89,144
+  * @param {number} num
+  * @return {number}
+  * func(9) => 34
+  * fibonacci = 0, 1, 1, (current - 1) + (current - 2)...
 */
 const fibonacci = num => {
   if (num < 2) {
@@ -161,10 +173,12 @@ const fibonacci = num => {
   }
   return fibonacci(num - 1) + fibonacci(num - 2);
 };
-//console.log(fibonacci(9))
 
+const fibonacci1 = num => {
+  return num < 2 ? num : fibonacci1(num - 1) + fibonacci1(num - 2); 
+};
 
-const fibonacciLong = num => {
+const fibonacciFast = num => {
   const result = [0, 1];
 
   for (let i = 2; i <= num; i++) {
@@ -175,7 +189,11 @@ const fibonacciLong = num => {
 
   return result[num];
 };
-//console.log(fibonacciLong(9))
+//console.log(fibonacciFast(178))
+
+// console.log('fibonacci', funcSpeed(fibonacci(9)));         // 3
+// console.log('fibonacci1', funcSpeed(fibonacci1(9)));       // 2
+// console.log('fibonacciFast', funcSpeed(fibonacciFast(9))); // 1 (without recursion it is super fast)
 /////////////////////////////////////////////////////////////////////////
 
 // 6
@@ -271,6 +289,25 @@ const anagram = (strA, strB) => {
   return true;
 }
 //console.log(anagram('finder', 'friend'))
+
+
+const strEqualize = str => {
+  return str.replace(/[^\w]/g)
+            .toLowerCase()
+            .split('')
+            .sort()
+            .join('')
+};
+
+const anagram1 = (str1, str2) => {
+  if (str1.length !== str2.length) return false;
+
+  return strEqualize(str1) === strEqualize(str2);
+};
+//console.log(anagram1('era', 'ear'));
+
+//console.log('fibonacci', funcSpeed(anagram('finder', 'friend')));         // super heavy 2
+//console.log('fibonacci1', funcSpeed(anagram1('finder', 'friend')));       // heavy 1
 ////////////////////////////////////////////////////////////
 
 // 10
@@ -612,6 +649,15 @@ const countSameLetters4 = str => {
   }
   return charObj;
 };
+
+const buildCharObj1 = str => {
+  const charObj = {};
+  for (let char of str.replace(/[^\w]/g).toLowerCase()) {
+    charObj[char] = charObj[char] + 1 || 1;
+  }
+  return charObj;
+};
+//console.log(buildCharObj1('test'))
 
 // console.log('countSameLetters', funcSpeed(countSameLetters('aabacvvccccvcbx')));
 // console.log('countSameLetters1', funcSpeed(countSameLetters1('aabacvvccccvcbx')));
@@ -971,6 +1017,15 @@ const strToDeepObj1 = (str, divider) => {
 //////////////////////////////////////////////////////////
 
 // 34
+/**
+ * @param {array} arr
+ * @return {array}
+ * func (["nap", "teachers", "cheaters", "PAN", "ear", "era", "hectares"]) -> ["nap,teachers,ear" or "PAN,cheaters,era"];
+ */
+
+const anagramFree = () => {
+
+};
 
 
 
