@@ -1,7 +1,6 @@
 "use strict";
 
 const js = () => {
-
   function test() {
     const elem = document.createElement("div");
     elem.className = "class-name";
@@ -63,7 +62,7 @@ const js = () => {
     }
 
     // Comparison
-    //  == === != !== > < >= <= ?
+    //  == === != !== > < >= <= ?:
     const num1 = 50;
     if (num1 !== undefined) {
       if (100 > num1) {
@@ -72,7 +71,7 @@ const js = () => {
     }
 
     // Logical
-    // ! && ||  ??
+    // ! && || ??
     // ! highest priority among logical operators, then &&, then ||
     if (!num1) {
       console.log("нет такой переменной");
@@ -102,6 +101,10 @@ const js = () => {
     const tagEl = document.getElementsByTagName("div");
     const qryEl = document.querySelector("#test");
     const qryEls = document.querySelectorAll("div");
+  }
+
+  function crEl(elem) {
+    return document.createElement(elem);
   }
 
   // DOM navigation:
@@ -174,7 +177,7 @@ const js = () => {
     elem.pageX;
     elem.pageY;
 
-    //  get current element's getCoords
+    //  get current element's coords
     const domRect = element.getBoundingClientRect();
     console.log(domRect.top);
     console.log(domRect.left);
@@ -307,9 +310,10 @@ const js = () => {
   //  STRINGS
 
   function strings() {
-    let num = 23;
     let str = "Feyenoord";
     let longStr = "Graziano Pelle";
+
+    let num = 23;
     let arr = ["Arshavin", "Pique", "Zidan", "Petit"];
 
     //console.log(str[0]);
@@ -393,7 +397,32 @@ const js = () => {
   }
   //strings();
 
-  // Add here cheat sheet for regEx
+  // RegEx in JS:
+  function regEx() {
+    const anyDigit = /\d/gi;
+    const boundary = /\b/gi;
+    const anyChar = /\w/gi;
+    const anySpace = /\s/gi;
+    const notADigit = /\D/gi;
+    const notAChar = /\W/gi;
+    const notASpace = /\S/gi;
+    const anyCharExeptANewLine = /\./gi;
+    const startInput = /^/gi;
+    const finishInput = /$/gi;
+    const sequenceOfChars = /abc/gi;
+    const anyCharFromASet = /[abc]/gi;
+    const anyCharExeptFromASet = /[^abc]/gi;
+    const anyCharInARange = /[a-z]/gi;
+    const oneOrMore = /a+/gi;
+    const oneOrMoreNotGreedy = /a+?/gi;
+    const zeroOrMore = /a*/gi;
+    const oneOrOne = /a?/gi;
+    const twoChars = /a{2}/gi;
+    const twoToSevenChars = /a{2,7}/gi;
+    const twoToInfinityChars = /a{2,}/gi;
+    const group = /(cat)/gi;
+    const anyOfPatterns = /[a]|[b]|[c]/gi;
+  }
 
   ////////////////////////////////////////////////////////////////////////////////
   //  ARRAYS
@@ -433,9 +462,9 @@ const js = () => {
   function arrMethods() {
     let arr = ["This", "is", "a", "string"];
     const res = arr.join("");
-    console.log(res); // 'This is a string'
+    return res;
   }
-  //arrMethods();
+  //console.log(arrMethods()); // 'This is a string'
 
   function splice() {
     let arr = ["Metallica", "Deftones", "Lady Gaga", "RATM"];
@@ -449,10 +478,11 @@ const js = () => {
   }
   //splice();
 
+  let arr = [1, 2, 3, 4, 5, 6];
+  let arr1 = [10, 1, 56, 10, 33, 4, 5];
+
   // Iterate array items:
   function iterArr() {
-    let arr = ["MC", "Arsenal", "Liverpool", "Tottenham", "St. Albans"];
-
     // 1 way
     for (let i = 0; i < arr.length; i++) {
       console.log(arr[i]);
@@ -473,31 +503,28 @@ const js = () => {
   }
   //iterArr();
 
-  function forEach() {
-    let arr = [1, 2, 3, 4, 5, 6];
+  function forEachArr() {
     arr.forEach((item, i, arr) => {
       console.log(i + ": " + item + "(array: " + arr + ")");
     });
   }
-  //forEach();
+  //forEachArr();
 
-  function filter() {
-    let arr = [1, 2, 3, 4, 5, 6];
+  function filterArr(arr) {
     const newArr = arr.filter((num) => {
       return num > 4;
     });
-    console.log(newArr);
+    return newArr;
   }
-  //filter();
+  //console.log(filterArr(arr));
 
-  function map() {
-    let arr = [1, 2, 3, 4, 5, 6];
+  function mapArr(arr) {
     const newArr = arr.map((el) => {
       return el * 2;
     });
-    console.log(newArr);
+    return newArr;
   }
-  //map();
+  //console.log(mapArr(arr));
 
   function every() {
     let arr = [-1, -2, 0, 1, 2, 3, 4, 5];
@@ -525,7 +552,7 @@ const js = () => {
   }
   //some();
 
-  function reduce() {
+  function reduceArr() {
     let arr = [0, 1, 2, 3, 4, 5];
 
     const res = arr.reduce((prevValue, curItem, index, arr) => {
@@ -538,9 +565,9 @@ const js = () => {
     console.log(res);
     console.log(res1);
   }
-  //reduce();
+  //reduceArr();
 
-  function reduceRight() {
+  function reduceRightArr() {
     let arr = [0, 1, 2, 3, 4, 5];
 
     const res = arr.reduceRight((prevValue, curItem, index, arr) => {
@@ -552,16 +579,16 @@ const js = () => {
     console.log(res);
     console.log(res1);
   }
-  //reduceRight();
+  //reduceRightArr();
 
-  function sort() {
-    let arr = [10, 1, 56, 10, 33, 4, 5];
+  function sortArr(arr) {
     let res = arr.sort((a, b) => {
       return a - b;
     });
-    console.log(res);
+
+    return res;
   }
-  //sort();
+  //console.log(sortArr(arr1));
 
   function find() {
     let arr = [
@@ -740,7 +767,6 @@ const js = () => {
 
     //console.log(newObj1)
 
-
     function interators() {
       const range = {
         band: 1,
@@ -769,6 +795,5 @@ const js = () => {
     //interators();
   }
   object();
-
-}
+};
 js();

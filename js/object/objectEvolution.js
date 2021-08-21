@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 // simple object
 const calculator = {
@@ -21,7 +21,6 @@ const calculator = {
   mul() {
     return this.a * this.b;
   },
-
 };
 
 // calculator.read();
@@ -41,20 +40,20 @@ function Calculator() {
   this.read = function (num1, num2) {
     this.a = num1;
     this.b = num2;
-  }
+  };
 
   this.sum = function () {
     return this.a + this.b;
-  }
+  };
 
   this.mul = function () {
     return this.a * this.b;
-  }
+  };
 
   this.getValues = function () {
     return `a is ${this.a} and b is ${this.b}`;
-  }
-};
+  };
+}
 
 const es5Calc = new Calculator();
 // es5Calc.read(3,3);
@@ -67,11 +66,11 @@ function Accumulator(startingValue) {
 
   this.read = function (num) {
     this.value += num;
-  }
+  };
 
   this.getValue = function () {
     return this.value;
-  }
+  };
 }
 
 const accum = new Accumulator(3);
@@ -83,12 +82,12 @@ accum.read(18);
 
 function CalculatArr() {
   this.methods = {
-    '+': (a, b) => a + b,
-    '-': (a, b) => a - b,
+    "+": (a, b) => a + b,
+    "-": (a, b) => a - b,
   };
 
   this.calculate = function (str) {
-    const split = str.split(' ');
+    const split = str.split(" ");
     let a = +split[0];
     let op = split[1];
     let b = +split[2];
@@ -98,7 +97,7 @@ function CalculatArr() {
     }
 
     return this.methods[op](a, b);
-  }
+  };
 
   this.addMethod = function (name, func) {
     this.methods[name] = func;
@@ -106,10 +105,23 @@ function CalculatArr() {
 }
 const calculatArr = new CalculatArr();
 // console.log(calculatArr.calculate('3 + 5'));
-calculatArr.addMethod('*', (a, b) => a * b);
+calculatArr.addMethod("*", (a, b) => a * b);
 // console.log(calculatArr.calculate('3 * 5'));
 //////////////////////////////////////////////////////////////
 
+class Calc {
+  constructor(a, b) {
+    this.a = a;
+    this.b = b;
+  }
 
+  sum() {
+    if (typeof this.a === "number" || typeof this.b === "number") {
+      return this.a + this.b;
+    }
+    return;
+  }
+}
 
-
+const classCalc = new Calc(2, 3);
+console.log(classCalc.sum());

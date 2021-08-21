@@ -1,9 +1,8 @@
-'use strict';
+"use strict";
 
 const objects = () => {
   //  get Object Arrays
   function getObjectArrays() {
-
     const myFavoriteAuthors = {
       allAuthors: {
         fiction: ["Leo Tolstoy", "Albert Camus", "Jack Kerouac"],
@@ -66,7 +65,7 @@ const objects = () => {
         fantasy: ["J.R.R. Tolkien"],
       },
 
-      // Old 'by hand' technique
+      // Old 'by hand' technique (bad solution)
       // getAllAuthors() {
       //   const authors = [];
       //
@@ -88,7 +87,7 @@ const objects = () => {
       [Symbol.iterator]() {
         //  Get all the authors in an array
         const genresVals = Object.values(this.allAuthors);
-        //console.log(genresVals);
+        //console.log(genresVals); // [ [], [], [] ]
 
         //  Store the current genre and author index
         let currentAuthorIndex = 0;
@@ -114,7 +113,9 @@ const objects = () => {
             // if all genres are over, then we need tell the iterator that we
             // can not give more values.
 
-            const doNotHaveMoreGenres = !(currentGenreIndex < genresVals.length);
+            const doNotHaveMoreGenres = !(
+              currentGenreIndex < genresVals.length
+            );
             if (doNotHaveMoreGenres) {
               // Hence, we return done as true.
               return {
@@ -145,38 +146,45 @@ const objects = () => {
     // for (let item in myFavoriteAuthors) {
     //   console.log(myFavoriteAuthors[item]);
     // }
-
   }
   //symbolIterator();
 
   // Find number of repetitions of the substring
-  const countSameLetters = str => {
-    return [...str].reduce((res, char) => (res[char] = (res[char] || 0) + 1, res), {});
+  const countSameLetters = (str) => {
+    return [...str].reduce(
+      (res, char) => ((res[char] = (res[char] || 0) + 1), res),
+      {}
+    );
   };
   //console.log(countSameLetters('test'))
 
-
   const data = [
-    { name: "Joe", date: '2018-07-01', amt: 250 },
-    { name: "Mars", date: '2018-07-01', amt: 250 },
-    { name: "Joe", date: '2018-07-02', amt: 250 },
-    { name: "Saturn", date: '2018-07-01', amt: 250 },
-    { name: "Joe", date: '2018-07-02', amt: 250 },
-    { name: "Jupiter", date: '2018-07-01', amt: 250 },
+    { name: "Joe", date: "2018-07-01", amt: 250 },
+    { name: "Mars", date: "2018-07-01", amt: 250 },
+    { name: "Joe", date: "2018-07-02", amt: 250 },
+    { name: "Saturn", date: "2018-07-01", amt: 250 },
+    { name: "Joe", date: "2018-07-02", amt: 250 },
+    { name: "Jupiter", date: "2018-07-01", amt: 250 },
   ];
 
   const getMainKeys = Object.keys(Object.assign({}, ...data));
-  //console.log('getMainKeys', getMainKeys)
-  const getVals1 = data.map(item => item.name);
+  //console.log("getMainKeys", getMainKeys);
+
+  const getVals1 = data.map((item) => item.name);
   //console.log('getVals1', getVals1)
-  const getUniqueObjVals = [... new Set(data.map(obj => { return obj.name }))];
+  const getUniqueObjVals = [
+    ...new Set(
+      data.map((obj) => {
+        return obj.name;
+      })
+    ),
+  ];
   //console.log('getUniqueObjVals', getUniqueObjVals)
 
-  const isEmptyObj = obj => {
-    return (Object.keys(obj).length) ? false : true;
+  const isEmptyObj = (obj) => {
+    return Object.keys(obj).length ? false : true;
   };
   //console.log(isEmptyObj({}));
-
 
   //
   const objScope = () => {
@@ -187,17 +195,17 @@ const objects = () => {
 
     function testThis1() {
       return {
-        a: 'a',
+        a: "a",
         test: this,
-      }
+      };
     }
-    //console.log(testThis1.a) // undefined
+    console.log(testThis1.a); // undefined
 
     function testThis2() {
       return {
-        a: 'a',
+        a: "a",
         test: this,
-      }
+      };
     }
     let test2 = testThis2(); // test2 = {a: 'a', test: this}
     //console.log(test2); // {a: 'a', test: this}
@@ -206,46 +214,44 @@ const objects = () => {
 
     function testThis3() {
       return {
-        name: 'Джон',
+        name: "Джон",
         test() {
           return this;
-        }
-      }
+        },
+      };
     }
     let test3 = testThis3(); // test3 = { name: 'Джон', test: [Function: test] }
     //console.log(test3); // { name: 'Джон', test: [Function: test] }
     //console.log(test3.name) // 'Джон'
-    //console.log(test3.test) // [Function: test] 
+    //console.log(test3.test) // [Function: test]
     //console.log(test3.test()); // { name: 'Джон', test: [Function: test] }
     //console.log(test3.test().name) // 'Джон'
-
   };
   objScope();
 
-  const one = { id: 1, name: 'Paul', surname: 'Kemp', age: 27, }
-  const two = { id: 2, name: 'Andrei', surname: 'Platonov', age: 32, }
-  const three = { id: 3, name: 'Alex', surname: 'Ferguson', age: 30, }
+  const one = { id: 1, name: "Paul", surname: "Kemp", age: 27 };
+  const two = { id: 2, name: "Andrei", surname: "Platonov", age: 32 };
+  const three = { id: 3, name: "Alex", surname: "Ferguson", age: 30 };
 
   const users = [one, two, three];
   //console.log(users)
-  const names = users.map(item => item.name);
-  console.log(names);
-  const usersMapped = users.map(item => (
-    {
-      id: item.id,
-      fullName: `${item.name} ${item.surname}`,
-    }
-  ));
+  const names = users.map((item) => item.name);
+  //console.log(names);
+  const usersMapped = users.map((item) => ({
+    id: item.id,
+    fullName: `${item.name} ${item.surname}`,
+  }));
   //console.log(usersMapped);
   const usersByAge = users.sort((a, b) => a.age - b.age);
   //console.log(usersByAge);
 
-  const getAverageAge = usersObjArr => {
-    return parseInt(usersObjArr.reduce((prev, user) => prev + user.age, 0) / users.length);
+  const getAverageAge = (usersObjArr) => {
+    return parseInt(
+      usersObjArr.reduce((prev, user) => prev + user.age, 0) / users.length
+    );
   };
 
   //console.log(getAverageAge([one, two, three]));
-
 };
 
 objects();
