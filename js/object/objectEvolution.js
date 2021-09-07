@@ -107,7 +107,10 @@ const calculatArr = new CalculatArr();
 // console.log(calculatArr.calculate('3 + 5'));
 calculatArr.addMethod("*", (a, b) => a * b);
 // console.log(calculatArr.calculate('3 * 5'));
+
+
 //////////////////////////////////////////////////////////////
+// Classes (fake OOP)
 
 class Calc {
   constructor(a, b) {
@@ -125,3 +128,4 @@ class Calc {
 
 const classCalc = new Calc(2, 3);
 console.log(classCalc.sum());
+
