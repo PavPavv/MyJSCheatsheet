@@ -30,6 +30,31 @@ const calculator = {
 // console.log(calculator.sum());
 // console.log(calculator.mul());
 // console.log(calculator.getValues());
+
+var task = {
+  setId: function (id) {
+    this.id = id;
+  },
+
+  outputId: function () {
+    console.log(this.id);
+  },
+};
+
+var xtask = Object.create(task);
+
+xtask.prepareTask = function (id, label) {
+  this.setId(id);
+  this.label = label;
+};
+
+xtask.outputTask = function () {
+  this.outputId();
+  console.log(this.label);
+};
+
+console.log(xtask);
+
 /////////////////////////////////////////////////////////
 
 // es5 constructor
@@ -108,7 +133,6 @@ const calculatArr = new CalculatArr();
 calculatArr.addMethod("*", (a, b) => a * b);
 // console.log(calculatArr.calculate('3 * 5'));
 
-
 //////////////////////////////////////////////////////////////
 // Classes (fake OOP)
 
@@ -127,5 +151,4 @@ class Calc {
 }
 
 const classCalc = new Calc(2, 3);
-console.log(classCalc.sum());
-
+//console.log(classCalc.sum());
