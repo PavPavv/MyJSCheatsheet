@@ -137,12 +137,23 @@ const arrays = () => {
   //console.log(findOutlier([2, 3, 4, 6, 8, 2, 22, 2]));
   //console.log(findOutlier([3, 1, 55, 31, 44, 21]));
 
-  const findException = (arr) => {
-    const isEven = arr.slice(0, 3).filter((item) => item % 2).length < 1;
+  const findOutlier1 = (numsStr) => {
+    const numsArr = numsStr.split(" ").map((x) => x % 2); //  [0,0,0,0,0,0,0,1]
+    const arrSum = numsArr.reduce((a, b) => a + b); //  1
+    const target = arrSum > 1 ? 0 : 1;
 
-    for (let item of arr)
-      if ((isEven && item % 2) || (!isEven && !(item % 2))) return item;
+    return numsArr.indexOf(target) + 1;
   };
+
+  //console.log(iqTest1("2 2 2 2 2 2 2 1"));
+
+  //  wrong solution, need to refactor
+  // const findException = (arr) => {
+  //   const isEven = arr.slice(0, 3).filter((item) => item % 2).length < 1;
+  //
+  //   for (let item of arr)
+  //     if ((isEven && item % 2) || (!isEven && !(item % 2))) return item;
+  // };
   //console.log(findException([2, 3, 4, 6, 8, 2, 22, 2]));
 
   const findSubArray = (arr) => arr.filter((elem) => Array.isArray(elem));

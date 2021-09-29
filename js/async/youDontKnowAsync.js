@@ -91,38 +91,4 @@ function eventLoop() {
 }
 //eventLoop();
 //  output:
-// js, main log, resolve, super test, res, finally, __, 1000
-
-let a1 = 1;
-let b1 = 2;
-
-[b1, a1] = [a1, b1];
-console.log(`a1: ${a1}`, `b1: ${b1}`);
-
-const person = {
-  greeting: function (name) {
-    return `Hi, I'm ${name}!`;
-  },
-};
-
-//console.log(person.greeting("Albert"));
-
-const albert = {};
-
-albert.__proto__ = person;
-console.log(albert);
-console.log(albert.greeting("Albert"));
-
-function trickySum(a) {
-  console.log(a);
-
-  return function (b) {
-    console.log(b + 1);
-
-    return function (c) {
-      console.log(c + c);
-    };
-  };
-}
-
-//console.log(trickySum(1)(2)(3));
+// js, main log, resolve, kingslayer, super test, res, finally, __, 1000
