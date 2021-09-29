@@ -1,4 +1,4 @@
-//const now = require("performance-now");
+const now = require("performance-now");
 
 const funcSpeed = (func) => {
   const start = now();
@@ -68,11 +68,12 @@ const queues = () => {
 //////////////////////////////////////////////////////////////////
 
 // 3
+//    (bad description -> bad solutions)
 /**
  * @param {string} j
  * @param {string} s
  * @return {number}
- * func('cool', 'location') ->
+ * func('cool', 'location') ->  ???
  */
 const stonesAndJewels = () => {
   const j = "cool";
@@ -120,7 +121,8 @@ const stonesAndJewels = () => {
 
   const amountOfCommonLetter3 = (str1, str2) =>
     str2.replace(new RegExp(`[^${str1}]`, "g"), "").length;
-  //console.log('amountOfCommonLetter3', amountOfCommonLetter3(j, s))
+
+  //console.log("amountOfCommonLetter3", amountOfCommonLetter3(j, s));
 
   // console.log('amountOfCommonLetter', funcSpeed(amountOfCommonLetter(j, s)));   // 4
   // console.log('amountOfCommonLetter1', funcSpeed(amountOfCommonLetter1(j, s))); // 3
@@ -136,6 +138,7 @@ const stonesAndJewelsPrecise = () => {
    * @param {string} J
    * @param {string} S
    * @return {number} amount of unique symbols
+   * func('cool', 'location') ->  ???
    */
   const amountOfCommonLetter = (str1, str2) => {
     let counter = 0;
@@ -156,7 +159,7 @@ const stonesAndJewelsPrecise = () => {
     funcSpeed(amountOfCommonLetter("cool", "location"))
   );
 };
-//stonesAndJewelsPrecise();
+stonesAndJewelsPrecise();
 /////////////////////////////////////////////////////////////////////
 
 // 5
@@ -189,11 +192,26 @@ const fibonacciFast = (num) => {
 
   return result[num];
 };
-console.log("fib", fibonacciFast(7));
+//console.log("fib", fibonacciFast(7));
 
-// console.log('fibonacci', funcSpeed(fibonacci(9)));         // 3
-// console.log('fibonacci1', funcSpeed(fibonacci1(9)));       // 2
-// console.log('fibonacciFast', funcSpeed(fibonacciFast(9))); // 1 (without recursion it is super fast)
+const findFib = (num) => {
+  let result = [0, 1];
+
+  for (let i = 2; i <= num; i++) {
+    let prev1 = result[i - 1];
+    let prev2 = result[i - 2];
+    result.push(prev1 + prev2);
+  }
+  //  prevent storing the array with all the numbers before target number
+  result = [result[num]]; //  [number]
+  return result[0]; //  number
+};
+
+console.log(findFib(100));
+
+console.log("fibonacci", funcSpeed(fibonacci(9))); // 3
+console.log("fibonacci1", funcSpeed(fibonacci1(9))); // 2
+console.log("fibonacciFast", funcSpeed(fibonacciFast(9))); // 1 (without recursion it is super fast)
 /////////////////////////////////////////////////////////////////////////
 
 // 6
@@ -305,8 +323,8 @@ const anagram1 = (str1, str2) => {
 };
 //console.log(anagram1('era', 'ear'));
 
-//console.log('fibonacci', funcSpeed(anagram('finder', 'friend')));         // super heavy 2
-//console.log('fibonacci1', funcSpeed(anagram1('finder', 'friend')));       // heavy 1
+//console.log('anagram', funcSpeed(anagram('finder', 'friend')));
+//console.log('anagram1', funcSpeed(anagram1('finder', 'friend')));
 ////////////////////////////////////////////////////////////
 
 // 10

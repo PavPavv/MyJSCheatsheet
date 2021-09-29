@@ -236,6 +236,12 @@ function compTwoArrsBySqr(arr1, arr2) {
 // );
 
 //  kata 10
+/**
+ * @param {string} numbers
+ * @return {number} index of 'black sheep'
+ * func('1 2 2') ->  1
+ */
+
 function iqTest(numbers) {
   const arr = numbers.split(" ");
   let evenCount = 0;
@@ -273,3 +279,71 @@ function iqTest1(numbers) {
 }
 
 //console.log(iqTest1("2 2 2 2 2 2 2 1"));
+
+//  kata 11 (Find the odd int)
+/**
+ * @param {array} arr
+ * @return {number}
+ * func([1, 2, 2, 3, 3, 3, 4, 3, 3, 3, 2, 2, 1]) ->  4
+ */
+
+function findOdd(arr) {
+  let obj = {};
+
+  for (let i = 0; i < arr.length; i++) {
+    obj[arr[i]] = obj[arr[i]] ? obj[arr[i]] + 1 : 1;
+  }
+
+  for (let key in obj) {
+    if (obj[key] % 2 !== 0) return +key;
+  }
+}
+//console.log(findOdd([1, 2, 2, 3, 3, 3, 4, 3, 3, 3, 2, 2, 1]));
+
+function findOddOptimized(arr) {
+  return arr.find((item, index) => arr.filter((el) => el === item).length % 2);
+}
+//console.log(findOddOptimized([1, 2, 2, 3, 3, 3, 4, 3, 3, 3, 2, 2, 1]));
+
+const findOddSuper = (arr) => arr.reduce((a, b) => a ^ b);
+//console.log(findOddSuper([1, 2, 2, 3, 3, 3, 4, 3, 3, 3, 2, 2, 1]));
+
+//  kata 12 (Persistent Bugger)
+/**
+ * @param {number} num
+ * @return {number}
+ * func(39) ->  3
+ */
+
+function persistence(num) {
+  if (num < 10) return 0;
+  let counter = 0;
+  let test = 0;
+
+  function multiplyNum(number) {
+    counter++;
+    const numbers = number.toString().split("").map(Number);
+    let sum = 1;
+
+    for (let i = 0; i < numbers.length; i++) {
+      sum *= numbers[i];
+    }
+
+    test = sum;
+  }
+  multiplyNum(num);
+
+  while (test > 9) {
+    multiplyNum(test);
+  }
+
+  return counter;
+}
+//console.log(persistence(25));
+
+function persistenceOpt(num) {
+  return `${num}`.length > 1
+    ? 1 + persistenceOpt(`${num}`.split("").reduce((a, b) => a * +b))
+    : 0;
+}
+console.log(persistenceOpt(999));
