@@ -328,16 +328,23 @@ const anagram1 = (str1, str2) => {
 ////////////////////////////////////////////////////////////
 
 // 10
-const twoSum = (numsArr, target) => {
+/**
+ * @param {number[]} numsArr
+ * @param {number} target
+ * @return {number[]}
+ * func([2,7,11,15], 9) -> [2,7];
+ */
+const findNumsOfSum = (arr, target) => {
   let result = [];
 
-  for (let i = 0; i < numsArr.length; i++) {
-    for (let j = i + 1; j < numsArr.length; j++) {
-      if (numsArr[i] + numsArr[j] === target) {
-        result.push(i, j);
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] + arr[j] === target) {
+        result.push([arr[i], arr[j]]);
       }
     }
   }
+
   return result;
 };
 //console.log(twoSum([2, 7, 11, 15], 9));

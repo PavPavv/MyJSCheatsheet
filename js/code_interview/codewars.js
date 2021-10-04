@@ -1,4 +1,10 @@
 //  kata 1
+/**
+ * @param {string} strings
+ * @return {string}
+ * func('This is a function for supreme!') -> 'This is a noitcnuf for !emerpus';
+ */
+
 function spinWords(string) {
   const arr = string.split(" ");
 
@@ -10,10 +16,15 @@ function spinWords(string) {
 
   return arr.join(" ");
 }
-
 //console.log(spinWords("This is a function for supreme!"));
 
 //  kata 2
+
+/**
+ * @param {number} num
+ * @return {number}
+ * func(10) -> -10;
+ */
 function makeNegative(num) {
   return num < 0 ? num : num * -1;
 }
@@ -21,12 +32,25 @@ function makeNegative(num) {
 //console.log(makeNegative(0.12));
 
 //  kata 3
+/**
+ * @param {string[]} friends
+ * @return {string[]}
+ * func(["Mark", "John", "Sveta", "Maria"]) -> ["Mark", "John"];
+ */
+
 function friend(friends) {
   return friends.filter((friend) => friend.length === 4);
 }
 //console.log(friend(["Mark", "John", "Sveta", "Maria"]));
 
 //  kata 4
+/**
+ * @param {number} a
+ * @param {number} b
+ * @return {number}
+ * func(1,2) -> 1;
+ */
+
 function getSumOfTwoNumsRange(a, b) {
   if (a === b) return a;
   if (a > b) {
@@ -84,6 +108,12 @@ function getSumOfTwoNumsRangeOptimized(a, b) {
 // console.log(getSumOfTwoNumsRangeOptimized(129, -353));
 
 //  kata 5
+/**
+ * @param {string} s
+ * @return {string}
+ * func('testing') -> 't';
+ */
+
 function getMiddle(s) {
   const arr = s.split("");
   const even = s.length % 2 === 0 ? true : false;
@@ -105,6 +135,12 @@ function getMiddleOptimized(s) {
 // console.log(getMiddleOptimized("testing"));
 
 //  kata 6
+/**
+ * @param {number} num
+ * @return {number}
+ * func(3212) -> 9414;
+ */
+
 function squareDigits(num) {
   return +num
     .toString()
@@ -113,9 +149,14 @@ function squareDigits(num) {
     .join("");
 }
 // console.log(squareDigits(9119));
-// console.log(squareDigits(3212));
+//console.log(squareDigits(3212));
 
 //  kata 7
+/**
+ * @param {string} word
+ * @return {string}
+ * func('Success') -> ')())())';
+ */
 
 function duplicateEncode(word) {
   const arr = word.toLowerCase().split("");
@@ -152,13 +193,19 @@ function duplicateEncodeOptimized(word) {
 //console.log(duplicateEncodeOptimized("Success"));
 
 //  kata 8
+/**
+ * @param {string} str
+ * @return {number}
+ * func('abracadabra') -> 5;
+ */
+
 function getVowels(str) {
   return str
     .replace(/[aeiou]/gi, "*")
     .split("")
     .filter((item) => item === "*").length;
+  console.log(getVowels("abracadabra"));
 }
-//console.log(getVowels("abracadabra"));
 
 function getVowels1(str) {
   return (str.match(/[aeiou]/gi) || []).length;
@@ -166,6 +213,12 @@ function getVowels1(str) {
 //console.log(getVowels1("abracadabra"));
 
 //  kata 9
+/**
+ * @param {string} str
+ * @return {number}
+ * func('abracadabra') -> 5;
+ */
+
 function removeChar(str) {
   return str.split("").slice(1, -1).join("");
 }
@@ -177,6 +230,13 @@ function removeCharOptimized(str) {
 //console.log(removeCharOptimized("eloquent"));
 
 //  kata 9
+/**
+ * @param {number[]} arr1
+ * @param {number[]} arr2
+ * @return {boolean}
+ * func([2,3],[4,6]) -> true;
+ */
+
 function compTwoArrsBySqr(arr1, arr2) {
   if (!Array.isArray(arr1) || !Array.isArray(arr2)) return false;
   if (arr1.length !== arr2.length) return false;
@@ -346,4 +406,85 @@ function persistenceOpt(num) {
     ? 1 + persistenceOpt(`${num}`.split("").reduce((a, b) => a * +b))
     : 0;
 }
-console.log(persistenceOpt(999));
+//console.log(persistenceOpt(999));
+
+//  kata 13 (Write Number in Expanded Form)
+/**
+ * @param {number} num
+ * @return {string}
+ * func(70304) -> '70000 + 300 + 4';
+ */
+
+function expandedForm(num) {
+  const arr = parseInt(num).toString().split("").reverse();
+  let temp = "";
+
+  for (let i = 0; i < arr.length; i++) {
+    if (+arr[i] !== 0) {
+      temp += arr[i] + "0".repeat(i) + " ";
+    }
+  }
+
+  const res = temp.split(" ").reverse().slice(1).join().replace(/[,]/g, " + ");
+  temp = "";
+  return res;
+}
+// console.log(expandedForm(10));
+// console.log(expandedForm(12));
+// console.log(expandedForm(101));
+// console.log(expandedForm(172));
+// console.log(expandedForm(1724));
+// console.log(expandedForm(70304));
+
+//  kata 14 (Find the unique number)
+/**
+ * @param {number[]} arr
+ * @return {number}
+ * func([8, 8, 8, 8, 8, 7, 8]) -> 7;
+ */
+function findUniq(arr) {
+  const testArr = arr.slice(0, 3);
+  const major = testArr[0] === testArr[1] ? testArr[0] : testArr[2];
+
+  return arr.find((item) => item !== major);
+}
+//console.log(findUniq([8, 8, 8, 8, 8, 7, 8]));
+
+function findUniqOptimized(arr) {
+  return arr.find((item) => arr.indexOf(item) === arr.lastIndexOf(item));
+}
+//console.log(findUniqOptimized([8, 8, 8, 8, 8, 7, 8]));
+
+// kata 15 (Format a string of names like 'Bart, Lisa & Maggie')
+/**
+ * @param {object[]} names
+ * @return {string}
+ * func([ {name: 'Bart'}, {name: 'Lisa'}, {name: 'Maggie'} ]) - > 'Bart, Lisa & Maggie';
+ */
+
+function formatObjArr(arr) {
+  const newArr = arr.map((item) => item.name);
+  const firstPart = newArr.slice(0, -2).join(", ");
+  const lastPart = newArr.slice(-2).join(" & ");
+
+  if (firstPart) {
+    return firstPart + ", " + lastPart;
+  } else {
+    return lastPart;
+  }
+}
+console.log(
+  formatObjArr([
+    { name: "Bart" },
+    { name: "Lisa" },
+    { name: "Maggie" },
+    { name: "Homer" },
+    { name: "Marge" },
+  ])
+);
+
+console.log(
+  formatObjArr([{ name: "Bart" }, { name: "Lisa" }, { name: "Maggie" }])
+);
+
+console.log(formatObjArr([{ name: "Bart" }, { name: "Lisa" }]));
