@@ -1,3 +1,18 @@
+const now = require("performance-now");
+
+//  func speed test in ms
+const funcSpeed = (func) => {
+  const start = now();
+
+  for (let i = 0; i < 1_000_000; i++) {
+    func;
+  }
+
+  const end = now();
+  const result = end - start;
+  return `${result.toFixed(2)} ms`;
+};
+
 //  kata 1
 /**
  * @param {string} strings
@@ -473,18 +488,116 @@ function formatObjArr(arr) {
     return lastPart;
   }
 }
+// console.log(
+//   formatObjArr([
+//     { name: "Bart" },
+//     { name: "Lisa" },
+//     { name: "Maggie" },
+//     { name: "Homer" },
+//     { name: "Marge" },
+//   ])
+// );
+
+// console.log(
+//   formatObjArr([{ name: "Bart" }, { name: "Lisa" }, { name: "Maggie" }])
+// );
+
+//console.log(formatObjArr([{ name: "Bart" }, { name: "Lisa" }]));
+
+//  kata 16 (Break camelCase)
+/**
+ * @param {string} str
+ * @return {string}
+ * func('SuperCool') -> 'Super Cool'
+ */
+
+function breakUpCamelCase(str) {
+  const result = [];
+
+  for (let i = 0; i < str.length; i++) {
+    const test = /[A-Z]/.test(str[i]);
+    if (test) {
+      result.push(" ", str[i]);
+    } else {
+      result.push(str[i]);
+    }
+  }
+  return result.join("").trim();
+}
+// console.log(breakUpCamelCase("ABCDEFG"));
+// console.log(breakUpCamelCase("AaaaaaaaBbbbbbbbbbbCDEFG"));
+
+function breakUpCamelCaseOpt(text) {
+  return text.split(/(?=[A-Z])/).join(" ");
+}
+// console.log(breakUpCamelCaseOpt("ABCDEFG"));
+// console.log(breakUpCamelCaseOpt("AaaaaaaaBbbbbbbbbbbCDEFG"));
+
+//  kata 17 (Counting Duplicates)
+/**
+ * @param {string} str
+ * @return {number}
+ */
+
+function uniqueLettersRepeatCount(str) {
+  let arr = str.toLowerCase().split("");
+  const objMap = {};
+
+  for (let i = 0; i < arr.length; i++) {
+    objMap[arr[i]] = objMap[arr[i]] ? objMap[arr[i]] + 1 : 1;
+  }
+
+  arr = [];
+
+  for (let key in objMap) {
+    if (objMap[key] > 1) {
+      arr.push(key);
+    }
+  }
+
+  return arr.length;
+}
+console.log("uniqueLettersRepeatCount", uniqueLettersRepeatCount("aabBcde"));
 console.log(
-  formatObjArr([
-    { name: "Bart" },
-    { name: "Lisa" },
-    { name: "Maggie" },
-    { name: "Homer" },
-    { name: "Marge" },
-  ])
+  "uniqueLettersRepeatCount",
+  funcSpeed(uniqueLettersRepeatCount("aabBcde"))
 );
 
+function uniqueLettersRepeatCount1(str) {
+  let arr = str.toLowerCase().split("");
+  let counter = 0;
+
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] === arr[j]) {
+        counter++;
+      }
+    }
+  }
+
+  return counter;
+}
+console.log("uniqueLettersRepeatCount1", uniqueLettersRepeatCount1("aabBcde"));
 console.log(
-  formatObjArr([{ name: "Bart" }, { name: "Lisa" }, { name: "Maggie" }])
+  "uniqueLettersRepeatCount1",
+  funcSpeed(uniqueLettersRepeatCount1("aabBcde"))
 );
 
-console.log(formatObjArr([{ name: "Bart" }, { name: "Lisa" }]));
+function uniqueLettersRepeatCountOpt(text) {
+  return (
+    text
+      .toLowerCase()
+      .split("")
+      .sort()
+      .join("")
+      .match(/([^])\1+/g) || []
+  ).length;
+}
+console.log(
+  "uniqueLettersRepeatCountOpt",
+  uniqueLettersRepeatCountOpt("aabBcde")
+);
+console.log(
+  "uniqueLettersRepeatCountOpt",
+  funcSpeed(uniqueLettersRepeatCountOpt("aabBcde"))
+);

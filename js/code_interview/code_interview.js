@@ -8,7 +8,8 @@ const funcSpeed = (func) => {
   }
 
   const end = now();
-  return end - start;
+  const result = end - start;
+  return `${result.toFixed(2)} ms`;
 };
 
 // 1
@@ -131,7 +132,7 @@ const stonesAndJewels = () => {
 };
 //stonesAndJewels();
 //////////////////////////////////////////////////////////////////////
-
+[100, 10, 2, 4, 3, 5, -1];
 // 4
 const stonesAndJewelsPrecise = () => {
   /**
@@ -159,7 +160,7 @@ const stonesAndJewelsPrecise = () => {
     funcSpeed(amountOfCommonLetter("cool", "location"))
   );
 };
-stonesAndJewelsPrecise();
+//stonesAndJewelsPrecise();
 /////////////////////////////////////////////////////////////////////
 
 // 5
@@ -207,11 +208,11 @@ const findFib = (num) => {
   return result[0]; //  number
 };
 
-console.log(findFib(100));
+//console.log(findFib(100));
 
-console.log("fibonacci", funcSpeed(fibonacci(9))); // 3
-console.log("fibonacci1", funcSpeed(fibonacci1(9))); // 2
-console.log("fibonacciFast", funcSpeed(fibonacciFast(9))); // 1 (without recursion it is super fast)
+//console.log("fibonacci", funcSpeed(fibonacci(9))); // 3
+//console.log("fibonacci1", funcSpeed(fibonacci1(9))); // 2
+//console.log("fibonacciFast", funcSpeed(fibonacciFast(9))); // 1 (without recursion it is super fast)
 /////////////////////////////////////////////////////////////////////////
 
 // 6
@@ -347,18 +348,36 @@ const findNumsOfSum = (arr, target) => {
 
   return result;
 };
-//console.log(twoSum([2, 7, 11, 15], 9));
 
-const twoSum1 = (numsArr, target) => {
-  const result = {};
-  for (let i = 0; i < numsArr.length; i++) {
-    if (result[numsArr[i]] >= 0) {
-      return [result[numsArr[i]], i];
+//  more simple tests from real interview
+const twoSum = (arr, target) => {
+  const result = [];
+
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] + arr[j] === target) {
+        result.push(i, j);
+      }
     }
-    result[target - numsArr[i]] = i; //at first we create an object from all the array numbers
+  }
+
+  return result;
+};
+// console.log(twoSum([2, 1, 0, 4, 100, 5, 23], 9));
+// console.log("twoSum", funcSpeed(twoSum([2, 1, 0, 4, 100, 5, 23], 9))); //
+
+const twoSum1 = (arr, target) => {
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] + arr[j] === target) {
+        return [i, j];
+      }
+    }
   }
 };
-//console.log(twoSum1([2, 7, 11, 15], 9));
+// console.log(twoSum1([2, 1, 0, 4, 100, 5, 23], 9));
+// console.log("twoSum1", funcSpeed(twoSum1([2, 1, 0, 4, 100, 5, 23], 9))); //
+
 //////////////////////////////////////////////////////////////////////
 
 // 11
@@ -1045,3 +1064,70 @@ const strToDeepObj1 = (str, divider) => {
  */
 
 const anagramFree = () => {};
+
+//  35
+/**
+ *  @param {object} root
+ *  @return {number}
+ * func(root) -> 15
+ */
+
+const binaryTree = {
+  value: 1,
+
+  right: {
+    value: 3,
+    right: {
+      value: 6,
+      right: {
+        value: 8,
+        right: null,
+        left: null,
+      },
+      left: null,
+    },
+    left: null,
+  },
+
+  left: {
+    value: 2,
+    right: {
+      value: 5,
+      left: null,
+      right: null,
+    },
+    left: {
+      value: 4,
+      right: null,
+      left: {
+        value: 7,
+        right: null,
+        left: null,
+      },
+    },
+  },
+};
+
+const findDeepestLeavesSum = (root) => {
+  let maxDepth = 0;
+  const obj = {};
+
+  const inspectObj = (node, currentDepth = 1) => {
+    const { value, left, right } = node;
+
+    if (left) inspectObj(left, currentDepth + 1);
+    if (right) inspectObj(right, currentDepth + 1);
+
+    if (!left && !right) {
+      if (currentDepth > maxDepth) maxDepth = currentDepth;
+      const currentSum = obj[currentDepth] ? obj[currentDepth] : 0;
+      obj[currentDepth] = currentSum + value;
+    }
+  };
+
+  inspectObj(root);
+
+  return obj[maxDepth];
+};
+
+console.log(findDeepestLeavesSum(binaryTree));
