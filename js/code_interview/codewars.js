@@ -13,7 +13,7 @@ const funcSpeed = (func) => {
   return `${result.toFixed(2)} ms`;
 };
 
-//  kata 1
+//  kata 1 Level 8
 /**
  * @param {string} strings
  * @return {string}
@@ -33,7 +33,7 @@ function spinWords(string) {
 }
 //console.log(spinWords("This is a function for supreme!"));
 
-//  kata 2
+//  kata 2 Level 8
 
 /**
  * @param {number} num
@@ -46,7 +46,7 @@ function makeNegative(num) {
 
 //console.log(makeNegative(0.12));
 
-//  kata 3
+//  kata 3 Level 8
 /**
  * @param {string[]} friends
  * @return {string[]}
@@ -58,7 +58,7 @@ function friend(friends) {
 }
 //console.log(friend(["Mark", "John", "Sveta", "Maria"]));
 
-//  kata 4
+//  kata 4 Level 8
 /**
  * @param {number} a
  * @param {number} b
@@ -122,7 +122,7 @@ function getSumOfTwoNumsRangeOptimized(a, b) {
 // console.log(getSumOfTwoNumsRangeOptimized(1, 2));
 // console.log(getSumOfTwoNumsRangeOptimized(129, -353));
 
-//  kata 5
+//  kata 5 Level 8
 /**
  * @param {string} s
  * @return {string}
@@ -149,7 +149,7 @@ function getMiddleOptimized(s) {
 // console.log(getMiddleOptimized("test"));
 // console.log(getMiddleOptimized("testing"));
 
-//  kata 6
+//  kata 6 Level 7
 /**
  * @param {number} num
  * @return {number}
@@ -166,7 +166,7 @@ function squareDigits(num) {
 // console.log(squareDigits(9119));
 //console.log(squareDigits(3212));
 
-//  kata 7
+//  kata 7 Level 7
 /**
  * @param {string} word
  * @return {string}
@@ -207,7 +207,7 @@ function duplicateEncodeOptimized(word) {
 }
 //console.log(duplicateEncodeOptimized("Success"));
 
-//  kata 8
+//  kata 8 Level 7
 /**
  * @param {string} str
  * @return {number}
@@ -227,7 +227,7 @@ function getVowels1(str) {
 }
 //console.log(getVowels1("abracadabra"));
 
-//  kata 9
+//  kata 9 Level 7
 /**
  * @param {string} str
  * @return {number}
@@ -244,7 +244,7 @@ function removeCharOptimized(str) {
 }
 //console.log(removeCharOptimized("eloquent"));
 
-//  kata 9
+//  kata 10 Level 7
 /**
  * @param {number[]} arr1
  * @param {number[]} arr2
@@ -310,7 +310,7 @@ function compTwoArrsBySqr(arr1, arr2) {
 //   )
 // );
 
-//  kata 10
+//  kata 11 Level 7
 /**
  * @param {string} numbers
  * @return {number} index of 'black sheep'
@@ -355,7 +355,7 @@ function iqTest1(numbers) {
 
 //console.log(iqTest1("2 2 2 2 2 2 2 1"));
 
-//  kata 11 (Find the odd int)
+//  kata 12 (Find the odd int) Level 7
 /**
  * @param {array} arr
  * @return {number}
@@ -383,7 +383,7 @@ function findOddOptimized(arr) {
 const findOddSuper = (arr) => arr.reduce((a, b) => a ^ b);
 //console.log(findOddSuper([1, 2, 2, 3, 3, 3, 4, 3, 3, 3, 2, 2, 1]));
 
-//  kata 12 (Persistent Bugger)
+//  kata 13 (Persistent Bugger) Level 6
 /**
  * @param {number} num
  * @return {number}
@@ -423,7 +423,7 @@ function persistenceOpt(num) {
 }
 //console.log(persistenceOpt(999));
 
-//  kata 13 (Write Number in Expanded Form)
+//  kata 14 (Write Number in Expanded Form) Level 6
 /**
  * @param {number} num
  * @return {string}
@@ -451,7 +451,7 @@ function expandedForm(num) {
 // console.log(expandedForm(1724));
 // console.log(expandedForm(70304));
 
-//  kata 14 (Find the unique number)
+//  kata 15 (Find the unique number) Level 6
 /**
  * @param {number[]} arr
  * @return {number}
@@ -470,7 +470,7 @@ function findUniqOptimized(arr) {
 }
 //console.log(findUniqOptimized([8, 8, 8, 8, 8, 7, 8]));
 
-// kata 15 (Format a string of names like 'Bart, Lisa & Maggie')
+// kata 16 (Format a string of names like 'Bart, Lisa & Maggie') Level 6
 /**
  * @param {object[]} names
  * @return {string}
@@ -504,7 +504,7 @@ function formatObjArr(arr) {
 
 //console.log(formatObjArr([{ name: "Bart" }, { name: "Lisa" }]));
 
-//  kata 16 (Break camelCase)
+//  kata 17 (Break camelCase) Level 6
 /**
  * @param {string} str
  * @return {string}
@@ -533,7 +533,7 @@ function breakUpCamelCaseOpt(text) {
 // console.log(breakUpCamelCaseOpt("ABCDEFG"));
 // console.log(breakUpCamelCaseOpt("AaaaaaaaBbbbbbbbbbbCDEFG"));
 
-//  kata 17 (Counting Duplicates, how many chars repeats more than 1 time)
+//  kata 18 (Counting Duplicates, how many chars repeats more than 1 time) Level 6
 /**
  * @param {string} str
  * @return {number}
@@ -603,7 +603,7 @@ function uniqueLettersRepeatCountOpt(text) {
 //   funcSpeed(uniqueLettersRepeatCountOpt("aabBcde"))
 // );
 
-//  kata 18 (Array Helpers)
+//  kata 19 (Array Helpers) Level 5
 /**
  * @param {}
  * @return {}
@@ -617,7 +617,10 @@ const testArr = [1.34, 0.34, 3.45, 10.23, 19.2333, 0,22302];
 
 Array.prototype.square = function () {
   return this.map((item) => item * item);
-};
+};// console.log(
+//   "uniqueLettersRepeatCountOpt",
+//   funcSpeed(uniqueLettersRepeatCountOpt("aabBcde"))
+// );
 
 Array.prototype.cube = function () {
   return this.map((item) => item * item * item);
@@ -642,7 +645,7 @@ Array.prototype.odd = function () {
 };
 //console.log(testArr.average());
 
-//  kata 19 (Valid Parentheses)
+//  kata 20 (Valid Parentheses) Level 5
 /**
 * @param {string} parens
 * @return {boolean}
@@ -678,4 +681,41 @@ function validParenthesesOpt(parens){
 // console.log(validParenthesesOpt('(dsgdsg))2432'));
 // console.log('true',validParenthesesOpt('adasdasfa'));
 
-//  kata 20
+//  kata 21 (Detect Pangram) Level 6
+/**
+* @param {string} sentence
+* @return {boolean}
+* func("The quick brown fox jumps over the lazy dog.") -> true
+*/
+//return arr.find((item) => arr.indexOf(item) === arr.lastIndexOf(item));
+function isPangram(sentence) {
+  const sentenceArr = sentence
+                        .toLowerCase()
+                        .split('')
+                        .sort()
+                        .filter((letter) => new RegExp(/[a-z]/).test(letter));
+
+  const set = new Set(sentenceArr);
+  if ([...set].length === 26) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function isPangramOpt(sentence) {
+  return (sentence.match(/([a-z])(?!.*\1)/ig) || []).length === 26;
+}
+
+// console.log(isPangram("The quick brown fox jumps over the lazy dog."));
+// console.log(
+//   "isPangram",
+//   funcSpeed(isPangram("The quick brown fox jumps over the lazy dog."))
+// );
+// console.log(isPangramOpt("The quick brown fox jumps over the lazy dog."));
+// console.log(
+//   "isPangramOpt",
+//   funcSpeed(isPangramOpt("The quick brown fox jumps over the lazy dog."))
+// );
+
+//  kata 22
