@@ -533,10 +533,11 @@ function breakUpCamelCaseOpt(text) {
 // console.log(breakUpCamelCaseOpt("ABCDEFG"));
 // console.log(breakUpCamelCaseOpt("AaaaaaaaBbbbbbbbbbbCDEFG"));
 
-//  kata 17 (Counting Duplicates)
+//  kata 17 (Counting Duplicates, how many chars repeats more than 1 time)
 /**
  * @param {string} str
  * @return {number}
+ * func(aabBcde) -> 2 (means 2 numbers repeats more than 1 time)
  */
 
 function uniqueLettersRepeatCount(str) {
@@ -557,11 +558,11 @@ function uniqueLettersRepeatCount(str) {
 
   return arr.length;
 }
-console.log("uniqueLettersRepeatCount", uniqueLettersRepeatCount("aabBcde"));
-console.log(
-  "uniqueLettersRepeatCount",
-  funcSpeed(uniqueLettersRepeatCount("aabBcde"))
-);
+// console.log("uniqueLettersRepeatCount", uniqueLettersRepeatCount("aabBcde"));
+// console.log(
+//   "uniqueLettersRepeatCount",
+//   funcSpeed(uniqueLettersRepeatCount("aabBcde"))
+// );
 
 function uniqueLettersRepeatCount1(str) {
   let arr = str.toLowerCase().split("");
@@ -577,11 +578,11 @@ function uniqueLettersRepeatCount1(str) {
 
   return counter;
 }
-console.log("uniqueLettersRepeatCount1", uniqueLettersRepeatCount1("aabBcde"));
-console.log(
-  "uniqueLettersRepeatCount1",
-  funcSpeed(uniqueLettersRepeatCount1("aabBcde"))
-);
+// console.log("uniqueLettersRepeatCount1", uniqueLettersRepeatCount1("aabBcde"));
+// console.log(
+//   "uniqueLettersRepeatCount1",
+//   funcSpeed(uniqueLettersRepeatCount1("aabBcde"))
+// );
 
 function uniqueLettersRepeatCountOpt(text) {
   return (
@@ -593,11 +594,88 @@ function uniqueLettersRepeatCountOpt(text) {
       .match(/([^])\1+/g) || []
   ).length;
 }
-console.log(
-  "uniqueLettersRepeatCountOpt",
-  uniqueLettersRepeatCountOpt("aabBcde")
-);
-console.log(
-  "uniqueLettersRepeatCountOpt",
-  funcSpeed(uniqueLettersRepeatCountOpt("aabBcde"))
-);
+// console.log(
+//   "uniqueLettersRepeatCountOpt",
+//   uniqueLettersRepeatCountOpt("aabBcde")
+// );
+// console.log(
+//   "uniqueLettersRepeatCountOpt",
+//   funcSpeed(uniqueLettersRepeatCountOpt("aabBcde"))
+// );
+
+//  kata 18 (Array Helpers)
+/**
+ * @param {}
+ * @return {}
+ * func() ->
+ */
+
+const testArr = [1.34, 0.34, 3.45, 10.23, 19.2333, 0,22302];
+// function square(arr) {
+//   return arr.map((item) => item * item);
+// }
+
+Array.prototype.square = function () {
+  return this.map((item) => item * item);
+};
+
+Array.prototype.cube = function () {
+  return this.map((item) => item * item * item);
+};
+
+Array.prototype.average = function () {
+  if (!this.length) return NaN;
+  if (this.length < 2) return this;
+  return Math.floor(this.reduce((a, b) => a + b) / this.length);
+};
+
+Array.prototype.sum = function () {
+  return this.reduce((a, b) => a + b);
+};
+
+Array.prototype.even = function () {
+  return this.filter((item) => item % 2 === 0);
+};
+
+Array.prototype.odd = function () {
+  return this.filter((item) => item % 2 !== 0);
+};
+//console.log(testArr.average());
+
+//  kata 19 (Valid Parentheses)
+/**
+* @param {string} parens
+* @return {boolean}
+* func ('()()') - > true
+* func ('(()()') - > false
+*/
+
+function validParenthesesBad(parens) {
+  if (parens.length === 0) return true;
+  const leftArr = parens.match(/\(/gi);
+  const rightArr = parens.match(/\)/gi);
+
+  if (!leftArr && !rightArr) return true;
+  if (!leftArr || !rightArr) return false;
+  return leftArr.length === rightArr.length;
+}
+
+function validParenthesesOpt(parens){
+  let n = 0;
+  for (var i = 0; i < parens.length; i++) {
+    if (parens[i] == '(') n++;
+    if (parens[i] == ')') n--;
+    if (n < 0) return false;
+  }
+
+  return n == 0;
+}
+
+// console.log(validParenthesesOpt('()'));
+// console.log('false', validParenthesesOpt(')(()))'));
+// console.log(validParenthesesOpt('))))'));
+// console.log(validParenthesesOpt('32423(sgsdg)'));
+// console.log(validParenthesesOpt('(dsgdsg))2432'));
+// console.log('true',validParenthesesOpt('adasdasfa'));
+
+//  kata 20
