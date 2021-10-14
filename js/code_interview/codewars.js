@@ -718,4 +718,65 @@ function isPangramOpt(sentence) {
 //   funcSpeed(isPangramOpt("The quick brown fox jumps over the lazy dog."))
 // );
 
-//  kata 22
+//  kata 22 (Give me a Diamond) Level 6
+/**
+* @param {number} n
+* @return {string}
+* func(5) -> "  *\n ***\n*****\n ***\n  *\n"
+*/
+
+function diamond(n) {
+  if (n % 2 === 0 || n < 1) return null;
+  let result = '';
+  const middle = Math.floor(n / 2) + 1;
+  //console.log(middle)
+
+  for (let i = 1; i <= n; i++) {
+    if (i < middle) {
+      result += ' '.repeat(middle - i) + '*'.repeat(i + (i - 1)) + ' '.repeat(middle - i) + '\n';
+    } else if (i === middle) {
+      result += '*'.repeat(n) + '\n';
+    } else if (i > middle) {
+      result += ' '.repeat(i - middle) + '*'.repeat(n - ((i - middle) * 2)) + ' '.repeat(i - middle) + '\n';
+    }
+  }
+
+  return result;
+}
+//console.log(diamond(3));
+// console.log(diamond(5));
+// console.log(diamond(7));
+// console.log()
+// console.log(JSON.stringify(diamond(1)));
+// console.log(JSON.stringify(diamond(3)));
+// console.log(JSON.stringify(diamond(5)));
+// console.log(JSON.stringify(diamond(7)));
+
+
+function diamondOpt(n) {
+  if ((n % 2) == 0 || n <= 0) return null;
+  let result = '';
+
+  //  +=2 count only odds! (i = 1, i = 3, i = 5, i= 7, i = 9...)
+  //  odd iterations only
+  //  loop for top lines of diamond (lines above middle)
+  for (let i = 1; i < n; i += 2) {
+
+      // two inner loops for each line of top part of diamond
+      for (let j = 0; j < (n - i) / 2; j++) result += "o";
+      for (let k = 0; k < i; k++) result += "*";
+      result += "\n";
+  }
+
+  //  middle line of diamond and lines below
+  for (let i = n; i > 0; i -= 2) {
+      for (let j = 0; j < (n - i) / 2; j++) result += "o";
+      for (let k = 0; k < i; k++) result += "*";
+      result += "\n";
+  }
+  return result;
+}
+// console.log(diamondOpt(3))
+console.log(diamondOpt(5))
+// console.log(diamondOpt(7))
+// console.log(diamond(9))
