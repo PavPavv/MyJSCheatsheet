@@ -781,4 +781,46 @@ function diamondOpt(n) {
 // console.log(diamondOpt(7))
 // console.log(diamond(9))
 
-//  kata 23
+//  kata 23 (Count characters in your string) Level 6
+/**
+  * @param{stribng} str
+  * @return {object}
+  * f('abc') -> {a: 1, b: 1, c: 1}
+*/
+function strParser(str) {
+  if (str.length === 0) return {};
+
+  let obj = {};
+
+  for (let i = 0; i < str.length; i++) {
+    obj[str[i]] = obj[str[i]] ? obj[str[i]] + 1 : 1;
+  }
+
+  return obj;
+}
+//console.log(strParser('aba'));
+
+//  24 (Tortoise racing) Level 6
+function catchUp(firstSpeed, secondSpeed, distance) {
+  if (firstSpeed > secondSpeed) return null;
+
+  const hour = distance / (secondSpeed - firstSpeed);
+  const minutes = Math.floor((hour - parseInt(hour)) * 60);
+  const seconds = Math.floor((((hour - parseInt(hour)) * 60) - minutes) * 60);
+
+  return [parseInt(hour), minutes, seconds];
+  // let time = distance * 3600 / (secondSpeed - firstSpeed);
+  // let hours = time / 3600;
+  // time = time % 3600;
+  // let minutes = Math.floor(time / 60);
+  // let seconds = Math.floor(time % 60);
+  //
+  // return [parseInt(hours), minutes, seconds];
+}
+console.log(catchUp(720, 850, 70))
+console.log(catchUp(80, 91, 37));
+
+function race(v1, v2, g){
+  let time=g/(v2-v1);
+  return v2>v1 ? [Math.floor(time),Math.floor(time*60%60),Math.floor(time*3600%60)] : null;
+}
