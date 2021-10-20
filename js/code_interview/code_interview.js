@@ -397,7 +397,7 @@ const reverseInt = (int) => {
 
 // 12
 /**
- * @param {number}
+ * @param {number} x
  * @return {boolean}
  * func(121) -> true
  */
@@ -455,7 +455,7 @@ const varTest = () => {
   let d = b++;
   return `${a} | ${b} | ${c} | ${d}`;
 };
-// console.log(varTest());
+//console.log(varTest());
 
 // 15
 const varTest1 = () => {
@@ -515,16 +515,16 @@ const valTest2 = () => {
 // 16
 const loops = () => {
   for (let i = 0; i < 3; i++) {
-    console.log(`number ${i}!`);
+    //console.log(`number ${i}!`);
   }
 
   let i = 0;
   while (i < 3) {
-    console.log(`number ${i}!`);
+    //console.log(`number ${i}!`);
     i++;
   }
 };
-//loops();
+loops();
 /////////////////////////////////////////////////////////////////
 
 // 17
@@ -1130,4 +1130,66 @@ const findDeepestLeavesSum = (root) => {
   return obj[maxDepth];
 };
 
-console.log(findDeepestLeavesSum(binaryTree));
+//console.log(findDeepestLeavesSum(binaryTree));
+
+/**
+  * @param {number[]} strArr
+  * @return {string}
+*/
+function getLongestCommonPrefix(strArr) {
+  if (strArr.length < 2) return '';
+
+  for (let str of strArr) {
+    if (typeof(str) !== 'string') {
+      return '';
+    }
+  }
+
+  const lowerArr = strArr.map((item) => item.toLowerCase());
+
+  let prefix = '';
+  let candidateChar;
+  let firstWord = lowerArr.shift();
+  let i = 0;
+
+  while (i <= firstWord.length) {
+    candidateChar = firstWord[i] || '';
+
+    for (let word of lowerArr) {
+      if (candidateChar !== word[i]) {
+        return prefix;
+      }
+    }
+
+    prefix += candidateChar;
+    i++;
+  }
+
+  return prefix;
+}
+//console.log(getLongestCommonPrefix(['flower', 'flow', 'flight']));
+
+
+function getLongestCommonPattern(strArr) {
+  //  standard check
+  if (strArr.length < 2) return '';
+
+  for (let str of strArr) {
+    if (typeof(str) !== 'string') {
+      return '';
+    }
+  }
+
+  const lowerArr = strArr.map((item) => item.toLowerCase());
+  let commonPart = '';
+  const firstWord = lowerArr[0];
+  let t = '';
+
+  for (let i = 1; i < lowerArr.length; i++) {
+    let testWord = lowerArr[i];
+    if (testWord) {}
+  }
+
+  return commonPart;
+}
+//console.log(getLongestCommonPattern(['quflower', 'qiflow', 'sportflowlight']));

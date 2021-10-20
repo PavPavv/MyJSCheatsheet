@@ -777,6 +777,8 @@ function diamondOpt(n) {
   return result;
 }
 // console.log(diamondOpt(3))
-console.log(diamondOpt(5))
+// console.log(diamondOpt(5))
 // console.log(diamondOpt(7))
 // console.log(diamond(9))
+
+//  kata 23

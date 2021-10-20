@@ -9,7 +9,7 @@ const usefulFunctions = () => {
   };
   //inputLength();
 
-  //////////////////// HOF's: ///////////////
+  ///////////////////////////////////// HOF's: /////////////////////////////////
   const repeat = (n, action) => {
     for (let i = 0; i < n; i++) {
       action(i);
@@ -34,7 +34,7 @@ const usefulFunctions = () => {
   //     console.log(n, ' is even');
   //   })
   // });
-
+////////////////////////////////////////////////////////////////////////////////
 
   // Find amount of elements with a certain condition
   const countBy = (items, group) => {
@@ -63,6 +63,7 @@ const usefulFunctions = () => {
 
   //const optimCountBy = arr => arr.filter(item => item > 2).length;
   //console.log(optimCountBy([1, 2, 3, 4, 5]));
+  //////////////////////////////////////////////////////////////////////////////
 
   function decorator(a) {
     return function() {
@@ -75,10 +76,10 @@ const usefulFunctions = () => {
   }
   //awesome();
 
-  // const decor = decorator('awesome');
+  const decor = decorator();
   // console.log(decor());
-  // console.log(decor('super cool'));
-
+  console.log(decor());
+////////////////////////////////////////////////////////////////////////////////
 
   const debounce = (f, ms) => {
     let isCooldown = false;

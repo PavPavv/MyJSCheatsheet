@@ -355,6 +355,57 @@ const arrays = () => {
     let newArr = fisherYatesShuffle(arr);
     return newArr[0];
   };
-  console.log(testShuffle([1, 2, 3, 4, 5, 6, 7, 8, 9]));
+  //console.log(testShuffle([1, 2, 3, 4, 5, 6, 7, 8, 9]));
+
+
+  function getCommonPartOfTwoWords(temp, word) {
+    const resultArr = [];
+    for (let i = 0; i < temp.length; i++) {
+
+      for (let j = 0; j < word.length; j++) {
+        if (temp[i] === word[j] && temp[i + 1] === word[j + 1]) {
+          if (resultArr.length > 0) {
+            if (resultArr[resultArr.length - 1] === temp[i - 1]) {
+              resultArr.push(temp[i]);
+            }
+          } else {
+            resultArr.push(temp[i]);
+          }
+
+        } else if (temp[i] === word[j]) {
+          if (resultArr[resultArr.length - 1] === temp[i - 1]) {
+            if (resultArr[resultArr.length - 1] === word[j - 1]) {
+              resultArr.push(temp[i]);
+            }
+          }
+
+        }
+      }
+    }
+
+    return resultArr;
+  }
+  //console.log(getCommonPartOfTwoWords('sportfloowlight', 'qufloower'));
+
+
+  function getCommonPartOfWordsArray(strArr) {
+    if (strArr.length < 2) return '';
+
+    for (let str of strArr) {
+      if (typeof(str) !== 'string') {
+        return '';
+      }
+    }
+
+    let currentResult = strArr[0];
+
+    for (let i = 1; i < strArr.length; i++) {
+      currentResult = getCommonPartOfTwoWords(currentResult, strArr[i]);
+    }
+
+    return currentResult;
+
+  }
+  console.log(getCommonPartOfWordsArray(['sportflowlight', 'quflower', 'floe', 'youfley']));
 };
 arrays();
