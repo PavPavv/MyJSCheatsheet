@@ -3,7 +3,7 @@ const now = require("performance-now");
 const funcSpeed = (func) => {
   const start = now();
 
-  for (let i = 0; i < 1_000_000; i++) {
+  for (let i = 0; i < 10000000; i++) {
     func;
   }
 
