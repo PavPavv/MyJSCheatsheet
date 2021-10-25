@@ -1,3 +1,5 @@
+//  1
+
 //  Переберите все символы, встречающиеся в строке, а затем переберите все
 //  позиции и в случае совпадения прибавьте к счетчику единицу. Найти максимальное
 //  значение счетчика.
@@ -11,7 +13,7 @@ const bigStr = `I first met Dean not long after my wife and I split up. I had ju
 «That’s  right,  man,  now  you’re  talking.»  And  a  kind  of  holy  lightning  I  saw  flashing  from  hisexcitement  and  his  visions,  which  he  described  so  torrentially  that  people  in  buses  looked  around  tosee the «overexcited nut.» In the West he’d spent a third of his time in the poolhall, a third in jail, anda  third  in  the  public  library.  They’d  seen  him  rushing  eagerly  down  the  winter  streets,  bareheaded,carrying books to the poolhall, or climbing trees to get into the attics of buddies where he spent daysreading or hiding from the law.We  went  to  New  York  -  I  forget  what  the  situation  was,  two  colored  girls  -  there  were  no  girlsthere;  they  were  supposed  to  meet  him  in  a  diner  and  didn’t  show  up.  We  went  to  his  parking  lotwhere he had a few things to do - change his clothes in the shack in back and spruce up a bit in frontof a cracked mirror and so on, and then we took off. And that was the night Dean met Carlo Marx.A tremendous thing happened when Dean met Carlo Marx. Two keen minds that they are, they tookto each other at the drop of a hat. Two piercing eyes glanced into two piercing eyes - the holy con-man with the shining mind, and the sorrowful poetic con-man with the dark mind that is Carlo Marx.From that moment on I saw very little of Dean, and I was a little sorry too. Their energies met head-on, I was a lout compared, I couldn’t keep up with them.The  whole  mad  swirl  of  everything  that  was  to  come  began  then;  it  would  mix  up  all  my  friendsand all I had left of my family in a big dust cloud over the American Night. Carlo told him of Old BullLee,  Elmer  Hassel,  Jane:  Lee  in  Texas  growing  weed,  Hassel  on  Riker’s  Island,  Jane  wandering  onTimes Square in a benzedrine hallucination, with her baby girl in her arms and ending up in Bellevue.And  Dean  told  Carlo  of  unknown  people  in  the  West  like  Tommy  Snark,  the  clubfooted  poolhallrotation  shark  and  cardplayer  and  queer  saint.  He  told  him  of  Roy  Johnson,  Big  Ed  Dunkel,  hisboyhood  buddies,  his  street  buddies,  his  innumerable  girls  and  sex-parties  and  pornographicpictures,  his  heroes,  heroines,  adventures.  They  rushed  down  the  street  together,  digging  everythingin  the  early  way  they  had,  which  later  became  so  much  sadder  and  perceptive  and  blank.  But  thenthey  danced  down  the  streets  like  dingledodies,  and  I  shambled  after  as  I’ve  been  doing  all  my  lifeafter  people  who  interest  me,  because  the  only  people  for  me  are  the  mad  ones,  the  ones  who  aremad  to  live,  mad  to  talk,  mad  to  be  saved,  desirous  of  everything  at  the  same  time,  the  ones  whonever  yawn  or  say  a  commonplace  thing,  but  burn,  burn,  burn  like  fabulous  yellow  roman  candlesexploding  like  spiders  across  the  stars  and  in  the  middle  you  see  the  blue  centerlight  pop  andeverybody  goes  «Awww!»  What  did  they  call  such  young  people  in  Goethe’s  Germany?  Wantingdearly to learn how to write like Carlo, the first thing you know, Dean was attacking him with a greatamorous  soul  such  as  only  a  con-man  can  have.  «Now,  Carlo,  let  me  speak  -  here’s  what  I’msaying ...» I didn’t see them for about two weeks, during which time they cemented their relationshipto fiendish allday-allnight-talk proportions.Then  came  spring,  the  great  time  of  traveling,  and  everybody  in  the  scattered  gang  was  gettingready to take one trip or another. I was busily at work on my novel and when I carne to the halfwaymark, after a trip down South with my aunt to visit my brother Rocco, I got ready to travel West forthe very first time.Dean  had  already  left.  Carlo  and  I  saw  him  off  at  the  34th  Street  Greyhound  station.  Upstairsthey had a place where you could make pictures for a quarter. Carlo took off his glasses and lookedsinister.  Dean  made  a  profile  shot  and  looked  coyly  around.  I  took  a  straight  picture  that  made  melook  like  a  thirty-year-old  Italian  who’d  kill  anybody  who  said  anything  against  his  mother.  Thispicture  Carlo  and  Dean  neatly  cut  down  the  middle  with  a  razor  and  saved  a  half  each  in  theirwallets. Dean was wearing a real Western business suit for his big trip back to Denver; he’d finishedhis  first  fling  in  New  York.  I  say  fling,  but  he  only  worked  like  a  dog  in  parking  lots.  The  mostfantastic parking-lot attendant in the world, he can back a car forty miles an hour into a tight squeeze
 and stop at the wall, jump out, race among fenders, leap into another car, circle it fifty miles an hourin  a  narrow  space,  back  swiftly  into  tight  spot,  hump,  snap  the  car  with  the  emergency  so  that  yousee  it  bounce  as  he  flies  out;  then  clear  to  the  ticket  shack,  sprinting  like  a  track  star,  hand  a  ticket,leap into a newly arrived car before the owner’s half out, leap literally under him as he steps out, startthe  car  with  the  door  flapping,  and  roar  off  to  the  next  available  spot,  arc,  pop  in,  brake,  out,  run;working  like  that  without  pause  eight  hours  a  night,  evening  rush  hours  and  after-theater  rush  hours,in greasy wino pants with a frayed fur-lined jacket and beat shoes that flap. Now he’d bought a newsuit  to  go  back  in;  blue  with  pencil  stripes,  vest  and  all  -  eleven  dollars  on  Third  Avenue,  with  awatch  and  watch  chain,  and  a  portable  typewriter  with  which  he  was  going  to  start  writing  in  aDenver rooming house as soon as he got a job there. We had a farewell meal of franks and beans ina  Seventh  Avenue  Riker’s,  and  then  Dean  got  on  the  bus  that  said  Chicago  and  roared  off  into  thenight.  There  went  our  wrangler.  I  promised  myself  to  go  the  same  way  when  spring  really  bloomedand opened up the land.And  this  was  really  the  way  that  my  whole  road  experience  began,  and  the  things  that  were  tocome are too fantastic not to tell.Yes,  and  it  wasn’t  only  because  I  was  a  writer  and  needed  new  experiences  that  I  wanted  toknow Dean more, and because my life hanging around the campus had reached the completion of itscycle  and  was  stultified,  but  because,  somehow,  in  spite  of  our  difference  in  character,  he  remindedme  of  some  long-lost  brother;  the  sight  of  his  suffering  bony  face  with  the  long  sideburns  and  hisstraining  muscular  sweating  neck  made  me  remember  my  boyhood  in  those  dye-dumps  and  swim-holes and riversides of Paterson and the Passaic. His dirty workclothes clung to him so gracefully, asthough  you  couldn’t  buy  a  better  fit  from  a  custom  tailor  but  only  earn  it  from  the  Natural  Tailor  ofNatural Joy, as Dean had, in his stresses. And in his excited way of speaking I heard again the voicesof  old  companions  and  brothers  under  the  bridge,  among  the  motorcycles,  along  the  wash-linedneighborhood  and  drowsy  doorsteps  of  afternoon  where  boys  played  guitars  while  their  olderbrothers worked in the mills. All my other current friends were «intellectuals» - Chad the Nietzscheananthropologist, Carlo Marx and his nutty surrealist low-voiced serious staring talk, Old Bull Lee andhis critical anti-every-thing drawl - or else they were slinking criminals like Elmer Hassel, with that hipsneer; Jane Lee the same, sprawled on the Oriental cover of her couch, sniffing at the New Yorker.But  Dean’s  intelligence  was  every  bit  as  formal  and  shining  and  complete,  without  the  tediousintellectualness.  And  his  «criminality»  was  not  something  that  sulked  and  sneered;  it  was  a  wild  yea-saying overburst of American joy; it was Western, the west wind, an ode from the Plains, somethingnew,  long  prophesied,  long  a-coming  (he  only  stole  cars  for  joy  rides).  Besides,  all  my  New  Yorkfriends were in the negative, nightmare position of putting down society and giving their tired bookishor political or psychoanalytical reasons, but Dean just raced in society, eager for bread and love; hedidn’t  care  one  way  or  the  other,  «so  long’s  I  can  get  that  lil  ole  gal  with  that  lil  sumpin  down  theretween her legs, boy,» and «so long’s we can eat, son, y’ear me? I’m hungry, I’m starving, let’s eatright now!»  -  and  off  we’d  rush  to  eat,  whereof,  as  saith  Ecclesiastes,  «It  is  your  portion  under  thesun.»A  western  kinsman  of  the  sun,  Dean.  Although  my  aunt  warned  me  that  he  would  get  me  introuble, I could hear a new call and see a new horizon, and believe it at my young age; and a little bitof trouble or even Dean’s eventual rejection of me as a buddy, putting me down, as he would later,on starving sidewalks and sickbeds - what did it matter? I was a young writer and I wanted to takeoff.Somewhere  along  the  line  I  knew  there’d  be  girls,  visions,  everything;  somewhere  along  the  line the pearl would be handed to me.`;
 
-//  O(n2)
+//  O(n^2)
 function popularSymbol(str) {
   let newStr = str.replace(/\s/g, '');
   let ans = '';
@@ -90,3 +92,188 @@ function popularSymbolObj(str) {
 // console.log(popularSymbolObj('ababazzzz'));
 // console.log(popularSymbolObj(bigStr));
 // console.log('popularSymbolObj', funcSpeed(popularSymbolObj(bigStr)));
+
+//  2
+//  Линейный поиск, сложность - O(n)
+function linearSearchLection() {
+  const arr = [1,2,1,3,2,4];
+
+  function findFirstLeft(array, target) {
+    let result = -1;
+
+    for (let i = 0; i < array.length; i++) {
+      if (result === -1 && array[i] === target) {
+        result = i;
+      }
+    }
+
+    return result;
+  }
+  //console.log(findFirstLeft(arr, 2))
+
+  function findLastLeft(array, target) {
+    let result = -1;
+
+    for (let i = 0; i < array.length; i++) {
+      if (array[i] === target) {
+        result = i;
+      }
+    }
+
+    return result;
+  }
+  //console.log(findLastLeft(arr, 2))
+
+  function findMax(array) {
+    let idx = 0;
+
+    for (let i = 1; i < array.length; i++) {
+      if (array[i] > array[idx]) {
+        idx = i;
+      }
+    }
+
+    return array[idx];
+  }
+  //console.log(findMax(arr))
+
+  function findTwoMax(array) {
+    let max1 = Math.max(array[0], array[1]);
+    let max2 = Math.min(array[0], array[1]);
+
+    for (let i = 0; i < array.length; i++) {
+      if (array[i] > max1) {
+        max2 = max1;
+        max1 = array[i];
+      } else if (array[i] > max2) {
+        max2 = array[i];
+
+      }
+    }
+
+    return [max1, max2];
+  }
+  //console.log(findTwoMax(arr));
+
+  function findMinEven(array) {
+    let flag = false;
+    let result = 0;
+
+    for (let i = 1; i < array.length; i++) {
+      if (array[i] % 2 === 0 && (!flag || array[i] < result)) {
+        result = array[i];
+        flag = true;
+      }
+    }
+
+    return result;
+  }
+  //console.log(findMinEven(arr))
+
+  const wordsArr = ['kryliaSovetov', 'zenit', 'spartak',];
+
+  function findShortestStr(words) {
+    let minlen = words[0].length;
+    let result = [];
+
+    for (word of words) {
+      if (word.length < minlen) {
+        minlen = word.length;
+      }
+    }
+
+    for (word of words) {
+      if (word.length === minlen) {
+        result.push(word);
+      }
+    }
+
+    return result.join(' ');
+  }
+  //console.log(findShortestStr(wordsArr))
+
+  function isflood(h) {
+    let max = 0;
+    let result = 0;
+    let nowm = 0;
+
+    for (let i = 0; i < h.length; i++) {
+      if (h[i] > h[max]) {
+        max = i;
+      }
+    }
+
+    for (let i = 0; i < h.length; i++) {
+      if (h[i] > h[max]) {
+        max = i;
+      }
+    }
+    nowm = 0;
+
+    for (let i = 0; i < max; i++) {
+      if (h[i] > nowm) {
+        nowm = h[i];
+      }
+      result += nowm - h[i];
+    }
+    nowm = 0;
+
+    for (let i = h.length - 1; i < h.length; i--) {
+      if (h[i] > nowm) {
+        nowm = h[i];
+      }
+      result += nowm - h[i];
+    }
+
+    return result;
+  }
+  //console.log(pitCraft()); ??
+
+  // AAAABBBCC -> A4B3C2
+  function preRLETest(str) {
+    let lastChar = str[0];
+    let result = [];
+
+    for (let i = 1; i < str.length; i++) {
+      if (str[i] !== lastChar) {
+        result.push(lastChar);
+        lastChar = str[i];
+      }
+    }
+
+    result.push(lastChar);
+
+    return result.join('');
+  }
+  console.log(preRLETest('AAAABBBCC'));
+
+
+  function  rleTest(str) {
+
+    function pack(s, charCounter) {
+      if (charCounter > 1) {
+        return `${s}${charCounter}`;
+      }
+      return s;
+    }
+
+    let lastChar = str[0];
+    let lastPos = 0;
+    let result = [];
+
+    for (let i = 0; i < str.length; i++) {
+      if (str[i] !== lastChar) {
+        result.push(pack(lastChar, i - lastPos));
+        lastPos = i;
+        lastChar = str[i];
+      }
+    }
+
+    result.push(pack(str[lastPos], str.length - lastPos));
+
+    return result.join('');
+
+  }
+  console.log(rleTest('AAAABBBCC'));
+}
+linearSearchLection();

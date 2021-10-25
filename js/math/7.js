@@ -218,3 +218,17 @@ function getWaterAmountInPreciseMinute(initialValue, consumption, minute) {
 }
 // console.log(getWaterAmountInPreciseMinute(300, 2, 12));
 // console.log(getWaterAmountInPreciseMinute(300, 2, 180));
+
+//  Определить по входным параметрам, какая будет прямая у графика этой функции,
+//  горизонтальная или нет, обратнопропорциональная или нет.
+//  y = kx + b - линейная функция
+//  если в y = kx + b, b === 0 -> y = kx, где k !== 0 - прямая пропорциональность
+//  если в y = kx + b, k === 0 -> y = b, это горизонтальная функция, график параллелен оси абсцисс (оси x)
+
+function linearType(k, b) {
+  if (b === 0) return 'cross center function graph';
+  if (k === 0) return 'horizontal function graph';
+
+  return 'linear function graph';
+}
+//console.log(linearType(0, 2));
