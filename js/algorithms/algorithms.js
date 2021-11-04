@@ -245,7 +245,7 @@ function linearSearchLection() {
 
     return result.join('');
   }
-  console.log(preRLETest('AAAABBBCC'));
+  //console.log(preRLETest('AAAABBBCC'));
 
 
   function  rleTest(str) {
@@ -274,6 +274,86 @@ function linearSearchLection() {
     return result.join('');
 
   }
-  console.log(rleTest('AAAABBBCC'));
+  //console.log(rleTest('AAAABBBCC'));
 }
 linearSearchLection();
+
+//  3
+//  Множества, хэш-функция, хэш-таблица, коллизия, амортизированная сложность
+function sets() {
+  const setSize = 10;
+  const mySet = new Array(setSize).fill([]);
+
+  function addToMySet(x) {
+    mySet[x % setSize].push(x);
+  }
+
+  function findInMySet(x) {
+    for (now of mySet[x % setSize]) {
+      if (now === x) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  function deleteFromMySet(x) {
+    xList = mySet[x % setSize];
+
+    for (let i = 0; i < sList.length; i++) {
+      if (xList[i] === x) {
+        let a = xList[i];
+        let b = xList[xList.length -1];
+        [a, b] = [b, a];
+        xList.pop();
+        return;
+      }
+    }
+  }
+  //  O(n^2)
+  function findSumOfX(numsArr, x) {
+    for (let i = 0; i < numsArr.length; i++) {
+      for (let j = 0; j < numsArr.length; j++) {
+        if (numsArr[i] + numsArr[j] === x) {
+          return [numsArr[i], numsArr[j]];
+        }
+      }
+    }
+    return [];
+  }
+  //  console.log(findSumOfX([1,2,3,4,5], 5));
+
+  //  O(n)
+  function findSumOfXOpt(numsArr, x) {
+    const prevNums = new Set();
+
+    for (let i = 0; i < numsArr.length; i++) {
+      if (prevNums.has(x - numsArr[i])) {
+        return [numsArr[i], x - numsArr[i]];
+      }
+      prevNums.add(numsArr[i]);
+    }
+    return [];
+  }
+  //  console.log(findSumOfXOpt([1,2,3,4,5], 5));
+
+  //  O(nk + m)
+  function wordsInDict(dict, text) {
+    const goodWords = new Set(dict);
+    const result = [];
+
+    for (let i = 0; i < dict.length; i++) {
+      for (let j = 0; j < dict[i].length; j++) {
+        goodWords.add(dict[i].slice(j) + dict[i].slice(j + 1));
+      }
+    }
+
+    for (word of text) {
+      if (goodWords.has(word)) {
+        result.push(word);
+      }
+    }
+  }
+
+}
+sets();

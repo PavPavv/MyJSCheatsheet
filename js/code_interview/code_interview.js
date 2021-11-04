@@ -979,8 +979,37 @@ const numberifyStrTillEnd1 = (str) => {
 };
 // console.log(numberifyStrTillEnd1('AABCEEEDDCAAYYY'));
 
+function  numberifyStrTillEnd2(str) {
+
+  function pack(s, charCounter) {
+    if (charCounter > 1) {
+      return `${s}${charCounter}`;
+    }
+    return s;
+  }
+
+  let lastChar = str[0];
+  let lastPos = 0;
+  let result = [];
+
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] !== lastChar) {
+      result.push(pack(lastChar, i - lastPos));
+      lastPos = i;
+      lastChar = str[i];
+    }
+  }
+
+  result.push(pack(str[lastPos], str.length - lastPos));
+
+  return result.join('');
+
+}
+// console.log(numberifyStrTillEnd2('AABCEEEDDCAAYYY'));
+//
 // console.log('numberifyStrTillEnd', funcSpeed(numberifyStrTillEnd('AABCEEEDDCAAYYY')));
 // console.log('numberifyStrTillEnd1', funcSpeed(numberifyStrTillEnd1('AABCEEEDDCAAYYY')));
+// console.log('numberifyStrTillEnd2', funcSpeed(numberifyStrTillEnd2('AABCEEEDDCAAYYY')));
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 // 31

@@ -817,10 +817,40 @@ function catchUp(firstSpeed, secondSpeed, distance) {
   //
   // return [parseInt(hours), minutes, seconds];
 }
-console.log(catchUp(720, 850, 70))
-console.log(catchUp(80, 91, 37));
+// console.log(catchUp(720, 850, 70))
+// console.log(catchUp(80, 91, 37));
 
 function race(v1, v2, g){
   let time=g/(v2-v1);
   return v2>v1 ? [Math.floor(time),Math.floor(time*60%60),Math.floor(time*3600%60)] : null;
 }
+
+//  25 (Counting Duplicates) Level 6
+function duplicateCount(str) {
+  const obj = {};
+  const result = [];
+  const lowerdStr = str.toLowerCase();
+
+  for (let i = 0; i < lowerdStr.length; i++) {
+    obj[lowerdStr[i]] = obj[lowerdStr[i]] ? obj[lowerdStr[i]] + 1 : 1;
+  }
+
+  for (let letter in obj) {
+    if (obj[letter] > 1) {
+      result.push(letter);
+    }
+  }
+
+  return result.length;
+}
+console.log(duplicateCount('aabBcde'));
+
+function duplicateCountOpt(text){
+  return (text
+              .toLowerCase()
+              .split('')
+              .sort()
+              .join('')
+              .match(/([^])\1+/g) || []).length;
+}
+console.log(duplicateCountOpt('aabBcde'));
