@@ -1222,3 +1222,55 @@ function getLongestCommonPattern(strArr) {
   return commonPart;
 }
 //console.log(getLongestCommonPattern(['quflower', 'qiflow', 'sportflowlight']));
+
+////////////////////////////////////////////////////////////////////////////////
+/**
+  * @param {number}
+  * @return {number}
+  * func(3) -> 6 (1 + 2 + 3)
+*/
+
+function sumToLoop(n) {
+  let result = 0;
+
+  for (let i = 1; i <= n; i++) {
+    result += i;
+  }
+
+  return result;
+}
+// console.log(sumToLoop(3))
+// console.log(sumToLoop(4))
+// console.log(sumToLoop(100))
+
+
+function sumToRec(n) {
+  if (n === 1) {
+    return n;
+  } else {
+    return n + sumToRec(n - 1);
+  }
+}
+// console.log(sumToRec(3));
+// console.log(sumToRec(4));
+// console.log(sumToRec(100));
+
+function sumToProgression(n) {
+  return n * (n + 1) / 2;
+}
+// console.log(sumToProgression(3))
+// console.log(sumToProgression(4))
+// console.log(sumToProgression(100))
+
+////////////////////////////////////////////////////////////////////////////////
+/**
+* @param {number}
+* @return {number}
+* func(4) -> 24 (4 * 3 * 2 * 1)
+*/
+function factorial(n) {
+
+}
+console.log(factorial(3));
+console.log(factorial(4));
+console.log(factorial(5));
