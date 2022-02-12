@@ -1,11 +1,4 @@
-# Разбор вопросов с собебеседований для фронтэнд-разработчика.
-> Проследнее обновление: 02/01/2022
+# JavaScript questions
 
-Пока довольна сумбурная, но, тем не менее, проверенная на многих собеседованиях, подборка основных вопросов по JS.
-Планирую структурировать, упорядочить и, если найду время, сделать англоязычную версию ответов на вопросы.
-
-## Содержание:
-- :page_with_curl: [Вопросы по верстке](./html-css_interview.md)
-- :page_with_curl: [Впоросы по JS (базовый уровень)](./js_interview_basics.md)
-- :page_with_curl: [Вопросы по JS (middle-уровень)](./js_interview_middle.md)
-- :page_with_curl: [Вопросы по JS (senior)](./js_interview_senior.md)
+- [Русская версия](./interview_RU/table_of_content.md)
+- [English version](./interview_EN/table_of_content.md)
