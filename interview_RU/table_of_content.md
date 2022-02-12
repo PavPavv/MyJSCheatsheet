@@ -8,3 +8,4 @@
 - :page_with_curl: [Вопросы по верстке](./html-css_interview.md)
 - :page_with_curl: [Впоросы по JS (базовый уровень)](./js_interview_basics.md)
 - :page_with_curl: [Вопросы по JS (middle-уровень)](./js_interview_middle.md)
+- :page_with_curl: [React](./react.md)
