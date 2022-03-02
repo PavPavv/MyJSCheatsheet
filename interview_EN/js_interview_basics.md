@@ -528,3 +528,85 @@ Rectangles on the right-hand side demonstrate how the global Lexical Environment
 4. phrase changes the value.
 
 > “Lexical Environment” is a specification object: it only exists “theoretically” in the language specification to describe how things work. We can’t get this object in our code and manipulate it directly.
+
+A function is also a value, like a variable. The difference is that a Function Declaration is instantly fully initialized. During the function call we have two Lexical Environments: the inner one (for the function call) and the outer one (global).
+When the code wants to access a variable – the inner Lexical Environment is searched first, then the outer one, then the more outer one and so on until the global one.
+All functions have the hidden property named **[[Environment]]**, that keeps the reference to the Lexical Environment where the function was created.
+
+A closure is a function that remembers its outer variables and can access them. In some languages, that’s not possible, or a function should be written in a special way to make it happen. But as explained above, in JavaScript, all functions are naturally closures (there is only one exception, to be covered in The "new Function" syntax).
+
+
+## 22. Garbage collector
+In JavaScript object only kept in memory while it’s reachable.
+A Lexical Environment object dies when it becomes unreachable (just like any other object). In other words, it exists only while there’s at least one nested function referencing it.
+
+
+## 21. useStrict
+
+- If a variable is not found anywhere, that’s an error in strict mode (without use strict, an assignment to a non-existing variable creates a new global variable, for compatibility with old code).
+- **this** default value is **undefined**
+- you can not create new instace of the class without **new**-keyword
+- you can not create functions with **eval()**
+- you cannot duplicate parameters
+- you can not delete "non-removable" object property
+
+## 22. This
+To access the object, a method can use the **this** keyword. The value of **this** is the object “before dot”, the one used to call the method.
+In JavaScript, keyword **this** behaves unlike most other programming languages. It can be used in any function, even if it’s not a method of an object.
+
+In JavaScript **this** is “free”, its value is evaluated at call-time and does not depend on where the method was declared, but rather on what object is “before the dot”. The value of this is defined at run-time.
+
+Arrow functions are special: they don’t have their “own” **this**. If we reference **this** from such a function, it’s taken from the outer “normal” function.
+```javascript
+function getCtxName() {
+  return this.name;
+}
+const person = {
+  name: 'Paul',
+};
+const test = getCtxName.bind(person)
+console.log(test()) //  Paul
+```
+
+## 23. Breaking loops in JS
+```javascript
+let sum = 0;
+
+while (true) {
+  let value = +prompt("Enter a number", '');
+  if (!value) break;  //  <<< breaking
+  sum += value;
+}
+```
+
+The **continue** directive is a “lighter version” of **break**. It doesn’t stop the whole loop. Instead, it stops the current iteration and forces the loop to start a new one (if the condition allows).
+```javascript
+for (let i = 0; i < 10; i++) {
+  // if true, skip the remaining part of the body
+  if (i % 2 == 0) continue;
+  alert(i); // 1, then 3, 5, 7, 9
+}
+```
+```javascript
+for (let i = 0; i < 10; i++) {
+  if (i % 2) {
+    alert( i );
+  }
+}
+```
+From a technical point of view, this is identical to the example above. Surely, we can just wrap the code in an **if** block instead of using **continue**.
+But as a side-effect, this created one more level of nesting (the alert call inside the curly braces). If the code inside of **if** is longer than a few lines, that may decrease the overall readability.
+
+A **label** is an identifier with a colon(**:**) before a loop:
+```javascript
+outer: for (let i = 0; i < 3; i++) {
+  for (let j = 0; j < 3; j++) {
+    let input = prompt(`Value at coords (${i},${j})`, '');
+    // if an empty string or canceled, then break out of both loops
+    if (!input) break outer; // (*)
+    // do something with the value...
+  }
+}
+alert('Done!');
+```
+In the code above, **break** outer looks upwards for the **label** named outer and breaks out of that loop. So the control goes straight from (*) to _alert('Done!')_. The **continue** directive can also be used with a **label**. In this case, code execution jumps to the next iteration of the labeled loop.
