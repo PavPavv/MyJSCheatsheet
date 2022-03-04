@@ -37,8 +37,9 @@ true && console.log("Seen");
 1.  !
 2.  &&
 3.  ||
+4. ??
 
-## 6. Type Conversions
+## 6. Type conversions
 
 - ToBoolean
 - ToString
@@ -179,7 +180,33 @@ o.name = "Mark";
 
 console.log(o); //  {name: "Albert"}
 console.log(o.greeting()); //  'Hi, I'm Albert!'
+
+//  it is working like:
+if (!Object.create) {
+	Object.create = function(o) {
+		function F(){}
+		F.prototype = o;
+		return new F();
+	};
+}
+
+var myObject = Object.create( anotherObject, {
+	b: {
+		enumerable: false,
+		writable: true,
+		configurable: false,
+		value: 3
+	},
+	c: {
+		enumerable: true,
+		writable: false,
+		configurable: false,
+		value: 4
+	}
+} );
 ```
+**Object.create(obj)** creates a new object linked to the object we specified, which gives us all the power (delegation) of the **[[Prototype]]** mechanism, but without any of the unnecessary complication of new functions acting as classes and constructor calls, confusing .prototype and .constructor references, or any of that extra stuff.
+The second argument to **Object.create(..)** specifies property names to add to the newly created object, via declaring each new property's property descriptor.
 
 4. Constructor function:
 
@@ -359,7 +386,9 @@ const job = {
 
 // perform deep merge
 const user = merge(profile, job);
+For a variety of reasons, not the least of which is terminology precedent, "inheritance" (and "prototypal inheritance") and all the other OO terms just do not make sense when considering how JavaScript actually works (not just applied to our forced mental models).
 
+Instead, "delegation" is a more appropriate term, because these relationships are not copies but delegation links.
 console.log(user);
 
 // {
@@ -610,3 +639,169 @@ outer: for (let i = 0; i < 3; i++) {
 alert('Done!');
 ```
 In the code above, **break** outer looks upwards for the **label** named outer and breaks out of that loop. So the control goes straight from (*) to _alert('Done!')_. The **continue** directive can also be used with a **label**. In this case, code execution jumps to the next iteration of the labeled loop.
+
+## 24. Object to primitive conversion
+Types convertions for **object**
+1. All objects are true in a boolean context. There are only numeric and string conversions.
+2. The numeric conversion happens when we subtract objects or apply mathematical functions. For instance, Date objects (to be covered in the chapter Date and time) can be subtracted, and the result of date1 - date2 is the time difference between two dates.
+3. As for the string conversion – it usually happens when we output an object like alert(obj) and in similar contexts.
+
+There are three variants of type conversion, that happen in various situations. They’re called “hints”, as described in the specification:
+1. "string"
+2. "number"
+3. "default"
+
+###### Symbol.toPrimitive
+There’s a built-in symbol named Symbol.toPrimitive that should be used to name the conversion method, like this:
+```javascript
+let user = {
+  name: "John",
+  money: 1000,
+
+  [Symbol.toPrimitive](hint) {
+    alert(`hint: ${hint}`);
+    return hint == "string" ? `{name: "${this.name}"}` : this.money;
+  }
+};
+```
+If the method Symbol.toPrimitive exists, it’s used for all hints, and no more methods are needed.
+
+If there’s no Symbol.toPrimitive then JavaScript tries to find methods toString and valueOf:
+- For the “string” hint: toString, and if it doesn’t exist, then valueOf (so toString has the priority for string conversions).
+- For other hints: valueOf, and if it doesn’t exist, then toString (so valueOf has the priority for maths).
+
+The only mandatory thing: these methods must return a primitive, not an object.
+For historical reasons, if **toString** or **valueOf** returns an object, there’s no error, but such value is ignored (like if the method didn’t exist). That’s because in ancient times there was no good “error” concept in JavaScript.
+In contrast, **Symbol.toPrimitive** must return a primitive, otherwise there will be an error.
+
+## 25. Nullish coalescing operator (??)
+is a logical operator that returns its right-hand side operand when its left-hand side operand is **null** or **undefined**, and otherwise returns its left-hand side operand.
+```javascript
+const test = null || 'default string';
+
+const foo = null ?? 'default string';
+console.log(foo);
+// expected output: "default string"
+```
+Due to **||** being a boolean logical operator, the left hand-side operand was coerced to a boolean for the evaluation and any falsy value (0, '', **NaN**, **null**, **undefined**) was not returned. This behavior may cause unexpected consequences if you consider 0, '', or **NaN** as valid values.
+
+It is not possible to combine both the AND (**&&**) and OR operators (**||**) directly with **??**!
+However, providing parenthesis to explicitly indicate precedence is correct:
+```javascript
+(null || undefined) ?? "foo"; // returns "foo"
+
+let foo = { someFooProp: "hi" };
+console.log(foo.someFooProp?.toUpperCase() ?? "not available"); // "HI"
+```
+
+## Prototype
+Objects in JavaScript have an internal property, denoted in the specification as **[[Prototype]]**, which is simply a reference to another object. Almost all objects are given a non-**null** value for this property, at the time of their creation.
+The default **[[Get]]** operation proceeds to follow the **[[Prototype]]** link of the object if it cannot find the requested property on the object directly. This process continues until either a matching property name is found, or the **[[Prototype]]** chain ends. If no matching property is ever found by the end of the chain, the return result from the **[[Get]]** operation is undefined.
+
+1. If a normal data accessor (see Chapter 3) property named foo is found anywhere higher on the [[Prototype]] chain, and it's not marked as read-only (writable:false) then a new property called foo is added directly to myObject, resulting in a shadowed property.
+2. If a foo is found higher on the [[Prototype]] chain, but it's marked as read-only (writable:false), then both the setting of that existing property as well as the creation of the shadowed property on myObject are disallowed. If the code is running in strict mode, an error will be thrown. Otherwise, the setting of the property value will silently be ignored. Either way, no shadowing occurs.
+3. If a foo is found higher on the [[Prototype]] chain and it's a setter (see Chapter 3), then the setter will always be called. No foo will be added to (aka, shadowed on) myObject, nor will the foo setter be redefined.
+
+```javascript
+var anotherObject = {
+	a: 2
+};
+
+var myObject = Object.create( anotherObject );
+
+anotherObject.a; // 2
+myObject.a; // 2
+
+anotherObject.hasOwnProperty( "a" ); // true
+myObject.hasOwnProperty( "a" ); // false
+
+myObject.a++; // oops, implicit shadowing!
+
+anotherObject.a; // 2
+myObject.a; // 3
+```
+> In JavaScript, there are no abstract patterns/blueprints for objects called "classes" as there are in class-oriented languages. JavaScript just has objects. All functions by default get a public, non-enumerable property on them called **prototype**, which points at an otherwise arbitrary object.
+```javascript
+function test () {
+  return ''
+}
+console.log(test.prototype)
+// Output:
+  // {constructor: ƒ}
+  // constructor: ƒ test()
+  // length: 0
+  // name: "test"
+  // prototype:
+  // constructor: ƒ test()
+  // [[Prototype]]: Object
+  // arguments: (...)
+  // caller: (...)
+  // [[FunctionLocation]]: test.html:14
+  // [[Prototype]]: ƒ ()
+  // [[Scopes]]: Scopes[2]
+  // [[Prototype]]: Object
+```
+
+"Inheritance" implies a copy operation, and JavaScript doesn't copy object properties (natively, by default). Instead, JS creates a link between two objects, where one object can essentially delegate property/function access to another object. "Delegation" is a much more accurate term for JavaScript's object-linking mechanism.
+> In JavaScript, it's most appropriate to say that a "constructor" is any function called with the new keyword in front of it. Functions aren't constructors, but function calls are "constructor calls" if and only if **new** is used.
+```javascript
+function test(name) {
+  this.name = name;
+}
+
+test.prototype.name = function() {
+  return this.name;
+}
+
+var test1 = new test("Vpn");
+console.log(test1);
+console.log(test1.name);
+// Output:
+// test {name: 'Vpn'}
+// test.html:23 Vpn
+
+
+// pre-ES6
+// throws away default existing `Bar.prototype`
+Bar.prototype = Object.create( Foo.prototype );
+
+// ES6+
+// modifies existing `Bar.prototype`
+Object.setPrototypeOf( Bar.prototype, Foo.prototype );
+```
+>  Inspecting an instance (just an object in JS) for its inheritance ancestry (delegation linkage in JS) is often called _introspection_ (or _reflection_) in traditional class-oriented environments.
+
+1. 
+```javascript
+a instanceof Foo; // true
+```
+The question **instanceof** answers is: in the entire **[[Prototype]]** chain of _a_, does the object arbitrarily pointed to by _Foo.prototype_ ever appear?
+If you have two arbitrary objects, say _a_ and _b_, and want to find out if the objects are related to each other through a **[[Prototype]]** chain, **instanceof** alone can't help.
+
+2. The second, and much cleaner, approach to **[[Prototype]]** reflection is:
+```javascript
+Foo.prototype.isPrototypeOf( a ); // true
+```
+
+3. 
+```javascript
+a.__proto__ === Foo.prototype; // true
+
+//  it is smth like:
+Object.defineProperty( Object.prototype, "__proto__", {
+	get: function() {
+		return Object.getPrototypeOf( this );
+	},
+	set: function(o) {
+		// setPrototypeOf(..) as of ES6
+		Object.setPrototypeOf( this, o );
+		return o;
+	}
+} );
+```
+.__ **proto** __ looks like a property, but it's actually more appropriate to think of it as a getter/setter. 
+
+> It's best to treat object **[[Prototype]]** linkage as a read-only characteristic for ease of reading your code later.
+
+For a variety of reasons, not the least of which is terminology precedent, "inheritance" (and "prototypal inheritance") and all the other OO terms just do not make sense when considering how JavaScript actually works (not just applied to our forced mental models).
+Instead, "delegation" is a more appropriate term, because these relationships are not copies but delegation links.
