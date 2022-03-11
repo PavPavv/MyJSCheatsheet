@@ -123,7 +123,15 @@ o.b; // 38
 // unless o.b is redefine
 ```
 
-## 2. Promises
+## 2. The Execution Context And The Call Stack
+The execution context is a wrapper around the currently executing code. It consists of the following:
+1. The this variable. Every execution context provides the this variable which refers to an object to which the currently executing code belongs.
+2. The variable environment — a place in memory where variable lives and how they relate with each other. Each execution context has its variable environment.
+3. The outer environment. When we execute code within a function the outer environment is the code outside of that function — at the global level, it is null.
+
+When the JavaScript engine starts executing our code, a base execution context — the global execution context is created. Also, anytime a function is invoked a new execution context is created and placed on top of the stack. And when a function returns its execution context is popped off the call stack. This stack of the execution contexts that are created during code execution is called the call stack.
+
+## 3. Promises
 The **Promise** object represents the eventual completion (or failure) of an asynchronous operation and its resulting value. Essentially, a **promise** is a returned object to which you attach callbacks, instead of passing callbacks into a function.
 
 A **Promise* is in one of these states:
@@ -264,7 +272,7 @@ Creates a new Promise object. The constructor is primarily used to wrap function
 
 - **Promise.race(iterable)** Wait until any of the promises is fulfilled or rejected. If the returned promise resolves, it is resolved with the value of the first promise in the iterable that resolved. If it rejects, it is rejected with the reason from the first promise that was rejected.
 
-## 3. Task queues vs microtasks
+## 4. Task queues vs microtasks
 Promise callbacks are handled as a Microtask whereas setTimeout() callbacks are handled as Task queues.
 ```javascript
 const promise = new Promise(function(resolve, reject) {

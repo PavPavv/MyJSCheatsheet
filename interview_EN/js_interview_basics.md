@@ -776,9 +776,6 @@ sortName("Jane", "Steve", "Ada")
 // returns [ 'Ada', 'Jane', 'Steve' ]
 ```
 
-
-
-
 ## 28. Nullish coalescing operator (??)
 is a logical operator that returns its right-hand side operand when its left-hand side operand is **null** or **undefined**, and otherwise returns its left-hand side operand.
 ```javascript
@@ -799,7 +796,16 @@ let foo = { someFooProp: "hi" };
 console.log(foo.someFooProp?.toUpperCase() ?? "not available"); // "HI"
 ```
 
-## 29. Prototype
+## 29. Function currying and partial functions
+The important design pattern called _function currying_ is possible due to Closures.
+```javascript
+const multiply = (a) => (b) => a * b
+const multiplyByTwo = multiply(2);
+const multiplyByTwo(4) // returns 8
+const multiplyByTwo(6) // returns 12
+```
+
+## 30. Prototype
 Objects in JavaScript have an internal property, denoted in the specification as **[[Prototype]]**, which is simply a reference to another object. Almost all objects are given a non-**null** value for this property, at the time of their creation.
 The default **[[Get]]** operation proceeds to follow the **[[Prototype]]** link of the object if it cannot find the requested property on the object directly. This process continues until either a matching property name is found, or the **[[Prototype]]** chain ends. If no matching property is ever found by the end of the chain, the return result from the **[[Get]]** operation is undefined.
 
@@ -911,19 +917,4 @@ Object.defineProperty( Object.prototype, "__proto__", {
 For a variety of reasons, not the least of which is terminology precedent, "inheritance" (and "prototypal inheritance") and all the other OO terms just do not make sense when considering how JavaScript actually works (not just applied to our forced mental models).
 Instead, "delegation" is a more appropriate term, because these relationships are not copies but delegation links.
 
-## 30. The Execution Context And The Call Stack
-The execution context is a wrapper around the currently executing code. It consists of the following:
-1. The this variable. Every execution context provides the this variable which refers to an object to which the currently executing code belongs.
-2. The variable environment — a place in memory where variable lives and how they relate with each other. Each execution context has its variable environment.
-3. The outer environment. When we execute code within a function the outer environment is the code outside of that function — at the global level, it is null.
-
-When the JavaScript engine starts executing our code, a base execution context — the global execution context is created. Also, anytime a function is invoked a new execution context is created and placed on top of the stack. And when a function returns its execution context is popped off the call stack. This stack of the execution contexts that are created during code execution is called the call stack.
-
-## 31. Function currying and partial functions
-The important design pattern called _function currying_ is possible due to Closures.
-```javascript
-const multiply = (a) => (b) => a * b
-const multiplyByTwo = multiply(2);
-const multiplyByTwo(4) // returns 8
-const multiplyByTwo(6) // returns 12
-```
+31. Constructor functions, classes

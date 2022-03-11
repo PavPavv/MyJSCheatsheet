@@ -117,6 +117,59 @@ for (var i = 0; i <= 5; i++) {
 ```
 
 ## 4. Что такое temporal dead zone?
+```javascript
+const EventEmitter = require('events').EventEmitter;
+
+class CrazyEmitter extends EventEmitter {
+  constructor() {
+    super();
+    setInterval(() => {
+      this.emit(Math.random() > 0.5 ? 'resolve' : 'reject');
+    }, 1000);
+  }
+}
+
+class Watcher {
+  firstEvent(emitter) {
+    return new Promise((resolve, reject) => {
+      const onResolve = () => {
+        console.log('resolve');
+        emitter.removeListener('reject', onReject);
+        resolve();
+      };
+
+      const onReject = () => {
+        console.log('reject');
+        emitter.removeListener('resolve', onResolve);
+        reject();
+      };
+
+      emitter.once('resolve', onResolve);
+      emitter.once('reject', onReject);
+    });
+  }
+}
+
+const watcher = new Watcher();
+const emitter = new CrazyEmitter();
+
+function runNext() {
+    watcher.firstEvent(emitter).then(runNext).catch(runNext);
+}
+
+runNext();
+```
+**ReferenceError** бросается когда имеет место попытка обращения к переменной раньше ее инициализации, но речь именно об инструкциях обращения и их порядке, а не о расположении обьявления переменнойы в коде.
+
+Если говорить об инструкциях на примере выше, то движок будет обрабатывать код следующим образом (на пальцах):
+1. сперва строит LexicalEnvironment функции в promise;
+2. на этапе построения создаются переменные объявленные с использованием ключевых слов let и const, но не происходит инцииализации переменных;
+3. начинается выполнение инструкций;
+4. если инструкция пытается обратиться к переменной объявленной с let или const, но которая еще неинициализирована, то произойдет бросок ReferenceError;
+5. при встрече инструкции по созданию функции onResolve создастся LexicalEnvironment ассоциированный с этой функцией и привязывается LexicalEnvironment из первого пункта, другими словами, создается замыкание в которые попали переменные onReject, emitter, resolve, reject, etc
+6. обращения к onReject не происходило, потому никаких исключений нет
+7. к моменту когда начнет выполняться onResolve переменная onReject уже будет инициирована и обращение не вызовет исключения
+
 
 ## 5. Пример нативного модуля (через замыкание)
 
