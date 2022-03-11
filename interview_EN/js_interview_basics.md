@@ -539,6 +539,12 @@ for (const i=0; i<3; i++) {
 }
 ```
 
+- Avoiding global variables; hiding variables from global scope
+- Creating fresh environments; avoiding sharing
+- Keeping global data private to all of a constructor
+- Attaching global data to a singleton object
+- Attaching global data to a method (see Attaching global data to a method)
+
 ## 20. Closure
 In JavaScript, every running function, code block {...}, and the script as a whole have an internal (hidden) associated object known as the Lexical Environment.
 
@@ -565,12 +571,54 @@ All functions have the hidden property named **[[Environment]]**, that keeps the
 A closure is a function that remembers its outer variables and can access them. In some languages, that’s not possible, or a function should be written in a special way to make it happen. But as explained above, in JavaScript, all functions are naturally closures (there is only one exception, to be covered in The "new Function" syntax).
 
 
-## 22. Garbage collector
+##  22. New scope via an IIFE
+You typically introduce a new scope to restrict the lifetime of a variable. One example where you may want to do so is the “then” part of an if statement: it is executed only if the condition holds; and if it exclusively uses helper variables, we don’t want them to “leak out” into the surrounding scope:
+```javascript
+function f() {
+  if (condition) {
+      var tmp = ...;
+      ...
+  }
+  // tmp still exists here
+  // => not what we want
+}
+```
+This is a workaround, a simulation of block scoping:
+```javascript
+function f() {
+  if (condition) {
+    (function () {  // open block
+      var tmp = ...;
+      ...
+    }());  // close block
+  }
+}
+```
+This is Immediately Invoked Function Expression (IIFE):
+```javascript
+(function () { // open IIFE
+  // inside IIFE
+}()); // close IIFE
+```
+
+You can also enforce the expression context via prefix operators. For example, you can do so via the logical Not operator:
+```javascript
+!function () { // open IIFE
+  // inside IIFE
+}(); // close IIFE
+```
+or via the void operator:
+```javascript
+void function () { // open IIFE
+  // inside IIFE
+}(); // close IIFE
+```
+## 23. Garbage collector
 In JavaScript object only kept in memory while it’s reachable.
 A Lexical Environment object dies when it becomes unreachable (just like any other object). In other words, it exists only while there’s at least one nested function referencing it.
 
 
-## 21. useStrict
+## 24. useStrict
 
 - If a variable is not found anywhere, that’s an error in strict mode (without use strict, an assignment to a non-existing variable creates a new global variable, for compatibility with old code).
 - **this** default value is **undefined**
@@ -579,7 +627,7 @@ A Lexical Environment object dies when it becomes unreachable (just like any oth
 - you cannot duplicate parameters
 - you can not delete "non-removable" object property
 
-## 22. This
+## 25. This
 To access the object, a method can use the **this** keyword. The value of **this** is the object “before dot”, the one used to call the method.
 In JavaScript, keyword **this** behaves unlike most other programming languages. It can be used in any function, even if it’s not a method of an object.
 
@@ -640,7 +688,7 @@ alert('Done!');
 ```
 In the code above, **break** outer looks upwards for the **label** named outer and breaks out of that loop. So the control goes straight from (*) to _alert('Done!')_. The **continue** directive can also be used with a **label**. In this case, code execution jumps to the next iteration of the labeled loop.
 
-## 24. Object to primitive conversion
+## 26. Object to primitive conversion
 Types convertions for **object**
 1. All objects are true in a boolean context. There are only numeric and string conversions.
 2. The numeric conversion happens when we subtract objects or apply mathematical functions. For instance, Date objects (to be covered in the chapter Date and time) can be subtracted, and the result of date1 - date2 is the time difference between two dates.
@@ -674,7 +722,7 @@ The only mandatory thing: these methods must return a primitive, not an object.
 For historical reasons, if **toString** or **valueOf** returns an object, there’s no error, but such value is ignored (like if the method didn’t exist). That’s because in ancient times there was no good “error” concept in JavaScript.
 In contrast, **Symbol.toPrimitive** must return a primitive, otherwise there will be an error.
 
-## 25. Call, apply, bind
+## 27. Call, apply, bind
 In JavaScript, everything is an object. So a function in JavaScript is a special object that has all the properties of a normal object and some special hidden properties, such as the code property and an optional name property — functions in JavaScript can be anonymous.
 **call**, **apply**, and **bind** are built-in methods in all JavaScript functions.
 The call, apply and bind functions are similar in terms that they enable us to set the **this** context. Consequently, they enable us to control the behavior of the **this** variable.
@@ -697,7 +745,41 @@ When the first argument is **null** or **undefined** the **this** variable point
 The limitations of **call()** quickly become apparent in cases where we do not know the amount of argument a function would take.
 **apply()** shines in this scenario since it takes an array of arguments as its second argument.
 
-## 26. Nullish coalescing operator (??)
+The **bind()** method in particular is suited for function currying because it creates a new copy of the function.
+```javascript
+const multiplyByTwo = multiply.bind(this, 2)
+multiplyByTwo(4); // returns 8
+const multiplyByTwo(6) // returns 12
+```
+
+##### Function borrowing
+Method or function borrowing is a way for an object to use the method of another object without redefining that method. This pattern allows an object to borrow the methods of other objects without inheriting their properties and methods. call, apply, and bind can all be used for method borrowing.
+```javascript
+const Vehicle = {
+  name: 'Vehicle',
+  type: 'vehicle',
+  start: function() { 
+      return `starting the ${this.name} ${this.type}`
+  },
+  stop: function() {
+      return `stopped the ${this.name} ${this.type}`
+  }
+};
+
+const car = { name: 'Toyota', type: 'car' }
+Vehicle.start.call(car) // returns starting the car Toyota
+Vehicle.stop.call(car) // stopped the Toyota car
+
+
+const sortName = (...args) => Array.prototype.slice.apply(args).sort();
+sortName("Jane", "Steve", "Ada")
+// returns [ 'Ada', 'Jane', 'Steve' ]
+```
+
+
+
+
+## 28. Nullish coalescing operator (??)
 is a logical operator that returns its right-hand side operand when its left-hand side operand is **null** or **undefined**, and otherwise returns its left-hand side operand.
 ```javascript
 const test = null || 'default string';
@@ -717,7 +799,7 @@ let foo = { someFooProp: "hi" };
 console.log(foo.someFooProp?.toUpperCase() ?? "not available"); // "HI"
 ```
 
-## 27. Prototype
+## 29. Prototype
 Objects in JavaScript have an internal property, denoted in the specification as **[[Prototype]]**, which is simply a reference to another object. Almost all objects are given a non-**null** value for this property, at the time of their creation.
 The default **[[Get]]** operation proceeds to follow the **[[Prototype]]** link of the object if it cannot find the requested property on the object directly. This process continues until either a matching property name is found, or the **[[Prototype]]** chain ends. If no matching property is ever found by the end of the chain, the return result from the **[[Get]]** operation is undefined.
 
@@ -829,10 +911,19 @@ Object.defineProperty( Object.prototype, "__proto__", {
 For a variety of reasons, not the least of which is terminology precedent, "inheritance" (and "prototypal inheritance") and all the other OO terms just do not make sense when considering how JavaScript actually works (not just applied to our forced mental models).
 Instead, "delegation" is a more appropriate term, because these relationships are not copies but delegation links.
 
-## 28. The Execution Context And The Call Stack
+## 30. The Execution Context And The Call Stack
 The execution context is a wrapper around the currently executing code. It consists of the following:
 1. The this variable. Every execution context provides the this variable which refers to an object to which the currently executing code belongs.
 2. The variable environment — a place in memory where variable lives and how they relate with each other. Each execution context has its variable environment.
 3. The outer environment. When we execute code within a function the outer environment is the code outside of that function — at the global level, it is null.
 
 When the JavaScript engine starts executing our code, a base execution context — the global execution context is created. Also, anytime a function is invoked a new execution context is created and placed on top of the stack. And when a function returns its execution context is popped off the call stack. This stack of the execution contexts that are created during code execution is called the call stack.
+
+## 31. Function currying and partial functions
+The important design pattern called _function currying_ is possible due to Closures.
+```javascript
+const multiply = (a) => (b) => a * b
+const multiplyByTwo = multiply(2);
+const multiplyByTwo(4) // returns 8
+const multiplyByTwo(6) // returns 12
+```
