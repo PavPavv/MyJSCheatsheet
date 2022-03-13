@@ -2,7 +2,17 @@
 
 ## 1. Назовите способы задать свойство объекту
 
-1.
+1. Напрямую обратиться к объекту:
+```javascript
+const user = {
+  firstName: "Albert`",
+  surname: "Camus",
+};
+user.phone = '89374565434';
+console.log(user)
+```
+
+2. встроенный геттер/сеттер объекта
 
 ```javascript
 const user = {
@@ -26,7 +36,7 @@ console.log(user.nameN); // 'Albert'
 console.log(user.getFullName()); // 'Albert Camus'
 ```
 
-2.
+3. встроенное глобальное свойство **defineProperty(obj, prop, {descriptor})**
 
 ```javascript
 const user = {
