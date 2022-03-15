@@ -97,7 +97,7 @@ setTimeout(() => {
 }, 0);
 console.log("Print something");
 ```
-
+Browser engine has some web API, so when engine find some methods of that API, it is marked as asynchronous methods and placed in a call stack after the synchronous tasks.
 ## 8. Difference between spread and rest operators
 When we see **...** in the code, it is either rest parameters or the spread syntax. There’s an easy way to distinguish between them:
 - When **...** is at the end of function parameters, it’s “rest parameters” and gathers the rest of the list of arguments into an array.
