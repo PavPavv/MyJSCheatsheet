@@ -469,7 +469,7 @@ function hoistMe() {
   console.log("I'm a hoisted function.");
 }
 ```
-A variable assignment will always take precedence over a function declaration. The internal JavaScript interpreter will always give precedence to a function declaration.
+A variable assignment will always take precedence over a function declaration. The internal JavaScript interpreter will always give precedence to a function declaration over **var** declaration.
 
 1. **var** assignment 
 2. func declaration
@@ -504,9 +504,9 @@ console.log(test) // undefined
 ```
 
 ## 19. Variables and scoping (var, let, const)
-A “variable” is just a property of the special internal object, **Environment Record**. “To get or change a variable” means “to get or change a property of that object”.
+A “variable” is just a property of the special internal object, **Environment Record**. “To get or change a variable” means “to get or change” a property of that object.
 
-**let** works similarly to var, but the variable it declares is block-scoped, it only exists within the current block. var is function-scoped. Variables created by let are mutable.
+**let** works similarly to **var**, but the variable **let** declares is block-scoped, it only exists within the current block. **var** is function-scoped. Variables created by **let** are mutable.
 
 ```javascript
 function order(x, y) {
@@ -519,13 +519,13 @@ function order(x, y) {
     return [x, y];
 }
 ```
-**const** works like let, but the variable you declare must be immediately initialized, with a value that can’t be changed afterward. Constants, variables created by const, are immutable – you can’t assign different values to them.
+**const** works like **let**, but the variable you declare must be immediately initialized, with a value that can’t be changed afterward. Constants, variables created by const, are immutable – you can’t assign different values to them.
 ```javascript
 const foo = 'abc';
 foo = 'def'; // TypeError
 ```
-**const** only means that a variable always has the same value, but it does not mean that the value itself is or becomes immutable. For example, obj is a constant, but the value it points to is mutable – we can add a property to it.
-If you want the value of obj to be immutable, you have to take care of it, yourself. For example, by freezing it:
+**const** only means that a variable always has the same value, but it does not mean that the value itself is or becomes immutable. For example, _obj_ is a constant, but the value it points to is mutable – we can add a property to it.
+If you want the value of _obj_ to be immutable, you have to take care of it, yourself. For example, by freezing it:
 ```javascript
 const obj = Object.freeze({});
 obj.prop = 123; // TypeError
@@ -535,14 +535,14 @@ obj.prop = 123; // TypeError
 A variable declared by **let** or **const** has a so-called temporal dead zone (TDZ): When entering its scope, it can’t be accessed (got or set) until execution reaches the declaration.
 
 **var**:
-1. When the scope (its surrounding function) of a var variable is entered, storage space (a binding) is created for it. The variable is immediately initialized, by setting it to undefined.
+1. When the scope (its surrounding function) of a **var** variable is entered, storage space (a binding) is created for it. The variable is immediately initialized, by setting it to **undefined**.
 2. When the execution within the scope reaches the declaration, the variable is set to the value specified by the initializer (an assignment) – if there is one. If there isn’t, the value of the variable remains undefined.
 
-1. When the scope (its surrounding block) of a let variable is entered, storage space (a binding) is created for it. The variable remains uninitialized.
-2. Getting or setting an uninitialized variable causes a ReferenceError.
-3. When the execution within the scope reaches the declaration, the variable is set to the value specified by the initializer (an assignment) – if there is one. If there isn’t then the value of the variable is set to undefined.
+**let**, **conts**
+1. When the scope (its surrounding block) of a **let**/**const** variable is entered, storage space (a binding) is created for it. The variable remains uninitialized.
+2. Getting or setting an uninitialized variable causes a **ReferenceError**.
 
-**var**-declaring a variable in the head of a for loop creates a single binding (storage space) for that variable. Every i in the bodies of the three arrow functions refers to the same binding, which is why they all return the same value:
+**var**-declaring a variable in the head of a **for** loop creates a single binding (storage space) for that variable. Every _i_ in the bodies of the three arrow functions refers to the same binding, which is why they all return the same value:
 ```javascript
 const arr = [];
 for (var i=0; i < 3; i++) {
@@ -551,7 +551,7 @@ for (var i=0; i < 3; i++) {
 arr.map(x => x()); // [3,3,3]
 ```
 
-If you let-declare a variable, a new binding is created for each loop iteration:
+If you **let**-declare a variable, a new binding is created for each loop iteration:
 ```javascript 
 const arr = [];
 for (let i=0; i < 3; i++) {
@@ -560,7 +560,7 @@ for (let i=0; i < 3; i++) {
 arr.map(x => x()); // [0,1,2
 ```
 
-**const** works like var, but you can’t change the initial value of a const-declared variable:
+**const** works like **var**, but you can’t change the initial value of a **const**-declared variable:
 ```javascript
 // TypeError: Assignment to constant variable
 // (due to i++)
@@ -568,35 +568,33 @@ for (const i=0; i<3; i++) {
     console.log(i);
 }
 ```
-
+###### Common advices about variables in JS:
 - Avoiding global variables; hiding variables from global scope
 - Creating fresh environments; avoiding sharing
 - Keeping global data private to all of a constructor
 - Attaching global data to a singleton object
-- Attaching global data to a method (see Attaching global data to a method)
+- Attaching global data to a method
 
 ## 20. Closure
-In JavaScript, every running function, code block {...}, and the script as a whole have an internal (hidden) associated object known as the Lexical Environment.
+In JavaScript, every running function, code block {...}, and the script as a whole have an internal (hidden) associated object known as the **Lexical Environment**.
 
 The Lexical Environment object consists of two parts:
-1. Environment Record – an object that stores all local variables as its properties (and some other information like the value of this).
+1. **Environment Record** – an object that stores all local variables as its properties (and some other information like the value of this).
 2. A reference to the outer lexical environment, the one associated with the outer code.
 
-Rectangles on the right-hand side demonstrate how the global Lexical Environment changes during the execution:
+1. When the script starts, the **Lexical Environment** is pre-populated with all declared variables.
+ -  Initially, they are in the “Uninitialized” state. That’s a special internal state, it means that the engine knows about the variable, but it cannot be referenced until it has been declared with **let**. It’s almost the same as if the variable didn’t exist.
 
-1. When the script starts, the Lexical Environment is pre-populated with all declared variables.
- -  Initially, they are in the “Uninitialized” state. That’s a special internal state, it means that the engine knows about the variable, but it cannot be referenced until it has been declared with let. It’s almost the same as if the variable didn’t exist.
+2. Then phase definition appears. There’s no assignment yet, so its value is undefined. We can use the variable from this point forward.
 
-2. Then let phrase definition appears. There’s no assignment yet, so its value is undefined. We can use the variable from this point forward.
-
-3. phrase is assigned a value.
-4. phrase changes the value.
+3. phase is assigned a value.
+4. phase changes the value.
 
 > “Lexical Environment” is a specification object: it only exists “theoretically” in the language specification to describe how things work. We can’t get this object in our code and manipulate it directly.
 
-A function is also a value, like a variable. The difference is that a Function Declaration is instantly fully initialized. During the function call we have two Lexical Environments: the inner one (for the function call) and the outer one (global).
-When the code wants to access a variable – the inner Lexical Environment is searched first, then the outer one, then the more outer one and so on until the global one.
-All functions have the hidden property named **[[Environment]]**, that keeps the reference to the Lexical Environment where the function was created.
+A function is also a value, like a variable. The difference is that a Function Declaration is instantly fully initialized. During the function call we have two **Lexical Environments**: the inner one (for the function call) and the outer one (global).
+When the code wants to access a variable – the inner **Lexical Environment** is searched first, then the outer one, then the more outer one and so on until the global one.
+All functions have the hidden property named **[[Environment]]**, that keeps the reference to the **Lexical Environment** where the function was created.
 
 A closure is a function that remembers its outer variables and can access them. In some languages, that’s not possible, or a function should be written in a special way to make it happen. But as explained above, in JavaScript, all functions are naturally closures (there is only one exception, to be covered in The "new Function" syntax).
 
