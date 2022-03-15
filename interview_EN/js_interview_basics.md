@@ -476,18 +476,31 @@ A variable assignment will always take precedence over a function declaration. T
 3. **var** declaration
 
 ```javascript
-var myName = 'William';
+var test = 'Test'; // var assignment = 'Test'
 
-function myName(){
-  console.log('Will');
+function test() { // func declaration = ƒ test() { return 'ttttt'; }
+  return 'ttttt';
 }
-//  to compiler code above be like:
-// var myName = function() {
-//   console.log('Will');
-// }
 
-var myName;
-console.log(myName); // "William"
+var test; // var declaration  = undefined
+
+console.log(test) // 'Test'
+```
+
+```javascript
+function test() { // func declaration = ƒ test() { return 'ttttt'; }
+  return 'ttttt';
+}
+
+var test; // var declaration  = undefined
+
+console.log(test) // ƒ test() { return 'ttttt'; }
+```
+
+```javascript
+var test; // var declaration  = undefined
+
+console.log(test) // undefined
 ```
 
 ## 19. Variables and scoping (var, let, const)
