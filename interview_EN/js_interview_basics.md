@@ -386,6 +386,7 @@ const job = {
 
 // perform deep merge
 const user = merge(profile, job)
+console.log(user);
 // {
 //     name: 'John Doe',
 //     age: 25,
@@ -397,7 +398,7 @@ const user = merge(profile, job)
 For a variety of reasons, not the least of which is terminology precedent, "inheritance" (and "prototypal inheritance") and all the other OO terms just do not make sense when considering how JavaScript actually works (not just applied to our forced mental models).
 
 Instead, "delegation" is a more appropriate term, because these relationships are not copies but delegation links.
-console.log(user);
+
 
 ## 13. What is DOM?
 
@@ -437,7 +438,7 @@ There are two possible values of the capture option:
 - If it’s **false** (default), then the handler is set on the bubbling phase.
 - If it’s **true**, then the handler is set on the capturing phase.
 
-## 17. Ways to handle event is JS.
+## 17. Ways to handle events is JS.
 
 There are three ways of event handling:
 
@@ -445,7 +446,7 @@ There are three ways of event handling:
 - DOM-property: _elem.onclick = function_.
 - Special methods: _elem.**addEventListener**(event, handler[, phase])_ - to add handler, **removeEventListener** - to remove handler.
 
-No matter how you handle your event, every time it gets as a first argument event **event** object with such properties as **value**, **target**, **currentTarget** etc.
+No matter how you handle your event, every time it gets as a first argument  **event** object with such properties as **value**, **target**, **currentTarget** etc.
 
 ## 18. What is hoisting?
 
@@ -459,7 +460,7 @@ console.log(myVariable); // undefine
 var myVariable = 10;
 console.log(myVariable); // 10
 ```
-In order to run our code, the JavaScript interpreter takes two passes through the code. On the first pass it looks for variable and function declarations which it then “hoists” to the top of the scope; only then, on the second pass, does it make assignments and execute the code. 
+In order to run our code, the JavaScript interpreter takes two passes through the code. On the first pass it looks for variables declared with a **var** keyword and function declarations which it then “hoists” to the top of the scope; only then, on the second pass, does it make assignments and execute the code. 
 Functions declarations are also “hoisted” to the top of the scope, which means you can call functions before they are declared in your code.
 ```javascript
 hoistMe();
@@ -470,7 +471,24 @@ function hoistMe() {
 ```
 A variable assignment will always take precedence over a function declaration. The internal JavaScript interpreter will always give precedence to a function declaration.
 
-==var assignment -> func declaration -> var declaration==
+1. **var** assignment 
+2. func declaration
+3. **var** declaration
+
+```javascript
+var myName = 'William';
+
+function myName(){
+  console.log('Will');
+}
+//  to compiler code above be like:
+// var myName = function() {
+//   console.log('Will');
+// }
+
+var myName;
+console.log(myName); // "William"
+```
 
 ## 19. Variables and scoping (var, let, const)
 A “variable” is just a property of the special internal object, **Environment Record**. “To get or change a variable” means “to get or change a property of that object”.
