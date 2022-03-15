@@ -108,7 +108,7 @@ Use patterns:
 - The spread syntax is used to pass an array to functions that normally require a list of many arguments.
 
 ## 9. What is wrapper objects?
-When you interact with a primitive value like it was an object (by calling a method or reading a property from it), JavaScript creates a wrapper object on the fly. You have read access to properties and methods of wrapper objects, like they were regular objects. A wrapper object is disposed right after a single use.
+When you interact with a primitive value like it was an object (by calling a method or reading a property from it), JavaScript creates a wrapper object on the fly. You can have access to properties and methods of wrapper objects, like they were regular objects. A wrapper object is disposed right after a single use.
 
 ## 10. How to define if a certain property exists on some object? 
 
@@ -205,7 +205,7 @@ var myObject = Object.create( anotherObject, {
 	}
 } );
 ```
-**Object.create(obj)** creates a new object linked to the object we specified, which gives us all the power (delegation) of the **[[Prototype]]** mechanism, but without any of the unnecessary complication of new functions acting as classes and constructor calls, confusing .prototype and .constructor references, or any of that extra stuff.
+**Object.create(obj)** creates a new object linked to the object we specified, which gives us all the power (delegation) of the **[[Prototype]]** mechanism, but without any of the unnecessary complication of new functions acting as classes and constructor calls, confusing **.prototype** and **.constructor** references, or any of that extra stuff.
 The second argument to **Object.create(..)** specifies property names to add to the newly created object, via declaring each new property's property descriptor.
 
 4. Constructor function:
@@ -262,7 +262,7 @@ const obj = {
 const obj1 = Object.assign(obj);
 ```
 
-but then both objects connected with each other by a single link and that means if one objects is changed then another wil be changed too.
+but then both objects connected with each other by a single link and that means if one object is changed then another one wil be changed too.
 
 2. Spread-operator:
 
@@ -282,7 +282,7 @@ const obj1 = { ...obj };
 
 isolated copies, no link between objects.
 
-3. Методы **JSON.parse(JSON.stringify(obj))**:
+3. Methods **JSON.parse(JSON.stringify(obj))**:
 
 ```javascript
 const obj = {
@@ -317,7 +317,7 @@ const newS = {
 const m1 = Object.assign(state, newS);
 ```
 
-but then both objects connected with each other by a single link and that means if one objects is changed then another wil be changed too.
+but then both objects connected with each other by a single link and that means if one object is changed then another one wil be changed too.
 
 2. Spread-оператор:
 
@@ -385,12 +385,7 @@ const job = {
 };
 
 // perform deep merge
-const user = merge(profile, job);
-For a variety of reasons, not the least of which is terminology precedent, "inheritance" (and "prototypal inheritance") and all the other OO terms just do not make sense when considering how JavaScript actually works (not just applied to our forced mental models).
-
-Instead, "delegation" is a more appropriate term, because these relationships are not copies but delegation links.
-console.log(user);
-
+const user = merge(profile, job)
 // {
 //     name: 'John Doe',
 //     age: 25,
@@ -399,6 +394,10 @@ console.log(user);
 //     skills: ['JavaScript', 'React', 'Node']
 // }
 ```
+For a variety of reasons, not the least of which is terminology precedent, "inheritance" (and "prototypal inheritance") and all the other OO terms just do not make sense when considering how JavaScript actually works (not just applied to our forced mental models).
+
+Instead, "delegation" is a more appropriate term, because these relationships are not copies but delegation links.
+console.log(user);
 
 ## 13. What is DOM?
 
