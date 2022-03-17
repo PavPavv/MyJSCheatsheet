@@ -579,20 +579,19 @@ for (const i=0; i<3; i++) {
 In JavaScript, every running function, code block {...}, and the script as a whole have an internal (hidden) associated object known as the **Lexical Environment**.
 
 The Lexical Environment object consists of two parts:
-1. **Environment Record** – an object that stores all local variables as its properties (and some other information like the value of this).
+1. **Environment Record** – an object that stores all local variables as its properties (and some other information like the value of **this**, for example).
 2. A reference to the outer lexical environment, the one associated with the outer code.
 
+Algorithm:
 1. When the script starts, the **Lexical Environment** is pre-populated with all declared variables.
  -  Initially, they are in the “Uninitialized” state. That’s a special internal state, it means that the engine knows about the variable, but it cannot be referenced until it has been declared with **let**. It’s almost the same as if the variable didn’t exist.
-
-2. Then phase definition appears. There’s no assignment yet, so its value is undefined. We can use the variable from this point forward.
-
+2. Then phase definition appears. There’s no assignment yet, so its value is **undefined**. We can use the variable from this point forward.
 3. phase is assigned a value.
 4. phase changes the value.
 
 > “Lexical Environment” is a specification object: it only exists “theoretically” in the language specification to describe how things work. We can’t get this object in our code and manipulate it directly.
 
-A function is also a value, like a variable. The difference is that a Function Declaration is instantly fully initialized. During the function call we have two **Lexical Environments**: the inner one (for the function call) and the outer one (global).
+A function is also a value, like a variable. The difference is that a **Function Declaration** is instantly fully initialized. During the function call we have two **Lexical Environments**: the inner one (for the function call) and the outer one (global).
 When the code wants to access a variable – the inner **Lexical Environment** is searched first, then the outer one, then the more outer one and so on until the global one.
 All functions have the hidden property named **[[Environment]]**, that keeps the reference to the **Lexical Environment** where the function was created.
 
@@ -629,13 +628,13 @@ This is Immediately Invoked Function Expression (IIFE):
 }()); // close IIFE
 ```
 
-You can also enforce the expression context via prefix operators. For example, you can do so via the logical Not operator:
+You can also enforce the expression context via prefix operators. For example, you can do so via the logical **NOT** operator:
 ```javascript
 !function () { // open IIFE
   // inside IIFE
 }(); // close IIFE
 ```
-or via the void operator:
+or via the **void** operator:
 ```javascript
 void function () { // open IIFE
   // inside IIFE
@@ -647,21 +646,24 @@ A Lexical Environment object dies when it becomes unreachable (just like any oth
 
 
 ## 24. useStrict
+JavaScript's strict mode, introduced in ECMAScript 5, is a way to opt in to a restricted variant of JavaScript, thereby implicitly opting-out of "sloppy mode".
 
-- If a variable is not found anywhere, that’s an error in strict mode (without use strict, an assignment to a non-existing variable creates a new global variable, for compatibility with old code).
+- If a variable is not found anywhere, that’s an error in strict mode (without **use strict**, an assignment to a non-existing variable creates a new global variable, for compatibility with old code).
 - **this** default value is **undefined**
-- you can not create new instace of the class without **new**-keyword
-- you can not create functions with **eval()**
-- you cannot duplicate parameters
-- you can not delete "non-removable" object property
+- You can not assign to a new property on a non-extensible object
+- You can not create functions with **eval()**
+- strict mode prohibits **with** statement. (The **with** statement extends the scope chain for a statement.) 
+- You cannot duplicate parameters
+- You can not delete "non-removable" object property
+- ...
 
 ## 25. This
 To access the object, a method can use the **this** keyword. The value of **this** is the object “before dot”, the one used to call the method.
 In JavaScript, keyword **this** behaves unlike most other programming languages. It can be used in any function, even if it’s not a method of an object.
 
-In JavaScript **this** is “free”, its value is evaluated at call-time and does not depend on where the method was declared, but rather on what object is “before the dot”. The value of this is defined at run-time.
+In JavaScript **this** is “free”, its value is evaluated at call-time and does not depend on where the method was declared, but rather on what object is “before the dot”. The value of **this** is defined at run-time.
 
-Arrow functions are special: they don’t have their “own” **this**. If we reference **this** from such a function, it’s taken from the outer “normal” function.
+Arrow functions are special: they don’t have their “own” **this** and **arguments** collection. If we reference **this** from such a function, it’s taken from the outer “normal” function.
 ```javascript
 function getCtxName() {
   return this.name;
@@ -719,7 +721,7 @@ In the code above, **break** outer looks upwards for the **label** named outer a
 ## 26. Object to primitive conversion
 Types convertions for **object**
 1. All objects are true in a boolean context. There are only numeric and string conversions.
-2. The numeric conversion happens when we subtract objects or apply mathematical functions. For instance, Date objects (to be covered in the chapter Date and time) can be subtracted, and the result of date1 - date2 is the time difference between two dates.
+2. The numeric conversion happens when we subtract objects or apply mathematical functions. For instance, **Date** objects can be subtracted, and the result of date1 - date2 is the time difference between two dates.
 3. As for the string conversion – it usually happens when we output an object like alert(obj) and in similar contexts.
 
 There are three variants of type conversion, that happen in various situations. They’re called “hints”, as described in the specification:
@@ -728,7 +730,7 @@ There are three variants of type conversion, that happen in various situations. 
 3. "default"
 
 ###### Symbol.toPrimitive
-There’s a built-in symbol named Symbol.toPrimitive that should be used to name the conversion method, like this:
+There’s a built-in symbol named **Symbol.toPrimitive** that should be used to name the conversion method, like this:
 ```javascript
 let user = {
   name: "John",
@@ -740,11 +742,11 @@ let user = {
   }
 };
 ```
-If the method Symbol.toPrimitive exists, it’s used for all hints, and no more methods are needed.
+If the method **Symbol.toPrimitive** exists, it’s used for all hints, and no more methods are needed.
 
-If there’s no Symbol.toPrimitive then JavaScript tries to find methods toString and valueOf:
-- For the “string” hint: toString, and if it doesn’t exist, then valueOf (so toString has the priority for string conversions).
-- For other hints: valueOf, and if it doesn’t exist, then toString (so valueOf has the priority for maths).
+If there’s no **Symbol.toPrimitive** then JavaScript tries to find methods ***toString** and **valueOf**:
+- For the “string” hint: **toString**, and if it doesn’t exist, then **valueOf** (so **toString** has the priority for string conversions).
+- For other hints: **valueOf**, and if it doesn’t exist, then toString (so valueOf has the priority for maths).
 
 The only mandatory thing: these methods must return a primitive, not an object.
 For historical reasons, if **toString** or **valueOf** returns an object, there’s no error, but such value is ignored (like if the method didn’t exist). That’s because in ancient times there was no good “error” concept in JavaScript.
@@ -781,7 +783,9 @@ const multiplyByTwo(6) // returns 12
 ```
 
 ##### Function borrowing
-Method or function borrowing is a way for an object to use the method of another object without redefining that method. This pattern allows an object to borrow the methods of other objects without inheriting their properties and methods. call, apply, and bind can all be used for method borrowing.
+Method or function borrowing is a way for an object to use the method of another object without redefining that method. This pattern allows an object to borrow the methods of other objects without inheriting their properties and methods.
+
+Function borrowing allows us to use the methods of one object on a different object without having to make a copy of that method and maintain it in two separate places. It is accomplished through the use of **.call()**, **.apply()**, or **.bind()**, all of which exist to explicitly set this on the method we are borrowing.
 ```javascript
 const Vehicle = {
   name: 'Vehicle',
@@ -798,11 +802,13 @@ const car = { name: 'Toyota', type: 'car' }
 Vehicle.start.call(car) // returns starting the car Toyota
 Vehicle.stop.call(car) // stopped the Toyota car
 
+function test(a, b) {
+  return Array.prototype.slice.call(arguments).sort();
+};
 
-const sortName = (...args) => Array.prototype.slice.apply(args).sort();
-sortName("Jane", "Steve", "Ada")
-// returns [ 'Ada', 'Jane', 'Steve' ]
+console.log(test('match','ball')); //   ['ball', 'match']
 ```
+The most important practical application of function borrowing pertains to native methods, and specifically, to **Array.prototype.slice**. There are several list-like data structures that aren’t arrays, and it’s useful to be able to treat them as arrays and operate on them as such. One of the most prevalent list-like data structures that isn’t an array is arguments. The arguments object represents all the parameters passed in to a given (non-arrow) function.
 
 ## 28. Nullish coalescing operator (??)
 is a logical operator that returns its right-hand side operand when its left-hand side operand is **null** or **undefined**, and otherwise returns its left-hand side operand.
@@ -825,21 +831,68 @@ console.log(foo.someFooProp?.toUpperCase() ?? "not available"); // "HI"
 ```
 
 ## 29. Function currying and partial functions
-The important design pattern called _function currying_ is possible due to Closures.
+Currying is an advanced technique of working with functions. It’s used not only in JavaScript, but in other languages as well.
+Currying is a transformation of functions that translates a function from callable as _f(a, b, c)_ into callable as _f(a)(b)(c)_.
+Currying doesn’t call a function. It just transforms it.
+
 ```javascript
-const multiply = (a) => (b) => a * b
-const multiplyByTwo = multiply(2);
-const multiplyByTwo(4) // returns 8
-const multiplyByTwo(6) // returns 12
+function curry(f) { // curry(f) does the currying transform
+  return function(a) {
+    return function(b) {
+      return f(a, b);
+    };
+  };
+}
+
+// usage
+function sum(a, b) {
+  return a + b;
+}
+
+let curriedSum = curry(sum);
+
+alert( curriedSum(1)(2) ); // 3
+```
+
+or in ES6 syntax:
+```javascript
+const sum = (a, b) => a + b;
+const curryIt = (f) => (a) => (b) => f(a,b);
+const curriedSum = curryIt(sum);
+console.log(curriedSum(1)(2)); // 3
+```
+
+```javascript
+function curry(func) {
+
+  return function curried(...args) {
+    if (args.length >= func.length) {
+      return func.apply(this, args);
+    } else {
+      return function(...args2) {
+        return curried.apply(this, args.concat(args2));
+      }
+    }
+  };
+}
+
+function sum(a, b, c) {
+  return a + b + c;
+}
+let curriedSum = curry(sum);
+
+alert( curriedSum(1, 2, 3) ); // 6, still callable normally
+alert( curriedSum(1)(2,3) ); // 6, currying of 1st arg
+alert( curriedSum(1)(2)(3) ); // 6, full currying
 ```
 
 ## 30. Prototype
 Objects in JavaScript have an internal property, denoted in the specification as **[[Prototype]]**, which is simply a reference to another object. Almost all objects are given a non-**null** value for this property, at the time of their creation.
-The default **[[Get]]** operation proceeds to follow the **[[Prototype]]** link of the object if it cannot find the requested property on the object directly. This process continues until either a matching property name is found, or the **[[Prototype]]** chain ends. If no matching property is ever found by the end of the chain, the return result from the **[[Get]]** operation is undefined.
+The default **[[Get]]** operation proceeds to follow the **[[Prototype]]** link of the object if it cannot find the requested property on the object directly. This process continues until either a matching property name is found, or the **[[Prototype]]** chain ends. If no matching property is ever found by the end of the chain, the return result from the **[[Get]]** operation is **undefined**.
 
-1. If a normal data accessor (see Chapter 3) property named foo is found anywhere higher on the [[Prototype]] chain, and it's not marked as read-only (writable:false) then a new property called foo is added directly to myObject, resulting in a shadowed property.
-2. If a foo is found higher on the [[Prototype]] chain, but it's marked as read-only (writable:false), then both the setting of that existing property as well as the creation of the shadowed property on myObject are disallowed. If the code is running in strict mode, an error will be thrown. Otherwise, the setting of the property value will silently be ignored. Either way, no shadowing occurs.
-3. If a foo is found higher on the [[Prototype]] chain and it's a setter (see Chapter 3), then the setter will always be called. No foo will be added to (aka, shadowed on) myObject, nor will the foo setter be redefined.
+1. If a normal data accessor property named _foo_ is found anywhere higher on the **[[Prototype]]** chain, and it's not marked as read-only (**writable:false**) then a new property called _foo_ is added directly to _myObject_, resulting in a shadowed property.
+2. If a _foo_ is found higher on the **[[Prototype]]** chain, but it's marked as read-only (**writable:false**), then both the setting of that existing property as well as the creation of the shadowed property on _myObject_ are disallowed. If the code is running in strict mode, an error will be thrown. Otherwise, the setting of the property value will silently be ignored. Either way, no shadowing occurs.
+3. If a _foo_ is found higher on the **[[Prototype]]** chain and it's a setter, then the setter will always be called. No _foo_ will be added to (aka, shadowed on) _myObject_, nor will the _foo_ setter be redefined.
 
 ```javascript
 var anotherObject = {
@@ -908,7 +961,10 @@ Bar.prototype = Object.create( Foo.prototype );
 // modifies existing `Bar.prototype`
 Object.setPrototypeOf( Bar.prototype, Foo.prototype );
 ```
->  Inspecting an instance (just an object in JS) for its inheritance ancestry (delegation linkage in JS) is often called _introspection_ (or _reflection_) in traditional class-oriented environments.
+
+
+
+Inspecting an instance (just an object in JS) for its inheritance ancestry (delegation linkage in JS) is often called _introspection_ (or _reflection_) in traditional class-oriented environments.
 
 1. 
 ```javascript
@@ -944,5 +1000,3 @@ Object.defineProperty( Object.prototype, "__proto__", {
 
 For a variety of reasons, not the least of which is terminology precedent, "inheritance" (and "prototypal inheritance") and all the other OO terms just do not make sense when considering how JavaScript actually works (not just applied to our forced mental models).
 Instead, "delegation" is a more appropriate term, because these relationships are not copies but delegation links.
-
-31. Constructor functions, classes

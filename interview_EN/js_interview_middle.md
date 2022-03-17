@@ -70,14 +70,14 @@ Property descriptors:
 The value associated with the property. Can be any valid JavaScript value (number, object, function, etc). Defaults to **undefined**.
 
 **writable**
-**true** if the value associated with the property may be changed with an assignment operator. Defaults to *false**.
+**true** if the value associated with the property may be changed with an assignment operator. Defaults to **false**.
 
 #### Accessor descriptor
 **get**
 A function which serves as a getter for the property, or **undefined** if there is no getter. When the property is accessed, this function is called without arguments and with this set to the object through which the property is accessed (this may not be the object on which the property is defined due to inheritance). The return value will be used as the value of the property. Defaults to **undefined**.
 
 **set**
-A function which serves as a setter for the property, or undefined if there is no setter. When the property is assigned, this function is called with one argument (the value being assigned to the property) and with **this** set to the object through which the property is assigned. Defaults to **undefined**.
+A function which serves as a setter for the property, or **undefined** if there is no setter. When the property is assigned, this function is called with one argument (the value being assigned to the property) and with **this** set to the object through which the property is assigned. Defaults to **undefined**.
 
 If a descriptor has neither of value, writable, get and set keys, it is treated as a data descriptor. If a descriptor has both [**value** or **writable**] and [**get** or **set**] keys, an exception is thrown.
 ```javascript
@@ -125,9 +125,9 @@ o.b; // 38
 
 ## 2. The Execution Context And The Call Stack
 The execution context is a wrapper around the currently executing code. It consists of the following:
-1. The this variable. Every execution context provides the this variable which refers to an object to which the currently executing code belongs.
-2. The variable environment — a place in memory where variable lives and how they relate with each other. Each execution context has its variable environment.
-3. The outer environment. When we execute code within a function the outer environment is the code outside of that function — at the global level, it is null.
+1. The **this** variable. Every execution context provides the **this** variable which refers to an object to which the currently executing code belongs.
+2. The variable environment — a place in memory where variables lives and how they relate with each other. Each execution context has its variable environment.
+3. The outer environment. When we execute code within a function the outer environment is the code outside of that function — at the global level, it is **null**.
 
 When the JavaScript engine starts executing our code, a base execution context — the global execution context is created. Also, anytime a function is invoked a new execution context is created and placed on top of the stack. And when a function returns its execution context is popped off the call stack. This stack of the execution contexts that are created during code execution is called the call stack.
 
