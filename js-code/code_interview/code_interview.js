@@ -1271,6 +1271,57 @@ function sumToProgression(n) {
 function factorial(n) {
 
 }
-console.log(factorial(3));
-console.log(factorial(4));
-console.log(factorial(5));
+// console.log(factorial(3));
+// console.log(factorial(4));
+// console.log(factorial(5));
+
+//////////////////////////////////////////////////////////////////
+/**
+* @param {string}
+* @return {number}
+* func("( [ <> () ] <> )") -> 1
+*/
+
+function verify(string) {
+  const temp = [];
+  
+
+  const targets = {
+    open: ['(', '[', '<'],
+    close: [')', ']', '>']
+  };
+  const stringArray = string.split("");
+  
+  //  check even number of target symbols
+  for (let i = 0; i < stringArray.length; i++) {
+    const elem = stringArray[i];
+    //  check for target's opening symbols
+    if (targets.open.includes(elem)) {
+      temp.push(elem) //  if so add them to the temp array
+
+    //  check for target's closing symbols  
+    } else if (targets.close.includes(elem)) {
+      // find its opening pair in the target's static object
+      const openPair = targets.open[targets.close.indexOf(elem)];
+      if (temp[temp.length - 1] === openPair) {
+        temp.splice(-1,1);
+      } else {
+        temp.push(elem);
+        break;
+      }
+    }
+  }
+  
+  let isCorrect = temp.length === 0;
+  return isCorrect ? 1 : 0;
+};
+
+// console.log(verify("---(++++)----")) //  1
+// console.log(verify(""))  //  1
+// console.log(verify("before ( middle []) after "))  //  1
+
+// console.log(verify(")("))  //  0
+// console.log(verify("<( >)")) //  0
+
+// console.log(verify("( [ <> () ] <> )")) // 1
+// console.log(verify(" (    [)"))  //  0
