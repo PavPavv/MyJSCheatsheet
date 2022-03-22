@@ -1303,8 +1303,9 @@ function verify(string) {
     } else if (targets.close.includes(elem)) {
       // find its opening pair in the target's static object
       const openPair = targets.open[targets.close.indexOf(elem)];
+      // check if that pair is the last element in the array
       if (temp[temp.length - 1] === openPair) {
-        temp.splice(-1,1);
+        temp.splice(-1,1); // if so, remove it
       } else {
         temp.push(elem);
         break;
@@ -1325,3 +1326,80 @@ function verify(string) {
 
 // console.log(verify("( [ <> () ] <> )")) // 1
 // console.log(verify(" (    [)"))  //  0
+
+//////////////////////////////////////////////////////////////
+//  Task: optimise and short the 'badFunc' whish is doing following:
+//  return max value out of two chars (a, b) from a string (s)
+/**
+* @param {string}
+* @param {string}
+* @param {string}
+* @return {number}
+* func('google', 'g', 'o') -> 3
+*/
+
+function badFunc(s,a,b) {
+  var match_empty = /^$/;
+  if (s.match(match_empty)) {
+    return -1;
+  } else {
+    var i = s.length - 1;
+    var aIndex = -1;
+    var bIndex = -1;
+
+    while ((aIndex == -1) && (bIndex == -1) && (i >= 0)) {
+      if (s.substring(i, i + 1) == a) {
+        aIndex = i;
+      }
+
+      if (s.substring(i, i + 1) == b) {
+        bIndex = i;
+      }
+
+      i--;
+    }
+
+    if (aIndex != -1) {
+      if (bIndex == -1) {
+        return aIndex;
+      } else {
+        return Math.max(aIndex, bIndex);
+      }
+    } else {
+      if (bIndex != -1) {
+        return bIndex;
+      } else {
+        return -1;
+      }
+    }
+  }
+}
+
+// console.log(badFunc('google', 'g', 'o'));  //  3
+// console.log(badFunc('aba', 'a', 'b'));  //  2
+// console.log(badFunc('', 'g', 'o'));   //  -1
+// console.log(badFunc('google', 'x', 'o')); //  2
+// console.log(badFunc('aba', '', '')); //  -1
+// console.log(badFunc('aba', '', 'b')) //  1
+
+console.log("badFunc", funcSpeed(badFunc('google', 'g', 'o')));
+
+function notBadFunc(s,a,b) {
+  if (s) {
+    if (!a && !b) return -1;
+    return Math.max(
+      a ? s.lastIndexOf(a) : -1,
+      b ? s.lastIndexOf(b) : -1
+    );
+  }
+  return -1;
+}
+
+// console.log(notBadFunc('google', 'g', 'o'));  //  3
+// console.log(notBadFunc('aba', 'a', 'b'));  //  2
+// console.log(notBadFunc('', 'g', 'o'));   //  -1
+// console.log(notBadFunc('google', 'x', 'o')); //  2
+// console.log(notBadFunc('aba', '', '')); //  -1
+// console.log(notBadFunc('aba', '', 'b')) //  1
+
+console.log("notBadFunc", funcSpeed(notBadFunc('google', 'g', 'o')));
