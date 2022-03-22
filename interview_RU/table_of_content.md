@@ -5,6 +5,7 @@
 и может изучать документацию и проходить собеседования на английском языке.
 
 ## Содержание:
+- :page_with_curl: [Алгоритмы](../js-code//algorithms/algorihms_ru.md)
 - :page_with_curl: [Вопросы по верстке](./html-css_interview.md)
 - :page_with_curl: [Впоросы по JS (базовый уровень)](./js_interview_basics.md)
 - :page_with_curl: [Вопросы по JS (middle-уровень)](./js_interview_middle.md)

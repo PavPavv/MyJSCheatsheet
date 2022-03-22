@@ -1161,6 +1161,9 @@ const findDeepestLeavesSum = (root) => {
 
 //console.log(findDeepestLeavesSum(binaryTree));
 
+//////////////////////////////////////////////////////////////
+//  36
+
 /**
   * @param {number[]} strArr
   * @return {string}
@@ -1198,7 +1201,8 @@ function getLongestCommonPrefix(strArr) {
 }
 //console.log(getLongestCommonPrefix(['flower', 'flow', 'flight']));
 
-
+///////////////////////////////////////////////////////////////////////////
+//  37
 function getLongestCommonPattern(strArr) {
   //  standard check
   if (strArr.length < 2) return '';
@@ -1224,6 +1228,7 @@ function getLongestCommonPattern(strArr) {
 //console.log(getLongestCommonPattern(['quflower', 'qiflow', 'sportflowlight']));
 
 ////////////////////////////////////////////////////////////////////////////////
+//  38
 /**
   * @param {number}
   * @return {number}
@@ -1263,6 +1268,7 @@ function sumToProgression(n) {
 // console.log(sumToProgression(100))
 
 ////////////////////////////////////////////////////////////////////////////////
+//  39
 /**
 * @param {number}
 * @return {number}
@@ -1276,6 +1282,7 @@ function factorial(n) {
 // console.log(factorial(5));
 
 //////////////////////////////////////////////////////////////////
+//  40
 /**
 * @param {string}
 * @return {number}
@@ -1328,6 +1335,7 @@ function verify(string) {
 // console.log(verify(" (    [)"))  //  0
 
 //////////////////////////////////////////////////////////////
+//  41
 //  Task: optimise and short the 'badFunc' whish is doing following:
 //  return max value out of two chars (a, b) from a string (s)
 /**
@@ -1403,3 +1411,53 @@ function notBadFunc(s,a,b) {
 // console.log(notBadFunc('aba', '', 'b')) //  1
 
 console.log("notBadFunc", funcSpeed(notBadFunc('google', 'g', 'o')));
+
+/////////////////////////////////////////////////////////////////////////
+//  42
+const binarySearchTree = {
+  value: 4,
+
+  left: {
+    value: 2,
+    left: {
+      value: 1,
+    },
+    right: {
+      value: 3,
+    },
+  },
+
+  right: {
+    value: 5,
+    right: {
+      value: 6,
+    },
+  },
+};
+
+function sumTree(tree) {
+  let count = tree.value;
+
+  if (tree.left) count += sumTree(tree.left);
+  if (tree.right) count += sumTree(tree.right);
+  return count;
+}
+
+// console.log(sumTree(binarySearchTree));
+
+///////////////////////////////////////////////////////////////////////
+//  43
+function someFunc() {
+  console.log(arguments);
+}
+
+Function.prototype.delay = function(delay) {
+  return function (...args) {
+    setTimeout(() => {
+
+    }, delay);
+  }.bind(this);
+}
+
+const someFnWithDelay = someFunc.delay(2000);
+someFnWithDelay(1,2,3,4);

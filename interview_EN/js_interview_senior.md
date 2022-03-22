@@ -33,4 +33,14 @@ const binarySearchTree = {
     },
   },
 };
+
+function sumTree(tree) {
+  let count = tree.value;
+
+  if (tree.left) count += sumTree(tree.left);
+  if (tree.right) count += sumTree(tree.right);
+  return count;
+}
+
+console.log(sumTree(binarySearchTree));
 ```
