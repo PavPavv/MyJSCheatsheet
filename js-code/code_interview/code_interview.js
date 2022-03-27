@@ -1390,8 +1390,6 @@ function badFunc(s,a,b) {
 // console.log(badFunc('aba', '', '')); //  -1
 // console.log(badFunc('aba', '', 'b')) //  1
 
-console.log("badFunc", funcSpeed(badFunc('google', 'g', 'o')));
-
 function notBadFunc(s,a,b) {
   if (s) {
     if (!a && !b) return -1;
@@ -1410,7 +1408,26 @@ function notBadFunc(s,a,b) {
 // console.log(notBadFunc('aba', '', '')); //  -1
 // console.log(notBadFunc('aba', '', 'b')) //  1
 
-console.log("notBadFunc", funcSpeed(notBadFunc('google', 'g', 'o')));
+function getMaxStriIdx(s,a,b) {
+  if (s) {
+    if (!a && !b) return -1;
+
+    let a_counter = 0;
+    let b_counter = 0;
+    for (let i = 0; i < s.length; i++) {
+      if (s[i] == a) a_counter = i;
+      if (s[i] == b) a_counter = i;
+    }
+
+    return a_counter > b_counter ? a_counter : b_counter;
+    
+  }
+  return -1;
+}
+
+console.log('badFunc',funcSpeed(badFunc('google', 'g', 'o')));
+console.log('notBadFunc',funcSpeed(notBadFunc('google', 'g', 'o')));
+console.log('getMaxStriIdx', funcSpeed(getMaxStriIdx('google', 'g', 'o')));
 
 /////////////////////////////////////////////////////////////////////////
 //  42
