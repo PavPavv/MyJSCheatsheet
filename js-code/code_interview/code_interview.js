@@ -313,7 +313,7 @@ const anagram = (strA, strB) => {
 };
 //console.log(anagram('finder', 'friend'))
 
-const strEqevennessualize = (str) => {
+const strEqualize = (str) => {
   return str.replace(/[^\w]/g).toLowerCase().split("").sort().join("");
 };
 
@@ -1478,3 +1478,32 @@ Function.prototype.delay = function(delay) {
 
 const someFnWithDelay = someFunc.delay(2000);
 someFnWithDelay(1,2,3,4);
+
+////////////////////////////////////////////////////////////////////////
+//  44
+function compare(str1, str2) {
+  const result = str1.localeCompare(str2);
+  return result ? str2 : str1;
+}
+console.log(compare('banana', 'avocado'));
+
+function compareOriginal(str1, str2) {
+  if (!str1 && !str2) return 'Strings are empty.';
+  if (typeof str1 !== 'string' || typeof str2 !== 'string') {
+    return 'Not a correct parameters.';
+  }
+
+  const strArr1 = str1.split("");
+  const strArr2 = str2.split("");
+
+  for (let i = 0; i < strArr1.length; i++) {
+    const charCode1 = strArr1[i] ? strArr1[i].charCodeAt() : -1;
+    const charCode2 = strArr2[i] ? strArr2[i].charCodeAt() : -1;
+    if (charCode1 < charCode2) return str1;
+    if (charCode1 > charCode2) return str2;
+  }
+  
+
+};
+
+////////////////////////////////////////////////////////////////////////
