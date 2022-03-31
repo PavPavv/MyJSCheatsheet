@@ -134,8 +134,19 @@ const arrays = () => {
       }
     }
   };
-  //console.log(findOutlier([2, 3, 4, 6, 8, 2, 22, 2]));
-  //console.log(findOutlier([3, 1, 55, 31, 44, 21]));
+  // console.log(findOutlier([2, 3, 4, 6, 8, 2, 22, 2]));
+  // console.log(findOutlier([3, 1, 55, 31, 44, 21]));
+
+  const findOutlier11 = (arr) => {
+    const b_arr = arr.map(x => x % 2);
+    const sum_b_arr = b_arr.reduce((a,b)=> a + b);
+    const target = sum_b_arr > 1 ? 0 : 1;
+    const sheepIdx = b_arr.indexOf(target);
+    return arr[sheepIdx];
+  };
+  
+  console.log(findOutlier11([2, 3, 4, 6, 8, 2, 22, 2]));
+  console.log(findOutlier11([3, 1, 55, 31, 44, 21]));
 
   const findOutlier1 = (numsStr) => {
     const numsArr = numsStr.split(" ").map((x) => x % 2); //  [0,0,0,0,0,0,0,1]

@@ -276,6 +276,17 @@ const findVowels = (str) => {
   return matched ? matched.length : 0;
 };
 //console.log(findVowels('anna'));
+
+const findVowels1 = (s) => {
+	const VOWELS = ['a', 'o', 'u', 'e', 'i'];
+	let counter = 0;
+	for (let i = 0; i < s.length; i++) {
+		if (VOWELS.includes(s[i])) counter++; 
+	}
+	return counter;
+};
+console.log(findVowels1('wolf'));
+console.log(findVowels1('samara'))
 /////////////////////////////////////////////////////////////////////////
 
 // 9
@@ -1485,25 +1496,67 @@ function compare(str1, str2) {
   const result = str1.localeCompare(str2);
   return result ? str2 : str1;
 }
-console.log(compare('banana', 'avocado'));
+// console.log(compare(-1, 30));
+// console.log(compare('', ''));
+// console.log(compare('', 'a'));
+// console.log(compare('a', ''));
+// console.log(compare('banana', 'avocado'));
+// console.log(compare('Banana', 'Avocado'));
+// console.log(compare('banana', 'Avocado'));
+// console.log(compare('ooooo', 'oo'));
+// console.log(compare('oo', 'oooooo'));
 
 function compareOriginal(str1, str2) {
-  if (!str1 && !str2) return 'Strings are empty.';
-  if (typeof str1 !== 'string' || typeof str2 !== 'string') {
-    return 'Not a correct parameters.';
-  }
-
-  const strArr1 = str1.split("");
-  const strArr2 = str2.split("");
-
-  for (let i = 0; i < strArr1.length; i++) {
-    const charCode1 = strArr1[i] ? strArr1[i].charCodeAt() : -1;
-    const charCode2 = strArr2[i] ? strArr2[i].charCodeAt() : -1;
-    if (charCode1 < charCode2) return str1;
-    if (charCode1 > charCode2) return str2;
-  }
-  
-
+	if (typeof a !== 'string' || typeof b !== 'string') {
+		return 'Wrong type';
+	}
+	if (!a && !b) return 'The strings are empty';
+	if (!a) return b;
+	if (!b) return a;
+	const a_lowerd = a.toLowerCase();
+	const b_lowerd = b.toLowerCase();
+	
+	for (let i = 0; i < a_lowerd.length; i++) {
+		const charCode1 = a[i] ? a_lowerd[i].charCodeAt() : 0;
+		const charCode2 = b_lowerd[i] ? b_lowerd[i].charCodeAt() : 0;
+		if (charCode1 < charCode2) return a;
+		if (charCode1 > charCode2) return b;
+		if (charCode1 === charCode2) {
+			if (a.length > b.length) return b;
+			if (a.length < b.length) return a;
+			if (a.length === b.length) return 'The strings are equal';
+		}
+	}
 };
 
+
+// console.log(compareOriginal(-1, 30));
+// console.log(compareOriginal('', ''));
+// console.log(compareOriginal('', 'a'));
+// console.log(compareOriginal('a', ''));
+// console.log(compareOriginal('banana', 'avocado'));
+// console.log(compareOriginal('Banana', 'Avocado'));
+// console.log(compareOriginal('banana', 'Avocado'));
+// console.log(compareOriginal('ooooo', 'oo'));
+// console.log(compareOriginal('oo', 'oooooo'));
+
 ////////////////////////////////////////////////////////////////////////
+//  45
+const some_arr = [1,2,3,3,4,5,6,7];
+
+const is_repeat = (arr) => {
+	if (Array.isArray(arr)) {
+		for (let i = 0; i < arr.length; i++) {
+			const prev = arr[i - 1];
+			if (prev === arr[i]) return true;		
+		}
+		return false;
+	}
+	return false;
+};
+
+// console.log(is_repeat(1));
+// console.log(is_repeat(some_arr));
+// console.log(is_repeat([1,2,3,4,5,6,7]));
+
+//////////////////////////////////////////////////////////////////////
