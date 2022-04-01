@@ -36,9 +36,9 @@ function popularSymbol(str) {
 
   return ans;
 }
-// console.log('popularSymbol', popularSymbol('ababazzzz aaaasdf sfsdf sdfsdfsdfsdfs sdfsdfsfrert fgffghttt'));
-// console.log('popularSymbol', popularSymbol(bigStr))
-// console.log('popularSymbol', funcSpeed(popularSymbol(bigStr)));
+console.log('popularSymbol', popularSymbol('ababazzzz aaaasdf sfsdf sdfsdfsdfsdfs sdfsdfsfrert fgffghttt'));
+console.log('popularSymbol', popularSymbol(bigStr))
+console.log('popularSymbol', funcSpeed(popularSymbol(bigStr)));
 
 //  O(n*k)
 function popularSymbolOpt(str) {
@@ -55,7 +55,7 @@ function popularSymbolOpt(str) {
       if (letter === str[j]) {
         currentCounter += 1;
       }
-    }
+    } 
 
     if (currentCounter > counter) {
       ans = letter;
@@ -176,13 +176,13 @@ function linearSearchLection() {
     let minlen = words[0].length;
     let result = [];
 
-    for (word of words) {
+    for (const word of words) {
       if (word.length < minlen) {
         minlen = word.length;
       }
     }
 
-    for (word of words) {
+    for (const word of words) {
       if (word.length === minlen) {
         result.push(word);
       }

@@ -1560,3 +1560,23 @@ const is_repeat = (arr) => {
 // console.log(is_repeat([1,2,3,4,5,6,7]));
 
 //////////////////////////////////////////////////////////////////////
+
+//  46
+const some_arr1 = [1,2,3,4,5,2,5,5,6,8,9,0,0,1,3];
+
+const findFirstLeft = (arr, x) => {
+	for (let i = 0; i < arr.length; i++) {
+		if (arr[i] === x) return i;
+	}
+	return -1;
+};
+
+const findFirstRight = (arr, x) => {
+	let lastIdx = -1;
+	for (let i = 0; i < arr.length; i++) {
+		if (arr[i] === x) {
+			lastIdx = i;
+		}
+	}
+	return lastIdx;
+};
