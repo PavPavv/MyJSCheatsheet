@@ -1326,7 +1326,7 @@ function verify(string) {
         temp.splice(-1,1); // if so, remove it
       } else {
         temp.push(elem);
-        break;
+        // break;
       }
     }
   }
@@ -1493,18 +1493,18 @@ someFnWithDelay(1,2,3,4);
 ////////////////////////////////////////////////////////////////////////
 //  44
 function compare(str1, str2) {
-  const result = str1.localeCompare(str2);
+  const result = str1.toString().localeCompare(str2.toString());
   return result ? str2 : str1;
 }
-// console.log(compare(-1, 30));
-// console.log(compare('', ''));
-// console.log(compare('', 'a'));
-// console.log(compare('a', ''));
-// console.log(compare('banana', 'avocado'));
-// console.log(compare('Banana', 'Avocado'));
-// console.log(compare('banana', 'Avocado'));
-// console.log(compare('ooooo', 'oo'));
-// console.log(compare('oo', 'oooooo'));
+console.log(compare(-1, 30));
+console.log(compare('', ''));
+console.log(compare('', 'a'));
+console.log(compare('a', ''));
+console.log(compare('banana', 'avocado'));
+console.log(compare('Banana', 'Avocado'));
+console.log(compare('banana', 'Avocado'));
+console.log(compare('ooooo', 'oo'));
+console.log(compare('oo', 'oooooo'));
 
 function compareOriginal(str1, str2) {
 	if (typeof a !== 'string' || typeof b !== 'string') {
@@ -1580,3 +1580,6 @@ const findFirstRight = (arr, x) => {
 	}
 	return lastIdx;
 };
+
+//////////////////////////////////////////////////////////////////////
+//  47

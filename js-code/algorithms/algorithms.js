@@ -192,6 +192,18 @@ function linearSearchLection() {
   }
   //console.log(findShortestStr(wordsArr))
 
+  const findShortStrInArr = (arr) => {
+    let minIdx = 0;
+    
+    for (let i = 1; i < arr.length; i++) {
+      if (arr[i].length < arr[minIdx].length) {
+        minIdx = i;
+      }
+    }
+    return arr[minIdx];
+  };
+  //  console.log(findShortStrInArr(['Rostov', 'KS', 'Krasnodar']));
+
   function isflood(h) {
     let max = 0;
     let result = 0;
