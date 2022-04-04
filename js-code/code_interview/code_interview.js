@@ -1654,44 +1654,57 @@ String.prototype.repeating = function(num) {
 
 //////////////////////////////////////////////////////////////////
 //  50
-const periodOutput = (ms) => {
-	let counter = ms;
-	
+function periodOutput(ms) {
+	let counter = 0;
 	setInterval(() => {
 		if (counter < 10000) {
-			console.log('counter',counter)
+			console.log(counter);
 			counter += ms;
 		}
 		return;
-	}, counter);
-};
+	}, ms)
+}
 //  periodOutput(1000);
 
-const periodOutput1 = (ms) => {
+function periodOutput1(ms) {
 	let counter = ms;
-	
 	setTimeout(() => {
 		if (counter < 10000) {
-			console.log('counter',counter)
+			console.log(counter);
 			counter += ms;
 			periodOutput(counter);
 		}
 		return;
-	}, counter);
-};
-//  periodOutput(1000);
+	}, counter)
+}
+//  periodOutput1(1000);
 
 /////////////////////////////////////////////////////////////////////
 //  51
 
-function add(x) {
-  return function(y) {
-      if (typeof y !== 'undefined') {
-          x = x + y;
-          return arguments.callee;
-      } else {
-          return x;
-      }
-  };
-}
-console.log(add(1)(2)(3)());
+// function add(x) {
+//   return function(y) {
+//       if (typeof y !== 'undefined') {
+//           x = x + y;
+//           return arguments.callee;
+//       } else if () {
+//           return x;
+//       }
+//   };
+// }
+// console.log(add(1)(2)(3)());
+
+//////////////////////////////////////////////////////////////////////
+//  52
+function shortStrInArr(arr) {
+	let initialLength = arr[0].length;
+	let res = arr[0];
+	
+	for (let i = 0; i < arr.length; i++) {
+		if (arr[i].length < initialLength) {
+			res = arr[i];
+		}
+	}
+	return res;
+};
+//  console.log(shortStrInArr(['Rostov','KS','Krasnodar']));
