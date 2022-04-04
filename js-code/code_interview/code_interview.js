@@ -1583,3 +1583,115 @@ const findFirstRight = (arr, x) => {
 
 //////////////////////////////////////////////////////////////////////
 //  47
+/**
+* @param {string}
+* @param {number}
+* @param {number}
+* @return {number}
+*...
+* func('!', 4, -10, 34, 0) -> '!4!-10!34!0'
+*/
+const withSeparator = (...rest) => {
+  const [separator, ...values] = rest;
+  return values.join(separator);
+};
+//  console.log(withSeparator('!', 4, -10, 34, 0));
+
+//////////////////////////////////////////////////////////////////////
+//  48
+//  five(plus(seven(minus(three())))) -> 9
+function expression(number, operation) {
+  if (!operation) return number;
+  return operation(number);
+}
+
+function plus(x) {
+  // console.log('x',x)  //  4
+  return function(y) {
+    // console.log('y',y)  //  5
+    return y + x;
+  }
+}
+
+function minus(x) {
+  //  console.log('x',x)  //  3
+  return function(y) {
+    //  console.log('y',y) // 7
+    return y - x;
+  }
+}
+
+function one(operation) {
+  return expression(1, operation);
+}
+function two(operation) {
+  return expression(2, operation);
+}
+function three(operation) {
+  return expression(3, operation);
+}
+function four(operation) {
+  return expression(4, operation);
+}
+function five(operation) {
+  return expression(5, operation);
+}
+function six(operation) {
+  return expression(6, operation);
+}
+function seven(operation) {
+  return expression(7, operation);
+}
+
+// console.log(five(plus(seven(minus(three())))))
+
+///////////////////////////////////////////////////////////////////
+//  49
+String.prototype.repeating = function(num) {
+	return new Array(num).fill(this).join(" ");
+};
+'hello, world'.repeating(3);
+
+//////////////////////////////////////////////////////////////////
+//  50
+const periodOutput = (ms) => {
+	let counter = ms;
+	
+	setInterval(() => {
+		if (counter < 10000) {
+			console.log('counter',counter)
+			counter += ms;
+		}
+		return;
+	}, counter);
+};
+//  periodOutput(1000);
+
+const periodOutput1 = (ms) => {
+	let counter = ms;
+	
+	setTimeout(() => {
+		if (counter < 10000) {
+			console.log('counter',counter)
+			counter += ms;
+			periodOutput(counter);
+		}
+		return;
+	}, counter);
+};
+//  periodOutput(1000);
+
+/////////////////////////////////////////////////////////////////////
+//  51
+
+function add(x) {
+  return function(y) {
+      if (typeof y !== 'undefined') {
+          x = x + y;
+          return arguments.callee;
+      } else {
+          return x;
+      }
+  };
+}
+console.log(add(1)(2)(3)());
