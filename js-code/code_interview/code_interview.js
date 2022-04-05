@@ -466,7 +466,7 @@ const varTest = () => {
   let d = b++;
   return `${a} | ${b} | ${c} | ${d}`;
 };
-//console.log(varTest());
+console.log(varTest());
 
 // 15
 const varTest1 = () => {
