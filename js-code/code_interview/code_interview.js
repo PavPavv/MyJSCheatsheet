@@ -1708,3 +1708,27 @@ function shortStrInArr(arr) {
 	return res;
 };
 //  console.log(shortStrInArr(['Rostov','KS','Krasnodar']));
+
+///////////////////////////////////////////////////////////////////////
+//  53
+/**
+ * 
+ * @param {number[]} arr 
+ * @param {number} target
+ * @return {array} // [[number, number],[number, number]]
+ * func([1,2,3,4,5,6,7],5) -> [[1,4],[2,3]] 
+ */
+function getTwoElemsForTargetSum(arr, target) {
+  const results = [];
+  const hashMap = {};
+
+  for (let i = 0; i < arr.length; i++) {
+    if (hashMap[arr[i]]) {
+      results.push([hashMap[arr[i]], arr[i]]);
+    } else {
+      hashMap[target - arr[i]] = arr[i];
+    }
+  }
+  return results;
+}
+console.log(getTwoElemsForTargetSum([1,2,3,4,5,6,7], 5))
