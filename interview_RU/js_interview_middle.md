@@ -775,3 +775,5 @@ pseudo
 
 while (!mExiting)
     NS_ProcessNextEvent(thread);
+
+## 24. Что такон CORS (Cross Origin Resource Sharing)?

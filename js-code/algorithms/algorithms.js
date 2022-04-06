@@ -147,7 +147,6 @@ function linearSearchLection() {
         max1 = array[i];
       } else if (array[i] > max2) {
         max2 = array[i];
-
       }
     }
 

@@ -1731,4 +1731,25 @@ function getTwoElemsForTargetSum(arr, target) {
   }
   return results;
 }
-console.log(getTwoElemsForTargetSum([1,2,3,4,5,6,7], 5))
+//  console.log(getTwoElemsForTargetSum([1,2,3,4,5,6,7], 5))
+
+////////////////////////////////////////////////////////////////////////
+//  54
+/**
+ * 
+ * @param {number[]} arr 
+ * @return {number} // [[number, number],[number, number]]
+ * func([1,4,5,6,73,7,90,100]) -> 4 
+ */
+function findMinEven(arr) {
+	let isExist = false;
+	let minEven = 0;
+	for (let i = 0; i < arr.length; i++) {
+		if (arr[i] % 2 === 0 && (!isExist || arr[i] < minEven)) {	//	2,4,6,8
+			minEven = arr[i];
+			isExist = true;
+		}
+	}
+	return minEven;
+}
+//  console.log(findMinEven([7,8,9,1,2,3,6,5,4])); // 2

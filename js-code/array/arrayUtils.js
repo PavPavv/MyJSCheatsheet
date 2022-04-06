@@ -136,7 +136,7 @@ const arrays = () => {
   };
   // console.log(findOutlier([2, 3, 4, 6, 8, 2, 22, 2]));
   // console.log(findOutlier([3, 1, 55, 31, 44, 21]));
-
+  
   const findOutlier11 = (arr) => {
     const b_arr = arr.map(x => x % 2);
     const sum_b_arr = b_arr.reduce((a,b)=> a + b);
