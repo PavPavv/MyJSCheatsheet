@@ -919,6 +919,22 @@ const numberifyStr = (str) => {
 };
 // console.log(numberifyStr('AABCEEEDDCAAYYY'));
 // console.log('numberifyStr', funcSpeed(numberifyStr('AABCEEEDDCAAYYY')));
+
+function rle(s) {
+	const obj = {};
+	let result = '';
+	
+	for (let  i = 0; i < s.length; i++) {
+		obj[s[i]] = obj[s[i]] ? obj[s[i]] + 1 : 1;
+	}
+	
+	for (const char in obj) {
+		result += `${char}${obj[char]}`;
+	}
+	return result;
+	// return Object.entries(obj).map(x => x.join('')).join('');
+}
+// console.log(rle('AAABBCDDDDEEEEEFFGGG'));
 ///////////////////////////////////////////////////////////////////////////////////////
 
 // 29

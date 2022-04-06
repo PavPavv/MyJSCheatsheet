@@ -203,17 +203,20 @@ function linearSearchLection() {
   };
   //  console.log(findShortStrInArr(['Rostov', 'KS', 'Krasnodar']));
 
+  /**
+  
+
+                  _
+              _  | |   _
+             | | | |__| |_
+          ___| |_|        |____
+   */
   function isflood(h) {
     let max = 0;
     let result = 0;
     let nowm = 0;
 
-    for (let i = 0; i < h.length; i++) {
-      if (h[i] > h[max]) {
-        max = i;
-      }
-    }
-
+    //  find max height
     for (let i = 0; i < h.length; i++) {
       if (h[i] > h[max]) {
         max = i;
@@ -221,6 +224,7 @@ function linearSearchLection() {
     }
     nowm = 0;
 
+    //  left part
     for (let i = 0; i < max; i++) {
       if (h[i] > nowm) {
         nowm = h[i];
@@ -229,6 +233,7 @@ function linearSearchLection() {
     }
     nowm = 0;
 
+    // right part 
     for (let i = h.length - 1; i < h.length; i--) {
       if (h[i] > nowm) {
         nowm = h[i];
