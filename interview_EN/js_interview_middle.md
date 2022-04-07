@@ -525,3 +525,11 @@ john = null;
 // visitedSet will be cleaned automatically
 ```
 WeakMap and WeakSet are used as “secondary” data structures in addition to the “primary” object storage. Once the object is removed from the primary storage, if it is only found as the key of WeakMap or in a WeakSet, it will be cleaned up automatically.
+
+## 7. What is CORS (Cross Origin Resource Sharing)?
+An origin is identified by a triple: 
+1. scheme 
+2. fully qualified hostname
+3. port.
+
+For example, _http://example.com_ and _https://example.com_ are different origins – the first uses http scheme and the second https. Also, the default http port is _80_, while the https is _443_. Therefore, in this example, the two origins differ by scheme and port, although the host is the same (_example.com_).
