@@ -1741,13 +1741,33 @@ function shortStrInArr(arr) {
  * @return {array} // [[number, number],[number, number]]
  * func([1,2,3,4,5,6,7],5) -> [[1,4],[2,3]] 
  */
+ function sumTarget(arr, target) {
+	const result = [];
+	const obj = {};
+	
+	for (let i = 0; i < arr.length; i++) {
+		obj[arr[i]] = i;
+	}
+
+	for (const num in obj) {
+		const secondNum = target - num;
+		if (obj[secondNum]) {
+			if (secondNum > num) {
+				result.push([+num,+secondNum]);
+			}
+		}
+	}	
+	return result;
+}
+sumTarget([1,2,3,4,5],5);
+
 function getTwoElemsForTargetSum(arr, target) {
   const results = [];
   const hashMap = {};
 
   for (let i = 0; i < arr.length; i++) {
     if (hashMap[arr[i]]) {
-      results.push([hashMap[arr[i]], arr[i]]);
+      results.push([[hashMap[arr[i]], arr[i]]]);
     } else {
       hashMap[target - arr[i]] = arr[i];
     }
