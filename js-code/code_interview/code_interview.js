@@ -1512,15 +1512,17 @@ function compare(str1, str2) {
   const result = str1.toString().localeCompare(str2.toString());
   return result ? str2 : str1;
 }
-console.log(compare(-1, 30));
-console.log(compare('', ''));
-console.log(compare('', 'a'));
-console.log(compare('a', ''));
-console.log(compare('banana', 'avocado'));
-console.log(compare('Banana', 'Avocado'));
-console.log(compare('banana', 'Avocado'));
-console.log(compare('ooooo', 'oo'));
-console.log(compare('oo', 'oooooo'));
+// console.log(compare(-1, 30));
+// console.log(compare('', ''));
+// console.log(compare('', 'a'));
+// console.log(compare('a', ''));
+// console.log(compare('banana', 'avocado'));
+// console.log(compare('Banana', 'Avocado'));
+// console.log(compare('banana', 'Avocado'));
+// console.log(compare('ooooo', 'oo'));
+// console.log(compare('oo', 'oooooo'));
+// console.log(compare('oz', 'oooooo'));
+// console.log(compare('oooooo', 'oooooZ'));
 
 function compareOriginal(str1, str2) {
 	if (typeof a !== 'string' || typeof b !== 'string') {
@@ -1533,28 +1535,33 @@ function compareOriginal(str1, str2) {
 	const b_lowerd = b.toLowerCase();
 	
 	for (let i = 0; i < a_lowerd.length; i++) {
-		const charCode1 = a[i] ? a_lowerd[i].charCodeAt() : 0;
+		const charCode1 = a_lowerd[i] ? a_lowerd[i].charCodeAt() : 0;
 		const charCode2 = b_lowerd[i] ? b_lowerd[i].charCodeAt() : 0;
+		
 		if (charCode1 < charCode2) return a;
 		if (charCode1 > charCode2) return b;
 		if (charCode1 === charCode2) {
-			if (a.length > b.length) return b;
-			if (a.length < b.length) return a;
-			if (a.length === b.length) return 'The strings are equal';
+			if (a_lowerd[a_lowerd.length - 1] === a_lowerd[i]) {
+				return a;
+			} else {
+				continue;
+			}
 		}
 	}
 };
 
 
-// console.log(compareOriginal(-1, 30));
-// console.log(compareOriginal('', ''));
-// console.log(compareOriginal('', 'a'));
-// console.log(compareOriginal('a', ''));
-// console.log(compareOriginal('banana', 'avocado'));
-// console.log(compareOriginal('Banana', 'Avocado'));
-// console.log(compareOriginal('banana', 'Avocado'));
-// console.log(compareOriginal('ooooo', 'oo'));
-// console.log(compareOriginal('oo', 'oooooo'));
+// console.log(compare(-1, 30));
+// console.log(compare('', ''));
+// console.log(compare('', 'a'));
+// console.log(compare('a', ''));
+// console.log(compare('banana', 'avocado'));
+// console.log(compare('Banana', 'Avocado'));
+// console.log(compare('banana', 'Avocado'));
+// console.log(compare('ooooo', 'oo'));
+// console.log(compare('oo', 'oooooo'));
+// console.log(compare('oz', 'oooooo'));
+// console.log(compare('oooooo', 'oooooZ'));
 
 ////////////////////////////////////////////////////////////////////////
 //  45
