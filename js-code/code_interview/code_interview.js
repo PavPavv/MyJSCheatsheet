@@ -1573,7 +1573,6 @@ const is_repeat = (arr) => {
 			const prev = arr[i - 1];
 			if (prev === arr[i]) return true;		
 		}
-		return false;
 	}
 	return false;
 };
@@ -1767,7 +1766,7 @@ function getTwoElemsForTargetSum(arr, target) {
 
   for (let i = 0; i < arr.length; i++) {
     if (hashMap[arr[i]]) {
-      results.push([[hashMap[arr[i]], arr[i]]]);
+      results.push([hashMap[arr[i]], arr[i]]);
     } else {
       hashMap[target - arr[i]] = arr[i];
     }
