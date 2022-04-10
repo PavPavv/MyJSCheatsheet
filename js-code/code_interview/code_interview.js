@@ -224,6 +224,13 @@ const palindrome = (str) => {
   str = str.toLowerCase();
   return str === str.split("").reverse().join("");
 };
+
+
+const isReversed = (source,test) => {
+	return (source+source).includes(test) && source.length === test.length;
+}
+// console.log(isReversed('foo', 'oof'));
+// console.log(isReversed('test', 'text'));
 // console.log(palindrome('aka'));
 // console.log(palindrome('bu'));
 // console.log(palindrome('buy'));
@@ -1795,3 +1802,24 @@ function findMinEven(arr) {
 	return minEven;
 }
 //  console.log(findMinEven([7,8,9,1,2,3,6,5,4])); // 2
+
+
+///////////////////////////////////////////////////////////////////
+//  54
+const flat = (arr) => {
+	const result = [];
+	
+	for (let i = 0; i < arr.length; i++) {
+		if (Array.isArray(arr[i])) {
+			const rec = flat(arr[i]);
+			for (let j = 0; j < rec.length; j++) {
+				result.push(rec[j]);
+			}
+		} else {
+			result.push(arr[i]);
+		}
+	}
+	return result;
+};
+//  console.log(flat([ [1], [[2,3]], [[[4]]] ]));
+
