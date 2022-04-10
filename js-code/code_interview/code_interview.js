@@ -1823,3 +1823,14 @@ const flat = (arr) => {
 };
 //  console.log(flat([ [1], [[2,3]], [[[4]]] ]));
 
+///////////////////////////////////////////////////////////////////
+//  55
+function reverseStr(str) {
+	let reversed = '';
+	for (let i = str.length - 1; i >= 0; i--) {
+		console.log(str[i])
+		reversed += str[i];
+	}
+	return reversed;
+}
+//  console.log(reverseStr('abcdef'))	//	fedcba
