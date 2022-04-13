@@ -2018,3 +2018,19 @@ q1.enqueue(2);
 q1.enqueue(30);
 
 //console.log(q1.size)
+
+///////////////////////////////////////////////////////////////////////////
+//  60
+function groupBy(arr, fn) {
+  const result = {};
+  for (let i = 0; i < arr.length; i++) {
+    const current = arr[i];
+    const key = typeof fn === 'function' ? fn(current) : current[fn];
+
+    if (!result[key]) result[key] = [];
+    result[key].push(current);
+  }
+  return result;
+}
+// console.log(groupBy([6.1, 4.2, 6.3], Math.floor))
+// console.log(groupBy(['one','two','three'], 'length'))
