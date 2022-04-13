@@ -213,6 +213,33 @@ const findFib = (num) => {
 //console.log("fibonacci", funcSpeed(fibonacci(9))); // 3
 //console.log("fibonacci1", funcSpeed(fibonacci1(9))); // 2
 //console.log("fibonacciFast", funcSpeed(fibonacciFast(9))); // 1 (without recursion it is super fast)
+
+
+const fib3 = (function() {
+  const seq = [1,1]; // ??
+
+  return function(num) { // ??
+    console.log('called with', num);
+    if (seq.length >= num) {
+      console.log('no compute');
+      return seq.slice(0,num);
+    }
+
+    for (let i = 2; i < num; i++) {
+      const last = seq[seq.length - 1];
+      const prev = seq[seq.length - 2];
+      seq.push(last+prev);
+      console.log('Pushed', seq[seq.length - 1]);
+    }
+    return seq;
+  }
+})();
+
+// console.log(fib3(1));
+// console.log(fib3(9));
+// console.log(fib3(8));
+// console.log(fib3(12));
+
 /////////////////////////////////////////////////////////////////////////
 
 // 6
@@ -229,8 +256,8 @@ const palindrome = (str) => {
 const isReversed = (source,test) => {
 	return (source+source).includes(test) && source.length === test.length;
 }
-// console.log(isReversed('foo', 'oof'));
-// console.log(isReversed('test', 'text'));
+console.log(isReversed('foo', 'oof'));
+console.log(isReversed('test', 'text'));
 // console.log(palindrome('aka'));
 // console.log(palindrome('bu'));
 // console.log(palindrome('buy'));
@@ -1834,3 +1861,160 @@ function reverseStr(str) {
 	return reversed;
 }
 //  console.log(reverseStr('abcdef'))	//	fedcba
+
+///////////////////////////////////////////////////////////////////
+//  56
+function arrSubset(arr1, arr2) {
+	const source = [...arr1];
+	if (source.length < arr2.length) return false;
+	
+	for (let i = 0; i < arr2.length; i++) {
+		const idx = source.indexOf(arr2[i]);
+		if (idx === -1) return false;
+		delete source[idx];
+	}
+	
+	return true;
+}
+// console.log(arrSubset([1,2,3],[2,3,1]));	//	true
+// console.log(arrSubset([2,1,1,3],[1,2,3]));	//	true
+// console.log(arrSubset([1,1,1,3],[1,3,3]));	//	false
+// console.log(arrSubset([1,2],[2,3,1]));	//	false
+
+///////////////////////////////////////////////////////////////////
+//  57
+//  rotate matrix at right up to 90 degrees
+
+const matrix = [
+  [1,2,3],
+  [4,5,6],
+  [7,8,9]
+];
+
+function print(arr) {
+  arr.forEach(i => console.log(i));
+}
+
+function rotate(m) {
+  const rotated = m[0].map(_ => []);
+
+  for (let i = 0; i < m.length; i++) {
+    for (let j = 0; j < m[i].length; j++) {
+      const value = m[i][j];
+      rotated[j][m.length - 1 - i] = value;
+    }
+  }
+    
+  return rotated;
+}
+
+//print(rotate(matrix));
+
+function rotate180(m) {
+  return rotate(rotate(m));
+}
+
+function rotate270(m) {
+  return rotate(rotate180(m));
+}
+//print(rotate270(matrix));
+
+////////////////////////////////////////////////////////////////////
+//  58
+//	O(log(n))
+function binarySearch(arr, target) {
+	let start = 0;
+	let end = arr.length - 1;
+	
+	if (target < arr[start] || target > arr[end]) {
+		return -1;
+	}
+	
+	while (true) {
+		if (target === arr[start]) return start;
+		if (target === arr[end]) return end;
+	
+		if (end - start <= 1) return -1; 
+		const middle = Math.floor((start + end) / 2);
+	
+		if (target > arr[middle]) {
+			start = middle + 1;
+		} else if (target < arr[middle]) {
+			end = middle - 1;
+		} else {
+			return middle;
+		}
+	}
+}
+// console.log(binarySearch([1,2,3,4,5,6,7,8,9], 7));
+// console.log(binarySearch([1,2,3,4,5,6,7,8,9], 100));
+
+//////////////////////////////////////////////////////////////////////
+//  59
+
+
+class LinkedList {
+	#length = 0;
+	#head = null;
+	#tail = null;
+	
+	addToTail(value) {
+		const node = {
+			value,
+			next: null,
+		};
+		
+		if (this.#length === 0) {
+			this.#head = node;
+			this.#tail = node;
+		} else {
+			this.#tail = node;
+		}
+		this.#length++;
+	}
+	
+	removeFromHead(value) {
+		if (this.#length === 0) {
+			return;
+		} else {
+			const value = this.#head.value;
+			this.#head = this.#head.next;
+			this.#length--;
+			return value;
+		}
+	}
+	
+	size() {
+		return this.#length;
+	}
+}
+
+class Queue {
+	#storage = {};
+	#last = 0;
+	#first = 0;
+	
+	enqueue(item) {
+		this.#storage[this.#last] = item;
+		this.#last++;
+	}
+	
+	dequeue() {
+		if (this.size === 0) return;
+		const value = this.#storage[this.#first];
+		delete this.#storage[this.#first];
+		this.#first++;		
+		return value;
+	}
+	
+	get size() {
+		return this.#last - this.#first;
+	}
+}
+
+const q1 = new Queue();
+q1.enqueue(1);
+q1.enqueue(2);
+q1.enqueue(30);
+
+//console.log(q1.size)
