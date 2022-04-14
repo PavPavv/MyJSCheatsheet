@@ -93,6 +93,7 @@ function popularSymbolObj(str) {
 // console.log(popularSymbolObj(bigStr));
 // console.log('popularSymbolObj', funcSpeed(popularSymbolObj(bigStr)));
 
+///////////////////////////////////////////////////////////////////////////////////
 //  2
 //  Линейный поиск, сложность - O(n)
 function linearSearchLection() {
@@ -292,21 +293,26 @@ function linearSearchLection() {
   }
   //console.log(rleTest('AAAABBBCC'));
 }
-linearSearchLection();
+//linearSearchLection();
 
+////////////////////////////////////////////////////////////////////////////////
 //  3
 //  Множества, хэш-функция, хэш-таблица, коллизия, амортизированная сложность
 function sets() {
-  const setSize = 10;
-  const mySet = new Array(setSize).fill([]);
+
+  const SET_SIZE = 10;  //  constant for hash function
+  //  hash table
+  const mySet = new Array(SET_SIZE).fill([]); 
+  //  mySet = [ [],[],[],[],[],[],[],[7,17,27,37,...,10257],[],[] ]
 
   function addToMySet(x) {
-    mySet[x % setSize].push(x);
+    //  x % SET_SIZE - hash function, for example: (27) -> 7
+    mySet[x % SET_SIZE].push(x);  //  mySet[7].push(27) 
   }
 
-  function findInMySet(x) {
-    for (now of mySet[x % setSize]) {
-      if (now === x) {
+  function isInMySet(x) {
+    for (num of mySet[x % SET_SIZE]) {  //  mySet[7]
+      if (num === x) {
         return true;
       }
     }
@@ -314,7 +320,7 @@ function sets() {
   }
 
   function deleteFromMySet(x) {
-    xList = mySet[x % setSize];
+    xList = mySet[x % SET_SIZE];  //  mySet[7]
 
     for (let i = 0; i < sList.length; i++) {
       if (xList[i] === x) {
@@ -326,32 +332,32 @@ function sets() {
       }
     }
   }
-  //  O(n^2)
-  function findSumOfX(numsArr, x) {
+  //  O(n^2) bad solution
+  function findSumOfTarget(numsArr, target) {
     for (let i = 0; i < numsArr.length; i++) {
       for (let j = 0; j < numsArr.length; j++) {
-        if (numsArr[i] + numsArr[j] === x) {
+        if (numsArr[i] + numsArr[j] === target) {
           return [numsArr[i], numsArr[j]];
         }
       }
     }
     return [];
   }
-  //  console.log(findSumOfX([1,2,3,4,5], 5));
+  //  console.log(findSumOfTarget([1,2,3,4,5], 5));
 
-  //  O(n)
-  function findSumOfXOpt(numsArr, x) {
+  //  O(n) bad solution
+  function findSumOfTargetOpt(numsArr, target) {
     const prevNums = new Set();
 
     for (let i = 0; i < numsArr.length; i++) {
-      if (prevNums.has(x - numsArr[i])) {
-        return [numsArr[i], x - numsArr[i]];
+      if (prevNums.has(target - numsArr[i])) {
+        return [numsArr[i], target - numsArr[i]];
       }
       prevNums.add(numsArr[i]);
     }
     return [];
   }
-  //  console.log(findSumOfXOpt([1,2,3,4,5], 5));
+  console.log(findSumOfTargetOpt([1,2,3,4,5], 5));
 
   //  O(nk + m)
   function wordsInDict(dict, text) {
