@@ -375,7 +375,9 @@ function sets() {
         result.push(word);
       }
     }
+    return result;
   }
+  console.log(wordsInDict);
 
 }
 sets();
