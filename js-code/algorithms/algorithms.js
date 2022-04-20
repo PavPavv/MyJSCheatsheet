@@ -380,4 +380,51 @@ function sets() {
   console.log(wordsInDict);
 
 }
-sets();
+//  sets();
+
+////////////////////////////////////////////////////////////////////////////////
+//  4 Словари, сортировка подсчетом / Dictionaries, counting sort
+//  https://www.geeksforgeeks.org/counting-sort/
+function dictionaries() {
+  const valArr = [5,5,5,4,3,2,1,5,5];
+
+  function findMax(arr) {
+    let max = arr[0];
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] > max) max = arr[i];
+    }
+    return max;
+  }
+
+  function findMin(arr) {
+    let min = arr[0];
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] < min) min = arr[i];
+    }
+    return min;
+  }
+
+  function countSort(arr) {
+    const newArr = [...arr];
+    let minVal = findMin(newArr);
+    let maxVal = findMax(newArr);
+    let k = (maxVal - minVal + 1);
+    const countArr = new Array(k).fill(0);
+
+    for (let i = 0; i < newArr.length; i++) {
+      countArr[newArr[i] - minVal] += 1;
+    }
+
+    let nowPos = 0;  
+    for (let i = 0; i < k; i++) {
+      for (let j = 0; j < countArr[k[i]]; j++) {
+        newArr[nowPos] = k[i] + minVal;
+        nowPos += 1;
+      }  
+    }
+    return newArr;
+  };
+
+  console.log(countSort(valArr));
+}
+dictionaries()

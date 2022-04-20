@@ -56,7 +56,7 @@ function makeNegative(num) {
 function friend(friends) {
   return friends.filter((friend) => friend.length === 4);
 }
-//console.log(friend(["Mark", "John", "Sveta", "Maria"]));
+//console.log(friend(["Mark", "John", "Anna", "Maria"]));
 
 //  kata 4 Level 8
 /**
