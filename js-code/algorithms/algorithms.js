@@ -410,6 +410,38 @@ function dictionaries() {
     return newArr;
   };
 
-  console.log(countSort(numArr));
+  //  console.log(countSort(numArr));
+
+  //  My first solution
+  function isEqualDigits(a,b) {
+    function sortNum(num) {
+      const sorted = String(num).split("").sort().join("");
+      return +sorted;
+    }
+    
+    const result = sortNum(a) === sortNum(b);
+    return result ? true : false;
+  }
+  //  console.log(isEqualDigits(2021, 1202))
+
+  function isEqualDigits(a,b) {
+    function countDigits(num) {
+      const digitCountArr = new Array(10).fill(0);
+      while (num > 0) {
+        const lastDigit = num % 10;
+        digitCountArr[lastDigit] += 1;
+        num = Math.floor(num / 10);
+      }
+      return digitCountArr
+    }
+  
+    const digitsA = countDigits(a);
+    const digitsB = countDigits(b);
+    for (let i = 0; i < 10; i++) {
+      if (digitsA[i] !== digitsB[i]) return false;
+    }
+    return true;
+  }
+  //  console.log(isEqualDigits(2021, 1202))
 }
 dictionaries()
