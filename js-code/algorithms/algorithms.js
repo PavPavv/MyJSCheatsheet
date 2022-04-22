@@ -386,45 +386,30 @@ function sets() {
 //  4 Словари, сортировка подсчетом / Dictionaries, counting sort
 //  https://www.geeksforgeeks.org/counting-sort/
 function dictionaries() {
-  const valArr = [5,5,5,4,3,2,1,5,5];
-
-  function findMax(arr) {
-    let max = arr[0];
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i] > max) max = arr[i];
-    }
-    return max;
-  }
-
-  function findMin(arr) {
-    let min = arr[0];
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i] < min) min = arr[i];
-    }
-    return min;
-  }
+  const numArr = [5,4,5,3,2,1,5];
 
   function countSort(arr) {
     const newArr = [...arr];
-    let minVal = findMin(newArr);
-    let maxVal = findMax(newArr);
-    let k = (maxVal - minVal + 1);
+    const set = new Set(newArr);
+    const k = set.size;
     const countArr = new Array(k).fill(0);
 
     for (let i = 0; i < newArr.length; i++) {
-      countArr[newArr[i] - minVal] += 1;
+      const elem = newArr[i];
+      countArr[elem - 1] += 1;
     }
 
-    let nowPos = 0;  
+    let newPos = 0;
+    //  countArr = [1,1,1,1,3]
     for (let i = 0; i < k; i++) {
-      for (let j = 0; j < countArr[k[i]]; j++) {
-        newArr[nowPos] = k[i] + minVal;
-        nowPos += 1;
-      }  
+      for (let j = 0; j < countArr[i]; j++) {
+        newArr[newPos] = i+1;
+        newPos += 1;
+      }
     }
     return newArr;
   };
 
-  console.log(countSort(valArr));
+  console.log(countSort(numArr));
 }
 dictionaries()

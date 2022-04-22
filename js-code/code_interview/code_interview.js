@@ -1643,7 +1643,7 @@ const findFirstRight = (arr, x) => {
 * @param {string}
 * @param {number}
 * @param {number}
-* @return {number}
+* @return {string}
 *...
 * func('!', 4, -10, 34, 0) -> '!4!-10!34!0'
 */
