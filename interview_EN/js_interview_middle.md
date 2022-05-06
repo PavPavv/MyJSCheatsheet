@@ -528,8 +528,15 @@ WeakMap and WeakSet are used as “secondary” data structures in addition to t
 
 ## 7. What is CORS (Cross Origin Resource Sharing)?
 An origin is identified by a triple: 
-1. scheme 
-2. fully qualified hostname
-3. port.
+1. scheme (http or https)
+2. fully qualified hostname (google.com, somesite.org...)
+3. port (:3000, :3010, :8000, ...)
 
 For example, _http://example.com_ and _https://example.com_ are different origins – the first uses http scheme and the second https. Also, the default http port is _80_, while the https is _443_. Therefore, in this example, the two origins differ by scheme and port, although the host is the same (_example.com_).
+
+**Access-Control-Allow-Origin** is a CORS (Cross-Origin Resource Sharing) header.
+When Site A tries to fetch content from Site B, Site B can send an **Access-Control-Allow-Origin** response header to tell the browser that the content of this page is accessible to certain origins. (An origin is a domain, plus a scheme and port number.) By default, Site B's pages are not accessible to any other origin; using the Access-Control-Allow-Origin header opens a door for cross-origin access by specific requesting origins.
+For each resource/page that Site B wants to make accessible to Site A, Site B should serve its pages with the response header:
+> Access-Control-Allow-Origin: http://siteA.com
+Modern browsers will not block cross-domain requests outright. If Site A requests a page from Site B, the browser will actually fetch the requested page on the network level and check if the response headers list Site A as a permitted requester domain. If Site B has not indicated that Site A is allowed to access this page, the browser will trigger the XMLHttpRequest's error event and deny the response data to the requesting JavaScript code.
+
