@@ -148,14 +148,6 @@ const arrays = () => {
   console.log(findOutlier11([2, 3, 4, 6, 8, 2, 22, 2]));
   console.log(findOutlier11([3, 1, 55, 31, 44, 21]));
 
-  const findOutlier1 = (numsStr) => {
-    const numsArr = numsStr.split(" ").map((x) => x % 2); //  [0,0,0,0,0,0,0,1]
-    const arrSum = numsArr.reduce((a, b) => a + b); //  1
-    const target = arrSum > 1 ? 0 : 1;
-
-    return numsArr.indexOf(target) + 1;
-  };
-
   //console.log(iqTest1("2 2 2 2 2 2 2 1"));
 
   //  wrong solution, need to refactor

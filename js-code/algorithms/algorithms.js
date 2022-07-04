@@ -386,7 +386,7 @@ function sets() {
     }
     return result;
   }
-  console.log(wordsInDict());
+  //  console.log(wordsInDict([],''));
 
 }
 //  sets();
@@ -421,7 +421,7 @@ function dictionaries() {
 
   //  console.log(countSort(numArr));
 
-  //  My first solution
+  //  My initial solution
   function isEqualDigits(a,b) {
     function sortNum(num) {
       const sorted = String(num).split("").sort().join("");
@@ -518,7 +518,149 @@ function dictionaries() {
     }
     return result;
   }
-  console.log(groupWords(words1));
+  //console.log(groupWords(words1));
 
 }
-dictionaries();
+//dictionaries();
+
+////////////////////////////////////////////////////////////////////
+//  5 Prefix sums
+//  prefixSum[i] = prefixSum[i - 1] + nums[i - 1]
+//  O(1): sum(L,R) = prefixSum[R] - prefixSum[L]
+function prefix() {
+  const nums = [5,3,8,1,4,6];
+  const numsWithZeros = [0,0,0,0,1,2,3,4,5,6,0,];
+
+  function makePrefixSum(arr) {
+    //  [0,0,0,0,0,0,0  ]
+    const prefixSum = new Array(arr.length + 1).fill(0);
+
+    for (let i = 1; i < prefixSum.length; i++) {
+      prefixSum[i] = prefixSum[i - 1] + arr[i - 1];
+    } 
+    return prefixSum; //  [0, 5, 8, 16, 17, 21, 27]
+  }
+
+  function rsq(pref, l, r) {
+    return pref[r] - pref[l]; //  16 - 0
+  }
+
+  //  console.log(makePrefixSum(nums)); //  
+  //  console.log(rsq(makePrefixSum(nums), 0, 3));
+
+  function makePrefixZeros(arr) {
+    const prefixZeros = new Array(arr.length + 1).fill(0);
+    for (let i = 1; i < prefixZeros.length; i++) {
+      if (arr[i - 1] === 0) prefixZeros[i] = prefixZeros[i - 1] + 1;
+      else prefixZeros[i] = prefixZeros[i - 1];
+    }
+    return prefixZeros;
+  }
+  //console.log(rsq(makePrefixZeros(numsWithZeros), 1, 5))
+
+  function countPrefixSum(arr) {
+    const prefixSumByValue= {0: 1};
+    let nowSum = 0;
+
+    for (let i = 0; i < arr.length; i++) {
+      nowSum += arr[i];
+      if (nowSum in prefixSumByValue) {
+        prefixSumByValue[nowSum] += 1;
+      } else {
+        prefixSumByValue[nowSum] = 0;
+      }
+    }
+    return prefixSumByValue;
+  }
+
+  function countZerosSumRanges(obj) {
+    let counter = 0;
+    for (const nowS in obj) {
+      const count = obj[nowS];
+      counter += count * (count - 1);
+    }
+    return counter;
+  }
+
+  //  console.log(countZerosSumRanges(countPrefixSum(numsWithZeros)))
+
+  function twoPointers(sortedNums, k) {
+    let countPairs = 0; // 
+    let last = 0; //  
+
+    for (let i = 0; i < sortedNums.length; i++) {
+      while (
+        last < sortedNums.length 
+        && sortedNums[last] - sortedNums[i] <= k
+      ) {
+          last += 1;
+      }
+      countPairs += sortedNums.length - last;
+    }
+
+    return countPairs;
+  }
+  //  console.log(twoPointers([1,3,5,7,8], 4));
+
+  const players = [1,1,3,3,4,6,11];
+  function bestTeamSum(teamPlayers) {
+    let bestSum = 0;
+    let nowSum = 0;
+    let last = 0;
+
+    for (let i = 0; i < teamPlayers.length; i++) {
+      while(last < teamPlayers.length && (last === i || teamPlayers[i] + teamPlayers[i + 1] >= teamPlayers[last])) {
+        nowSum += teamPlayers[last];
+        last += 1;
+      }
+      bestSum = Math.max(bestSum, nowSum);
+      nowSum = nowSum - teamPlayers[i] ; 
+    }
+    return bestSum;
+  }
+  //  console.log(bestTeamSum(players));
+
+  const nums1 = [1,2,3,4,5];
+  const nums2 = [3,4,5,6,7,8,9];
+  function merged(arr1, arr2) {
+    const merged = new Array(arr1.length + arr2.length).fill(0);
+    let first1 = 0;
+    let first2 = 0;
+    for (let i = 0; i < merged.length; i++) {
+      if (first1 !== arr1.length && first2 === arr2.length || arr1[first1] <= arr2[first2]) {
+        merged[i] = arr1[first1];
+        first1 += 1;
+      } else {
+        merged[i] = arr2[first2];
+        first2 += 1;
+      }
+    }
+    return merged;
+  }
+  //  console.log(merged(nums1, nums2));
+}
+prefix();
+
+//////////////////////////////////////////////////////////////////////////////////
+//  6 Binary search
+
+function binarySearch() {
+  function checkF(m, params) {
+    const [ n, k ] = params;
+    return (k + m) * 3 >= n + m;
+  }
+
+  function leftBinarySearch(l, r, check, checkparams) {
+    while (l > r) {
+      m = Math.round((l + r) / 2);
+      if (check(m, checkparams)) {
+        r = m;
+      } else {
+        l = m + 1;
+      }
+    }
+    return l;
+  }
+  console.log(leftBinarySearch(0, 33, checkF, [27, 7]));
+}
+//binarySearch();

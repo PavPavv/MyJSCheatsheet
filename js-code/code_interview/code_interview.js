@@ -1584,18 +1584,17 @@ function compareOriginal(str1, str2) {
 	}
 };
 
-
-// console.log(compare(-1, 30));
-// console.log(compare('', ''));
-// console.log(compare('', 'a'));
-// console.log(compare('a', ''));
-// console.log(compare('banana', 'avocado'));
-// console.log(compare('Banana', 'Avocado'));
-// console.log(compare('banana', 'Avocado'));
-// console.log(compare('ooooo', 'oo'));
-// console.log(compare('oo', 'oooooo'));
-// console.log(compare('oz', 'oooooo'));
-// console.log(compare('oooooo', 'oooooZ'));
+// console.log(compareOriginal(-1, 30));
+// console.log(compareOriginal('', ''));
+// console.log(compareOriginal('', 'a'));
+// console.log(compareOriginal('a', ''));
+// console.log(compareOriginal('banana', 'avocado'));
+// console.log(compareOriginal('Banana', 'Avocado'));
+// console.log(compareOriginal('banana', 'Avocado'));
+// console.log(compareOriginal('ooooo', 'oo'));
+// console.log(compareOriginal('oo', 'oooooo'));
+// console.log(compareOriginal('oz', 'oooooo'));
+// console.log(compareOriginal('oooooo', 'oooooZ'));
 
 ////////////////////////////////////////////////////////////////////////
 //  45
@@ -1649,7 +1648,7 @@ const findFirstRight = (arr, x) => {
 */
 const withSeparator = (...rest) => {
   const [separator, ...values] = rest;
-  return values.join(separator);
+  return separator + values.join(separator);
 };
 //  console.log(withSeparator('!', 4, -10, 34, 0));
 
