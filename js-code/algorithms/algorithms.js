@@ -645,22 +645,43 @@ prefix();
 //  6 Binary search
 
 function binarySearch() {
+  /**
+   * 
+   * @param {number} m // parents needs to be added to the school board's members
+   * @param {numbber[]} params 
+   * @returns 
+   */
   function checkF(m, params) {
     const [ n, k ] = params;
     return (k + m) * 3 >= n + m;
   }
 
+
+  /**
+   * 
+   * @param {number} l
+   * @param {number} r 
+   * @param {function} check 
+   * @param {number[]} checkparams // [allMembers, parents]
+   * @returns 
+   */
   function leftBinarySearch(l, r, check, checkparams) {
-    while (l > r) {
-      m = Math.round((l + r) / 2);
-      if (check(m, checkparams)) {
-        r = m;
+    while (l < r) {
+      let middle = Math.floor((l + r) / 2);
+      console.log(middle)
+      if (check(middle, checkparams)) {
+        r = middle;
       } else {
-        l = m + 1;
+        l = middle + 1;
       }
     }
     return l;
   }
-  console.log(leftBinarySearch(0, 33, checkF, [27, 7]));
+  
+  console.log('leftBinarySearch', leftBinarySearch(0, 27 , checkF, [27, 7]));
 }
-//binarySearch();
+binarySearch();
+
+
+
+
