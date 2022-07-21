@@ -668,7 +668,6 @@ function binarySearch() {
   function leftBinarySearch(l, r, check, checkparams) {
     while (l < r) {
       let middle = Math.floor((l + r) / 2);
-      console.log(middle)
       if (check(middle, checkparams)) {
         r = middle;
       } else {
@@ -677,8 +676,34 @@ function binarySearch() {
     }
     return l;
   }
-  
-  console.log('leftBinarySearch', leftBinarySearch(0, 27 , checkF, [27, 7]));
+  //  console.log('leftBinarySearch', leftBinarySearch(0, 27 , checkF, [27, 7]));
+
+  //  Interview problem (binary search by answer)
+  function checkFInterview(days, params) {
+    const [n, k] = params;
+    const result = (k + (k + days - 1)) * Math.floor(days / 2)
+    return  result >= n ? result : 0;
+  }
+  //  console.log(leftBinarySearch(0, 10 , checkFInterview, [10, 1]))
+
+  //  Sticker board
+  function rightBinarySearch(l, r, check, checkparams) {
+    while(l != r) {
+      let middle = Math.floor((l + r + 1) / 2);
+      if (check(middle, checkparams)) {
+        l = middle;
+      } else {
+        r = middle - 1;
+      }
+    }
+  }
+
+  function checkFStickers(size, params) {
+    const [n, w, h] = params;
+    const result = Math.floor(w / size) * Math.floor(h / size);
+    return result >= n ? result : 0;
+  }
+  console.log(rightBinarySearch(1, Math.min(100, 80), checkFStickers, [5, 100, 80]));
 }
 binarySearch();
 
