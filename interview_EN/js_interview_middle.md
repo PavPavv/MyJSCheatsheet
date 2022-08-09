@@ -540,3 +540,84 @@ For each resource/page that Site B wants to make accessible to Site A, Site B sh
 > Access-Control-Allow-Origin: http://siteA.com
 Modern browsers will not block cross-domain requests outright. If Site A requests a page from Site B, the browser will actually fetch the requested page on the network level and check if the response headers list Site A as a permitted requester domain. If Site B has not indicated that Site A is allowed to access this page, the browser will trigger the XMLHttpRequest's error event and deny the response data to the requesting JavaScript code.
 
+## 8. Examples of functional programming with JS
+Functions can be sent to functions as arguments or returned from functions as results. More complex functions, called higher-order functions, can manipulate functions and use them as either arguments or results or both.
+JavaScript supports functional programming because JavaScript functions are first-class citizens. Functional
+programmers write a lot of small functions, and the arrow function syntax makes that much easier.
+
+If you see more than one arrow used during a function declaration, this
+means that you’re using a higher-order function.
+```javascript
+const createCalm = logger => message => logger(message.toLowerCase() + ".");
+```
+We can say that JavaScript supports functional programming because its functions are first-class citizens. This means that functions are data. They can be saved, retrieved, or flow through your applications just like variables.
+
+Functional programming is a part of a larger programming paradigm: **declarative programming**. Declarative programming is a style of
+programming where applications are structured in a way that prioritizes describing _what_ should happen over defining _how_ it should happen.
+The declarative approach is more readable and, thus, easier to reason about. The details of how each of these functions is implemented are abstracted away. Those tiny functions are named well and combined in a way that describes how member data goes from being loaded to being
+saved and printed on a map, and this approach does not require many comments. Essentially, declarative programming produces applications
+that are easier to reason about, and when it’s easier to reason about an application, that application is easier to scale.
+
+## 9. Functional Concepts
+#### Immutability
+In a functional program, data is immutable. It never changes.
+```javascript
+const rateColor = (color, rating) => ({
+...color,
+rating
+});
+const addColor = (title, list) => [...list, { title }];
+```
+
+#### Pure Functions
+A _pure function_ is a function that returns a value that’s computed based on its arguments. Pure functions take at least one argument and always
+return a value or another function. They do not cause side effects, set global variables, or change anything about application state. They treat their arguments as immutable data.
+```javascript
+const selfEducate = person => ({
+  ...person,
+  canRead: true,
+  canWrite: true
+});
+```
+1. The function should take in at least one argument.
+2. The function should return a value or another function.
+3. The function should not change or mutate any of its arguments.
+
+#### Data Transformations
+When it’s time to remove an item from an array, we should use **Array.filter** over **Array.pop** or **Array.splice** because Array.filter is immutable.
+```javascript
+const cutSchool = (cut, list) => list.filter(school => school !== cut);
+```
+
+Another array function that is essential to functional programming is **Array.map**. Instead of a predicate, the Array.map method takes a function as its argument. This function will be invoked once for every item in the array, and whatever it returns will be added to the new array:
+```javascript
+const highSchools = schools.map(school => `${school} High School`);
+```
+
+```javascript
+const colors = ["red", "red", "green", "blue", "green"];
+const uniqueColors = colors.reduce(
+  (unique, color) =>
+    unique.indexOf(color) !== -1 ? unique : [...unique, color],
+  []
+);
+console.log(uniqueColors);
+// ["red", "green", "blue"]
+```
+
+#### Higher-Order Functions
+The first category of higher-order functions are functions that expect other functions as arguments. **Array.map**, **Array.filter**, and **Array.reduce** all take functions as arguments. They are higher-order functions.
+**Currying** is a functional technique that involves the use of higher-order functions.
+
+#### Recursion
+
+#### Composition
+Functional programs break up their logic into small, pure functions that are focused on specific tasks. Eventually, you’ll need to put thesesmaller functions together. Specifically, you may need to combine them, call them in series or parallel, or compose them into larger
+functions until you eventually have an application.
+The compose function is a higher-order function. It takes functions as arguments and returns a single value:
+```javascript
+  const compose = (...fns) => arg => fns.reduce((composed, f) => f(composed), arg);
+```
+
+## 8. React
+React is the library for creating views. ReactDOM is the library used to actually render the UI in the browser.
