@@ -268,6 +268,13 @@ A reducer function’s most simple definition is that it takes in the current st
 
 ```javascript
 const [checked, toggle] = useReducer(checked => !checked, false);
+
+return (
+  <>
+    <input type="checkbox" value={checked} onChange={toggle} />
+    {checked ? "checked" : "not checked"}
+  </>
+);
 ```
 
 ```javascript
@@ -350,3 +357,4 @@ class Cat extends React.PureComponent {
   }
 }
 ```
+
