@@ -1727,12 +1727,12 @@ function periodOutput1(ms) {
 		if (counter < 10000) {
 			console.log(counter);
 			counter += ms;
-			periodOutput(counter);
+			periodOutput1(counter);
 		}
 		return;
 	}, counter)
 }
-//  periodOutput1(1000);
+periodOutput1(1000);
 
 /////////////////////////////////////////////////////////////////////
 //  51
@@ -1788,7 +1788,7 @@ function shortStrInArr(arr) {
 				result.push([+num,+secondNum]);
 			}
 		}
-	}	
+	}
 	return result;
 }
 sumTarget([1,2,3,4,5],5);
