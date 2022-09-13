@@ -1,4 +1,4 @@
-//  SEARCH
+///////////////////////////////////////  SEARCH
 
 //  Linear search
 const arr = [1,2,3,4,5];
@@ -38,3 +38,19 @@ function bSearch(a, x) {
   return l;
 };
 console.log(bSearch(arr, 4));
+
+//  array (table) search
+
+//  string search
+//  simple string search
+const s = ['o', 'n', 'e']; // text
+const p = ['n', 'e']; //  target
+/**
+ * 
+ * @param {number} i
+ * @return {boolean} 
+ */
+function r(i) {
+  let j;
+  return true;
+}
