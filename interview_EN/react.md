@@ -31,7 +31,6 @@ Aside from code compilation, webpack also can handle:
 - **Hot Module Replacement**
 
 > yarn add webpack webpack-cli --dev
-
 > yarn add babel-loader @babel/core --dev
 
 For react:
@@ -112,7 +111,7 @@ With thus setting there are two output files are generated and added to the dist
 
 _Hooks_ contain reusable code logic that is separate from the component tree. They allow us to hook up functionality to our components. React ships with several built-in hooks we can use out of the box.
 
-#### useState
+### useState
 
 Returns a stateful value, and a function to update it. During the initial render, the returned state (state) is the same as the value passed as the first argument (initialState).The **setState** function is used to update the state. It accepts a new state value and enqueues a re-render of the component.
 
@@ -130,7 +129,7 @@ setState(prevState => {
 });
 ```
 
-#### useRef
+### useRef
 
 Returns a mutable ref object whose _.current_ property is initialized to the passed argument (initialValue). The returned object will persist for the full lifetime of the component. A common use case is to access a child imperatively:
 
@@ -150,67 +149,7 @@ const TextInputWithFocusButton = () => {
 }
 ```
 
-#### useEffect
-
-We use **useEffect** when a render needs to cause side effects. Think of a side effect as something that a function does that isn’t part of the return.
-Think of **useEffect** as being a function that happens after a render. When a render fires, we can access the current state values within our component and use them to do something else. Then, once we render again, the whole thing starts over. New values, new renders, new effects.
-
-We don’t want every effect to be invoked on every render. We need to associate **useEffect** hooks with specific data changes. To solve this problem, we can incorporate the dependency array. The dependency array can be used to control when an effect is invoked. Since there are no dependencies in the array, the effect is invoked for the initial render. No dependencies means no changes, so the effect will never be invoked again. Effects that are only invoked on the first render are extremely useful for initialization.
-
-If you return a function from the effect, the function will be invoked when the component is removed from the tree. Splitting functionality into multiple useEffect calls is typically a good idea.
-
-```javascript
-useEffect(() => {
-  console.log(someDep);
-}, [someDep]);
-```
-
-#### useMemo
-
-**useMemo** invokes a function to calculate a memoized value. In computer science in general, memoization is a technique that’s used to improve performance. In a memoized function, the result of a function call is saved and cached. Then, when the function is called again with the same inputs, the cached value is returned. In React, **useMemo** allows us to compare the cached value against itself to see if it has actually changed.
-
-When we don’t include the dependency array with **useMemo**, the words are calculated with every render. The dependency array controls when the callback function should be invoked. The second argument sent to the **useMemo** function is the dependency array. The _words_ array depends on the _children_ property. If _children_ changes, we should calculate a new value for _words_ that reflects that change. At that point, **useMemo** will calculate a new value for words when the component initially renders and if the children property changes.
-
-```javascript
-const words = useMemo(() => children.split(" "), [children]);
-```
-
-#### useCallback
-
-**useCallback** can be used like **useMemo**, but it memoizes **functions** instead of values.
-
-```javascript
-const fn = useCallback(() => {
-  console.log(test.id);
-  console.log(test.date);
-}, [test]);
-```
-
-```javascript
-const useJazzyNews = () => {
-  const [_posts, setPosts] = useState([]);
-  const addPost = post => setPosts(allPosts => [post, ...allPosts]);
-  const posts = useMemo(() => _posts, [_posts]);
-
-  useEffect(() => {
-    newPostChime.play();
-  }, [posts]);
-
-  useEffect(() => {
-    newsFeed.subscribe(addPost);
-    return () => newsFeed.unsubscribe(addPost);
-  }, []);
-
-  useEffect(() => {
-    welcomeChime.play();
-    return () => goodbyeChime.play();
-  }, []);
-
-  return posts;
-};
-```
-
-#### useLayoutEffect
+### useLayoutEffect
 
 We understand that the render always comes before **useEffect**. The render happens first, then all effects run in order with full access to all of the values from the render.
 **useLayoutEffect** is called at a specific moment in the render cycle. The series of events is as follows:
@@ -262,7 +201,82 @@ function useMousePosition {
 };
 ```
 
-#### useReducer
+### useEffect
+
+We use **useEffect** when a render needs to cause side effects. Think of a side effect as something that a function does that isn’t part of the return.
+Think of **useEffect** as being a function that happens after a render. When a render fires, we can access the current state values within our component and use them to do something else. Then, once we render again, the whole thing starts over. New values, new renders, new effects.
+
+We don’t want every effect to be invoked on every render. We need to associate **useEffect** hooks with specific data changes. To solve this problem, we can incorporate the dependency array. The dependency array can be used to control when an effect is invoked. Since there are no dependencies in the array, the effect is invoked for the initial render. No dependencies means no changes, so the effect will never be invoked again. Effects that are only invoked on the first render are extremely useful for initialization.
+
+If you return a function from the effect, the function will be invoked when the component is removed from the tree. Splitting functionality into multiple useEffect calls is typically a good idea.
+
+```javascript
+useEffect(() => {
+  console.log(someDep);
+}, [someDep]);
+```
+
+We can imitate **componentDidMount** and **componentDidUnmount** react-classes lifecycle methods with **useEffect** hook:
+
+```javascript
+export function useMountedRef() {
+  const mounted = useRef(false);
+
+  useEffect(() => {
+    mounted.current = true;
+    
+    return () => (mounted.current = false);
+  });
+  return mounted;
+}
+```
+
+### useMemo
+
+**useMemo** invokes a function to calculate a memoized value. In computer science in general, memoization is a technique that’s used to improve performance. In a memoized function, the result of a function call is saved and cached. Then, when the function is called again with the same inputs, the cached value is returned. In React, **useMemo** allows us to compare the cached value against itself to see if it has actually changed.
+
+When we don’t include the dependency array with **useMemo**, the words are calculated with every render. The dependency array controls when the callback function should be invoked. The second argument sent to the **useMemo** function is the dependency array. The _words_ array depends on the _children_ property. If _children_ changes, we should calculate a new value for _words_ that reflects that change. At that point, **useMemo** will calculate a new value for words when the component initially renders and if the children property changes.
+
+```javascript
+const words = useMemo(() => children.split(" "), [children]);
+```
+
+### useCallback
+
+**useCallback** can be used like **useMemo**, but it memoizes **functions** instead of values.
+
+```javascript
+const fn = useCallback(() => {
+  console.log(test.id);
+  console.log(test.date);
+}, [test]);
+```
+
+```javascript
+const useJazzyNews = () => {
+  const [_posts, setPosts] = useState([]);
+  const addPost = post => setPosts(allPosts => [post, ...allPosts]);
+  const posts = useMemo(() => _posts, [_posts]);
+
+  useEffect(() => {
+    newPostChime.play();
+  }, [posts]);
+
+  useEffect(() => {
+    newsFeed.subscribe(addPost);
+    return () => newsFeed.unsubscribe(addPost);
+  }, []);
+
+  useEffect(() => {
+    welcomeChime.play();
+    return () => goodbyeChime.play();
+  }, []);
+
+  return posts;
+};
+```
+
+### useReducer
 
 A reducer function’s most simple definition is that it takes in the current state and returns a new state.
 
@@ -355,5 +369,39 @@ class Cat extends React.PureComponent {
       {name} is a good cat!
     )
   }
+}
+```
+
+## Dealing with WebSockets
+
+```javascript
+export function useChatRoom(socket, messages = []) {
+  const [status, setStatus] = useState(null);
+  const [messages, appendMessage] = useReducer(
+    reducer,
+    messages
+  );
+
+  const send = message => socket.emit("message", message);
+
+  useEffect(() => {
+    socket.on("connection", () => setStatus("connected"));
+    socket.on("disconnecting", () =>
+      setStatus("disconnected")
+    );
+
+    socket.on("message", setStatus);
+
+    return () => {
+      socket.removeAllListeners("connect");
+      socket.removeAllListeners("disconnect");
+      socket.removeAllListeners("message");
+    };
+  }, []);
+  return {
+    status,
+    messages,
+    send
+  };
 }
 ```
