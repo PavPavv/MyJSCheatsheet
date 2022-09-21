@@ -372,7 +372,7 @@ class Cat extends React.PureComponent {
 }
 ```
 
-## Dealing with WebSockets
+## 8. Dealing with WebSockets
 
 ```javascript
 export function useChatRoom(socket, messages = []) {
@@ -405,3 +405,40 @@ export function useChatRoom(socket, messages = []) {
   };
 }
 ```
+
+## 9. What is error boundary?
+
+Currently, the only way to make an error boundary component is to use class component.
+
+```javascript
+import React, { Component } from "react";
+
+export default class ErrorBoundary extends Component {
+  state = { error: null };
+  
+  static getDerivedStateFromError(error) {
+    return { error };
+  }
+  
+  render() {
+    const { error } = this.state;
+    const { children, fallback } = this.props;
+
+    if (error) return <fallback error={error} />;
+    
+    return children;
+  }
+}
+```
+
+```javascript
+<ErrorBoundary fallback={ErrorScreen}>
+  <App />
+</ErrorBoundary>;
+```
+
+**getDerivedStateFromError** is one of those methods. It is invoked when an error occurs anywhere within the children during the render process. When an error occurs, the value for state.error is set. Where there’s an error, the fallback component is rendered, and that error is passed to the component as a property.
+
+Error boundaries can be composed. Sure, we wrapped the App component in an ErrorBoundary, but we can also wrap individual components within the App with Error.
+
+## 10. What is code splitting?
