@@ -84,12 +84,35 @@ console.log(s[wordSearch(s, p)]);
 console.log(wordSearch(s, ['o','n','e']));
 console.log(s[wordSearch(s, ['o','n','e'])]);
 
-/**
+const simpleWirthSubStrSearch = () => {
+  /**
  * 
- * @param {number} i
+ * @param {number} i  //  index of char in the text
  * @return {boolean} 
  */
-function r(i) {
-  let j;
-  return true;
-}
+  const text =  [';', 't', 't', ' ', 'o', 'n', 'e', ' ', 'o', 'r', ' ', 't', 'w', 'o', '.'];
+  const target = ['t', 'w', 'o'];
+  
+  function simpleSubStrSearch(s, p) {
+    const result = [];
+    
+    function r(textCharIdx) {
+      let j = 0;
+    
+      while (j < p.length && p[j] === s[textCharIdx + j]) {
+        j++;
+      }
+      const a = j < p.length;
+      return !a;
+    }
+  
+    for (let i = 0; i < s.length; i++) {
+      const test = r(i);
+      if (test) result.push(i);
+    }
+    return result;
+  }
+  
+  console.log(simpleSubStrSearch(text, target));
+};
+
