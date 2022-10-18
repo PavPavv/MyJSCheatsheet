@@ -2033,3 +2033,44 @@ function groupBy(arr, fn) {
 }
 // console.log(groupBy([6.1, 4.2, 6.3], Math.floor))
 // console.log(groupBy(['one','two','three'], 'length'))
+
+///////////////////////////////////////////////////////////////////////////
+//  61
+const test = 'Lorem ipsum dolor sit amet consectetur adipiscing elit Nullam eleifend odio at magna pretium suscipit Nam commodo mauris felis ut suscipit velit efficitur eget Sed sit amet posuere risus ';
+
+/**
+  @param {string} text
+  @return {string[]}
+*/
+
+function stringIntoSmsArr(text) {
+  const CHUNK_SIZE = 137; //  140 - 3 reserved chars for ' k/n'
+  const CHUNK_LENGTH = Math.ceil(text.length / CHUNK_SIZE);
+  const arr = text.split(' ');
+  const result = [];
+
+  let l = 0;  //  left pointer for slicing array
+  let r = arr.length; //  right pointer for slicing array
+  let accum = 0;  //  temporary accumulator for checking max chars value
+  let count = 0;  //  messages counter
+  let i = 0;
+  while (i < arr.length) {
+    const char_count = arr[i].length;
+    accum += char_count + 1;
+    //  Check if we get the message chars limit
+    if (accum >= CHUNK_SIZE) {
+      accum = 0;
+      count++;
+      r = i;
+      const target = arr.slice(l, r).join(' ') + ` ${count}/${CHUNK_LENGTH}`;
+      result.push(target);
+      l = r;
+    }
+    i++;
+  }
+  //  Add last message which is less than CHUNK_SIZE
+  result.push(arr.slice(l,arr.length).join(' ') + ` ${CHUNK_LENGTH}/${CHUNK_LENGTH}`)
+  return result;
+};
+
+console.log(stringIntoSmsArr(test));

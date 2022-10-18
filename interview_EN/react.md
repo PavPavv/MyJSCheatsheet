@@ -442,3 +442,54 @@ export default class ErrorBoundary extends Component {
 Error boundaries can be composed. Sure, we wrapped the App component in an ErrorBoundary, but we can also wrap individual components within the App with Error.
 
 ## 10. What is code splitting?
+
+_Code splitting_ provides us with a way to split our codebase into manageable chunks and then load those chunks as they’re needed.
+
+```javascript
+const Main = React.lazy(() => import("./Main"));
+```
+
+Importing code during runtime is just like loading anything else from the internet. First, the request for the JavaScript code is pending. Then
+it’s either successful, and a JavaScript file is returned, or it fails, causing an error to occur. Just like we need to notify a user that we’re in the process of loading data, we’ll need to let the user know that we’re in the process of loading code.
+
+The **Suspense** component works much like the **ErrorBoundary** component. We wrap it around specific components in our tree. Instead of falling back to an error message when an error occurs, the Suspense component renders a loading message when lazy loading occurs.
+
+```javascript
+import React, { useState, Suspense, lazy } from "react";
+
+//  ui
+import Agreement from "./Agreement";
+import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
+
+const Main = lazy(() => import("./Main"));
+
+export default function App() {
+  const [agree, setAgree] = useState(false);
+  if (!agree) return <Agreement onAgree={() => setAgree(true)} />;
+
+  return (
+    <Suspense fallback={<ClimbingBoxLoader />}>
+      <Main />
+    </Suspense>
+  );
+}
+```
+
+```javascript
+export default function App() {
+  return (
+    <Suspense fallback={<GridLoader />}>
+      <ErrorBoundary>
+        <Status />
+      </ErrorBoundary>
+    </Suspense>
+  );
+}
+```
+
+JavaScript lets us get away with a lot of stuff that we can’t get away with when using traditional typed languages. For example, in JavaScript, we can throw any type:
+
+```javascript
+throw "inspecting errors";
+```
+
