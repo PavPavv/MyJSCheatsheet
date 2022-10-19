@@ -2043,7 +2043,8 @@ const test = 'Lorem ipsum dolor sit amet consectetur adipiscing elit Nullam elei
   @return {string[]}
 */
 
-function stringIntoSmsArr(text) {
+//  Not completed solution
+function myStringIntoSmsArr(text) {
   const CHUNK_SIZE = 137; //  140 - 3 reserved chars for ' k/n'
   const CHUNK_LENGTH = Math.ceil(text.length / CHUNK_SIZE);
   const arr = text.split(' ');
@@ -2073,4 +2074,43 @@ function stringIntoSmsArr(text) {
   return result;
 };
 
-console.log(stringIntoSmsArr(test));
+console.log(myStringIntoSmsArr(test));
+
+console.log('------------------------------------');
+var text = `
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium, augue in iaculis semper, magna sem gravida odio, ut rhoncus lacus nulla a justo. Fusce mi elit, laoreet pulvinar est eu, pellentesque posuere orci. Mauris vehicula feugiat tellus, eget bibendum nibh iaculis non. Mauris condimentum vulputate felis non dictum. Morbi quis eros nec lacus sollicitudin pharetra ac ac turpis. Ut scelerisque leo augue, a ullamcorper velit porttitor ut. Phasellus hendrerit dui ipsum, non rhoncus arcu lobortis ut. Aliquam fringilla et diam sed finibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla facilisi. Pellentesque feugiat ornare ligula, et bibendum tellus. In hac habitasse platea dictumst. Fusce a urna suscipit neque luctus faucibus sed a velit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam ex ipsum, luctus non nunc vel, porta tincidunt quam. Proin eu ullamcorper eros. Morbi laoreet tellus in posuere iaculis. Nam molestie et purus eget efficitur. Duis aliquam purus in eros volutpat lacinia. Mauris vulputate quis sem at elementum. Fusce dictum lectus id lectus iaculis, eu commodo sem tristique. Aenean consectetur auctor sem vitae iaculis. Cras mollis libero sit amet congue vulputate. Ut tempor tellus sed arcu vehicula, non interdum massa condimentum. Donec ultricies, libero hendrerit sollicitudin gravida, tortor nunc vehicula est, eu placerat ex nisl ultrices neque. Morbi in auctor nunc, pharetra posuere ante. Curabitur ac gravida urna. Curabitur aliquam pellentesque iaculis. Etiam molestie, quam id pretium iaculis, elit nisi tempor dui, eu efficitur lacus lacus at lacus. 
+`;
+var text = text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '');
+
+//  Complete version
+function sliceStr(str) {
+  var TEXT_LENGTH = str.length;
+  var CHUNK_SIZE = 136;
+  var CHUNKS_LENGTH = Math.ceil(TEXT_LENGTH / CHUNK_SIZE);
+  var result = [];
+  var counter = 0;
+
+  while (str !== '') {
+    var lastSpace = 0;
+
+    for (var i = 0; i < str.length && i < CHUNK_SIZE; i++) {
+      if (str[i] === ' ') {
+        lastSpace = i;
+      }
+      if (i === str.length - 1) {
+        lastSpace = str.length;
+      }
+    }
+    counter++;
+    result.push(str.slice(0,lastSpace) + ` ${counter}/${CHUNKS_LENGTH}`);
+    str = str.slice(lastSpace);
+  }
+
+  result.map((str, idx) => {
+    console.log(`chunk_${idx} = ${str.length}`);
+  });
+  return result;
+};
+
+console.log(sliceStr(text));
+console.log('------------------------------------');
