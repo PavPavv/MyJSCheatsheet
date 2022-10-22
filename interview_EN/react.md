@@ -493,3 +493,21 @@ JavaScript lets us get away with a lot of stuff that we can’t get away with wh
 throw "inspecting errors";
 ```
 
+## 11. What is Fiber?
+
+When a change occurs,
+React makes a copy of the component tree as a JavaScript object. It looks for the parts of the tree that need to change and changes only those parts. Once complete, the copy of the tree (known as the work-in-progress tree) replaces the existing tree. It’s important to reiterate that it uses the parts of the tree that are already there.
+
+Fiber, released in version 16.0, rewrote the way that DOM updates worked by taking a more asynchronous approach. The first change with 16.0 was the separation
+of the renderer and the reconciler. A renderer is the part of the library that handles rendering, and the reconciler is the part of the library that manages updates when they occur.
+
+Another huge shift with React Fiber was its changes to the reconciliation algorithm. Remember our expensive DOM updates that
+blocked the main thread? This lengthy block of updates is called work with Fiber, React split the work into smaller units of work calledfibers. A fiber is a JavaScript object that keeps track of what it’s reconciling and where it is in the updating cycle.
+Once a fiber (unit of work) is complete, React checks in with the main thread to make sure there’s not anything important to do. If there is
+important work to do, React will give control to the main thread. When it’s done with that important work, React will continue its update. If
+there’s nothing critical to jump to on the main thread, React moves on to the next unit of work and renders those changes to the DOM.
+
+Fiber provides the infrastructure for prioritizing updates. In the longer term, the developer may even be able to tweak the defaults and
+decide which types of tasks should be given the highest priority. The process of prioritizing units of work is called scheduling; this concept
+underlies the experimental concurrent mode, which will eventually allow these units of work to be performed in parallel.
+
