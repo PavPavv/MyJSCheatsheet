@@ -2093,12 +2093,9 @@ function sliceStr(str) {
   while (str !== '') {
     var lastSpace = 0;
 
-    for (var i = 0; i < str.length && i < CHUNK_SIZE; i++) {
+    for (var i = 0; i < CHUNK_SIZE; i++) {
       if (str[i] === ' ') {
         lastSpace = i;
-      }
-      if (i === str.length - 1) {
-        lastSpace = str.length;
       }
     }
     counter++;
