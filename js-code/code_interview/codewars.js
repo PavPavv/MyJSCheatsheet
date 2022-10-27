@@ -854,3 +854,41 @@ function duplicateCountOpt(text){
               .match(/([^])\1+/g) || []).length;
 }
 console.log(duplicateCountOpt('aabBcde'));
+
+//  kata 26 ('x' marks the spot) Level 7
+
+//  My solution:
+const xMarksTheSpot = (input) => {
+  const result = [];
+  
+  if (input.length === 0) return result;
+  
+  for (let i = 0; i < input.length; i++) {
+    let counter = 0;
+    for (let j = 0; j < input[i].length; j++) {
+      if (input[i][j] === 'x') {
+        result.push([i, j]);
+      }
+    } 
+  }
+  if (result.length > 1) return [];
+  if (input[0][0] === 'x') return [0,0];
+  return result.length > 0 ? result[0] : result;
+}
+
+// Best solution:
+
+const xMarksTheSpotBest = (input) => {
+  let coords = []
+
+  for (let i = 0; i < input.length; i++) {
+    if (input[i].includes("x")) {
+      coords.push([i, input[i].indexOf("x")])
+    }
+  }
+  if (coords.length === 1) {
+    return coords[0]
+  } else {
+    return []
+  }
+}
