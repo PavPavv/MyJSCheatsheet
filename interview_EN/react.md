@@ -576,7 +576,7 @@ Static Site Generation
 With **Static Site Generation**, the HTML is generated on the server, but unlike server-side rendering, there is no server at runtime. Instead, content is generated once, at build time, when the application is deployed, and the HTML is stored in a CDN and re-used for each request.
 In Next.js, you can opt to statically generate pages by using **getStaticProps()**.
 
-## How to start and use NextJS project?
+## 17. How to start and use NextJS project?
 
 > npx create next-app --typescript .
 > yarn add --dev typescript @types/react @types/node
@@ -643,4 +643,31 @@ export default function FirstPost() {
   );
 }
 ```
+
+## 16. Pre-rendering and Data Fetching in Next JS
+
+Each generated HTML is associated with minimal JavaScript code necessary for that page. When a page is loaded by the browser, its JavaScript code runs and makes the page fully interactive. (This process is called hydration.)
+
+Next.js has two forms of pre-rendering: **Static Generation** and **Server-side Rendering**. The difference is in **when** it generates the HTML for a page.
+
+
+- **Static Generation** is the pre-rendering method that generates the HTML at build time. The pre-rendered HTML is then reused on each request.
+- **Server-side Rendering** is the pre-rendering method that generates the HTML on each request.
+
+> In development mode (when you run npm run dev or yarn dev), pages are pre-rendered on every request. This also applies to Static Generation to make it easier to develop. When going to production, Static Generation will happen once, at build time, and not on every request
+
+We recommend using Static Generation (with and without data) whenever possible because your page can be built once and served by CDN, which makes it much faster than having a server render the page on every request.
+
+You can use Static Generation for many types of pages, including:
+
+- Marketing pages
+- Blog posts
+- E-commerce product listings
+- Help and documentation
+
+**Static Generation** is not a good idea if you cannot pre-render a page ahead of a user's request. Maybe your page shows frequently updated data, and the page content changes on every request. In that case, you can use **Server-side Rendering**. It will be slower, but the pre-rendered page will always be up-to-date. Or you can skip pre-rendering and use client-side JavaScript to populate frequently updated data.
+
+Static Generation with Data using **getStaticProps()**
+
+> In development mode, getStaticProps runs on each request instead.
 
