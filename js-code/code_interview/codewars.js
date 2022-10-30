@@ -12,6 +12,7 @@ const funcSpeed = (func) => {
   const result = end - start;
   return `${result.toFixed(2)} ms`;
 };
+//-------------------------------------------------------------------------------------
 
 //  kata 1 Level 8
 /**
@@ -33,6 +34,8 @@ function spinWords(string) {
 }
 //console.log(spinWords("This is a function for supreme!"));
 
+////////////////////////////////////////////////////////////////////////////////////////
+
 //  kata 2 Level 8
 
 /**
@@ -46,6 +49,8 @@ function makeNegative(num) {
 
 //console.log(makeNegative(0.12));
 
+////////////////////////////////////////////////////////////////////////////////////////
+
 //  kata 3 Level 8
 /**
  * @param {string[]} friends
@@ -57,6 +62,8 @@ function friend(friends) {
   return friends.filter((friend) => friend.length === 4);
 }
 //console.log(friend(["Mark", "John", "Anna", "Maria"]));
+
+////////////////////////////////////////////////////////////////////////////////////////
 
 //  kata 4 Level 8
 /**
@@ -122,6 +129,8 @@ function getSumOfTwoNumsRangeOptimized(a, b) {
 // console.log(getSumOfTwoNumsRangeOptimized(1, 2));
 // console.log(getSumOfTwoNumsRangeOptimized(129, -353));
 
+////////////////////////////////////////////////////////////////////////////////////////
+
 //  kata 5 Level 8
 /**
  * @param {string} s
@@ -149,6 +158,8 @@ function getMiddleOptimized(s) {
 // console.log(getMiddleOptimized("test"));
 // console.log(getMiddleOptimized("testing"));
 
+////////////////////////////////////////////////////////////////////////////////////////
+
 //  kata 6 Level 7
 /**
  * @param {number} num
@@ -165,6 +176,8 @@ function squareDigits(num) {
 }
 // console.log(squareDigits(9119));
 //console.log(squareDigits(3212));
+
+////////////////////////////////////////////////////////////////////////////////////////
 
 //  kata 7 Level 7
 /**
@@ -207,6 +220,8 @@ function duplicateEncodeOptimized(word) {
 }
 //console.log(duplicateEncodeOptimized("Success"));
 
+////////////////////////////////////////////////////////////////////////////////////////
+
 //  kata 8 Level 7
 /**
  * @param {string} str
@@ -227,6 +242,8 @@ function getVowels1(str) {
 }
 //console.log(getVowels1("abracadabra"));
 
+////////////////////////////////////////////////////////////////////////////////////////
+
 //  kata 9 Level 7
 /**
  * @param {string} str
@@ -243,6 +260,8 @@ function removeCharOptimized(str) {
   return str.slice(1, -1);
 }
 //console.log(removeCharOptimized("eloquent"));
+
+////////////////////////////////////////////////////////////////////////////////////////
 
 //  kata 10 Level 7
 /**
@@ -310,6 +329,8 @@ function compTwoArrsBySqr(arr1, arr2) {
 //   )
 // );
 
+////////////////////////////////////////////////////////////////////////////////////////
+
 //  kata 11 Level 7
 /**
  * @param {string} numbers
@@ -355,6 +376,8 @@ function iqTest1(numbers) {
 
 //console.log(iqTest1("2 2 2 2 2 2 2 1"));
 
+////////////////////////////////////////////////////////////////////////////////////////
+
 //  kata 12 (Find the odd int) Level 7
 /**
  * @param {array} arr
@@ -382,6 +405,8 @@ function findOddOptimized(arr) {
 
 const findOddSuper = (arr) => arr.reduce((a, b) => a ^ b);
 //console.log(findOddSuper([1, 2, 2, 3, 3, 3, 4, 3, 3, 3, 2, 2, 1]));
+
+////////////////////////////////////////////////////////////////////////////////////////
 
 //  kata 13 (Persistent Bugger) Level 6
 /**
@@ -423,6 +448,8 @@ function persistenceOpt(num) {
 }
 //console.log(persistenceOpt(999));
 
+////////////////////////////////////////////////////////////////////////////////////////
+
 //  kata 14 (Write Number in Expanded Form) Level 6
 /**
  * @param {number} num
@@ -451,6 +478,8 @@ function expandedForm(num) {
 // console.log(expandedForm(1724));
 // console.log(expandedForm(70304));
 
+////////////////////////////////////////////////////////////////////////////////////////
+
 //  kata 15 (Find the unique number) Level 6
 /**
  * @param {number[]} arr
@@ -469,6 +498,8 @@ function findUniqOptimized(arr) {
   return arr.find((item) => arr.indexOf(item) === arr.lastIndexOf(item));
 }
 //console.log(findUniqOptimized([8, 8, 8, 8, 8, 7, 8]));
+
+////////////////////////////////////////////////////////////////////////////////////////
 
 // kata 16 (Format a string of names like 'Bart, Lisa & Maggie') Level 6
 /**
@@ -504,6 +535,8 @@ function formatObjArr(arr) {
 
 //console.log(formatObjArr([{ name: "Bart" }, { name: "Lisa" }]));
 
+////////////////////////////////////////////////////////////////////////////////////////
+
 //  kata 17 (Break camelCase) Level 6
 /**
  * @param {string} str
@@ -532,6 +565,8 @@ function breakUpCamelCaseOpt(text) {
 }
 // console.log(breakUpCamelCaseOpt("ABCDEFG"));
 // console.log(breakUpCamelCaseOpt("AaaaaaaaBbbbbbbbbbbCDEFG"));
+
+////////////////////////////////////////////////////////////////////////////////////////
 
 //  kata 18 (Counting Duplicates, how many chars repeats more than 1 time) Level 6
 /**
@@ -603,6 +638,9 @@ function uniqueLettersRepeatCountOpt(text) {
 //   funcSpeed(uniqueLettersRepeatCountOpt("aabBcde"))
 // );
 
+
+////////////////////////////////////////////////////////////////////////////////////////
+
 //  kata 19 (Array Helpers) Level 5
 /**
  * @param {}
@@ -645,6 +683,8 @@ Array.prototype.odd = function () {
 };
 //console.log(testArr.average());
 
+////////////////////////////////////////////////////////////////////////////////////////
+
 //  kata 20 (Valid Parentheses) Level 5
 /**
 * @param {string} parens
@@ -680,6 +720,8 @@ function validParenthesesOpt(parens){
 // console.log(validParenthesesOpt('32423(sgsdg)'));
 // console.log(validParenthesesOpt('(dsgdsg))2432'));
 // console.log('true',validParenthesesOpt('adasdasfa'));
+
+////////////////////////////////////////////////////////////////////////////////////////
 
 //  kata 21 (Detect Pangram) Level 6
 /**
@@ -717,6 +759,8 @@ function isPangramOpt(sentence) {
 //   "isPangramOpt",
 //   funcSpeed(isPangramOpt("The quick brown fox jumps over the lazy dog."))
 // );
+
+////////////////////////////////////////////////////////////////////////////////////////
 
 //  kata 22 (Give me a Diamond) Level 6
 /**
@@ -781,6 +825,8 @@ function diamondOpt(n) {
 // console.log(diamondOpt(7))
 // console.log(diamond(9))
 
+////////////////////////////////////////////////////////////////////////////////////////
+
 //  kata 23 (Count characters in your string) Level 6
 /**
   * @param{stribng} str
@@ -799,6 +845,8 @@ function strParser(str) {
   return obj;
 }
 //console.log(strParser('aba'));
+
+////////////////////////////////////////////////////////////////////////////////////////
 
 //  24 (Tortoise racing) Level 6
 function catchUp(firstSpeed, secondSpeed, distance) {
@@ -824,6 +872,8 @@ function race(v1, v2, g){
   let time=g/(v2-v1);
   return v2>v1 ? [Math.floor(time),Math.floor(time*60%60),Math.floor(time*3600%60)] : null;
 }
+
+////////////////////////////////////////////////////////////////////////////////////////
 
 //  25 (Counting Duplicates) Level 6
 function duplicateCount(str) {
@@ -854,6 +904,8 @@ function duplicateCountOpt(text){
               .match(/([^])\1+/g) || []).length;
 }
 console.log(duplicateCountOpt('aabBcde'));
+
+////////////////////////////////////////////////////////////////////////////////////////
 
 //  kata 26 ('x' marks the spot) Level 7
 
@@ -892,3 +944,25 @@ const xMarksTheSpotBest = (input) => {
     return []
   }
 }
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+//  kata 27 (Exes and Ohs) Level 7
+
+//  My solution:
+function XO(str) {
+  const strArr = str.split('');
+  const os = strArr.filter((letter) => letter.toLowerCase() === 'o');
+  const xs = strArr.filter((letter) => letter.toLowerCase() === 'x');
+  if (os.length === 0 && xs.length === 0) return true;
+  if (os.length === xs.length) return true;
+  return false;
+}
+
+// Best solution:
+const XOBest = str => {
+  str = str.toLowerCase().split('');
+  return str.filter(x => x === 'x').length === str.filter(x => x === 'o').length;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////

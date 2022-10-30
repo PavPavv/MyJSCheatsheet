@@ -2077,37 +2077,39 @@ function myStringIntoSmsArr(text) {
 console.log(myStringIntoSmsArr(test));
 
 console.log('------------------------------------');
-var text = `
+var source = `
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium, augue in iaculis semper, magna sem gravida odio, ut rhoncus lacus nulla a justo. Fusce mi elit, laoreet pulvinar est eu, pellentesque posuere orci. Mauris vehicula feugiat tellus, eget bibendum nibh iaculis non. Mauris condimentum vulputate felis non dictum. Morbi quis eros nec lacus sollicitudin pharetra ac ac turpis. Ut scelerisque leo augue, a ullamcorper velit porttitor ut. Phasellus hendrerit dui ipsum, non rhoncus arcu lobortis ut. Aliquam fringilla et diam sed finibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla facilisi. Pellentesque feugiat ornare ligula, et bibendum tellus. In hac habitasse platea dictumst. Fusce a urna suscipit neque luctus faucibus sed a velit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam ex ipsum, luctus non nunc vel, porta tincidunt quam. Proin eu ullamcorper eros. Morbi laoreet tellus in posuere iaculis. Nam molestie et purus eget efficitur. Duis aliquam purus in eros volutpat lacinia. Mauris vulputate quis sem at elementum. Fusce dictum lectus id lectus iaculis, eu commodo sem tristique. Aenean consectetur auctor sem vitae iaculis. Cras mollis libero sit amet congue vulputate. Ut tempor tellus sed arcu vehicula, non interdum massa condimentum. Donec ultricies, libero hendrerit sollicitudin gravida, tortor nunc vehicula est, eu placerat ex nisl ultrices neque. Morbi in auctor nunc, pharetra posuere ante. Curabitur ac gravida urna. Curabitur aliquam pellentesque iaculis. Etiam molestie, quam id pretium iaculis, elit nisi tempor dui, eu efficitur lacus lacus at lacus. 
 `;
-var text = text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '');
+var text = source.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '');
 
 //  Complete version
-function sliceStr(str) {
-  var TEXT_LENGTH = str.length;
-  var CHUNK_SIZE = 136;
-  var CHUNKS_LENGTH = Math.ceil(TEXT_LENGTH / CHUNK_SIZE);
-  var result = [];
-  var counter = 0;
+function sliceStr(t) {
+  let str = t;
+  const MESSAGE_SIZE = 140;
+  const MESSAGES_LENGTH = Math.ceil(t.length / (MESSAGE_SIZE));
+  const COUNTER_SIZE = String(MESSAGES_LENGTH).length * 2 + 2;
+  const CHUNK_SIZE = MESSAGE_SIZE - COUNTER_SIZE;
+  const CHUNKS_LENGTH = Math.ceil(t.length / (CHUNK_SIZE));
+  const result = [];
+  let counter = 0;
 
   while (str !== '') {
-    var lastSpace = 0;
+    let lastSpaceIdx = 0;
 
-    for (var i = 0; i < CHUNK_SIZE; i++) {
+    for (let i = 0; i < CHUNK_SIZE; i++) {
       if (str[i] === ' ') {
-        lastSpace = i;
+        lastSpaceIdx = i;
+      }
+
+      if (i === str.length - 1) {
+        lastSpaceIdx = str.length;
       }
     }
     counter++;
-    result.push(str.slice(0,lastSpace) + ` ${counter}/${CHUNKS_LENGTH}`);
-    str = str.slice(lastSpace);
+    result.push(str.slice(0, lastSpaceIdx) + ` ${counter}/${CHUNKS_LENGTH}`)
+    str = str.slice(lastSpaceIdx);
   }
-
-  result.map((str, idx) => {
-    console.log(`chunk_${idx} = ${str.length}`);
-  });
   return result;
-};
-
+}
 console.log(sliceStr(text));
 console.log('------------------------------------');
