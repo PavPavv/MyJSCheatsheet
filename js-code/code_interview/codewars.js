@@ -966,3 +966,23 @@ const XOBest = str => {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////
+
+//  kata (not solved)
+
+console.log(getPages(4,1,3));
+console.log(getPages(4,4,3));
+
+console.log(getPages(12,1,3));
+console.log(getPages(12,2,3));
+console.log(getPages(12,3,3));
+console.log(getPages(12,4,3));
+console.log(getPages(12,5,3));
+console.log(getPages(12,6,3));
+console.log(getPages(12,7,3));
+console.log(getPages(12,8,3));
+console.log(getPages(12,9,3));
+console.log(getPages(12,10,3));
+console.log(getPages(12,11,3));
+console.log(getPages(12,12,3));
+
+////////////////////////////////////////////////////////////////////////////////////////

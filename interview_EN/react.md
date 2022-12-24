@@ -646,10 +646,11 @@ export default function FirstPost() {
 
 ## 16. Pre-rendering and Data Fetching in Next JS
 
-Each generated HTML is associated with minimal JavaScript code necessary for that page. When a page is loaded by the browser, its JavaScript code runs and makes the page fully interactive. (This process is called hydration.)
+By default, Next.js pre-renders every page. This means that Next.js generates HTML for each page in advance, instead of having it all done by client-side JavaScript. Pre-rendering can result in better performance and SEO.
+
+Each generated HTML is associated with minimal JavaScript code necessary for that page. When a page is loaded by the browser, its JavaScript code runs and makes the page fully interactive. (This process is called _hydration_.)
 
 Next.js has two forms of pre-rendering: **Static Generation** and **Server-side Rendering**. The difference is in **when** it generates the HTML for a page.
-
 
 - **Static Generation** is the pre-rendering method that generates the HTML at build time. The pre-rendered HTML is then reused on each request.
 - **Server-side Rendering** is the pre-rendering method that generates the HTML on each request.
@@ -669,5 +670,31 @@ You can use Static Generation for many types of pages, including:
 
 Static Generation with Data using **getStaticProps()**
 
+**getStaticProps()** only runs on the server-side. It will never run on the client-side. It won’t even be included in the JS bundle for the browser. That means you can write code such as direct database queries without them being sent to browsers. If you export a function called **getStaticProps** (Static Site Generation) from a page, Next.js will pre-render this page at build time using the props returned by **getStaticProps**.
+
+**getStaticProps()** can only be exported from a page. You can’t export it from non-page files.
+
 > In development mode, getStaticProps runs on each request instead.
+
+Next.js polyfills **fetch()** on both the client and server. You don't need to import it.
+
+You should use getServerSideProps only if you need to pre-render a page whose data must be fetched at request time. Time to first byte (TTFB) will be slower than getStaticProps because the server must compute the result on every request, and the result cannot be cached by a CDN without extra configuration.
+
+## 17. SWR (stale-while-revalidate)
+
+The team behind Next.js has created a React hook for data fetching called SWR. We highly recommend it if you’re fetching data on the client side. It handles caching, revalidation, focus tracking, refetching on interval, and more. We won’t cover the details here, but here’s an example usage:
+
+```javascript
+import useSWR from 'swr';
+
+function Profile() {
+  const { data, error } = useSWR('/api/user', fetch);
+
+  if (error) return <div>failed to load</div>;
+  if (!data) return <div>loading...</div>;
+  return <div>hello {data.name}!</div>;
+}
+```
+
+> The returned list is not just an array of strings — it must be an array of objects that look like the comment above. Each object must have the params key and contain an object with the id key (because we’re using `[id]` in the file name). Otherwise, getStaticPaths will fail.
 

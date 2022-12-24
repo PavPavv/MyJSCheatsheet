@@ -147,6 +147,7 @@ The methods **promise.then()**, **promise.catch()**, and **promise.finally()** a
 The **.then()** method takes up to two arguments; the first argument is a callback function for the resolved case of the promise, and the second argument is a callback function for the rejected case.
 
 Unlike old-fashioned passed-in callbacks:
+
 ```javascript
 function successCallback(result) {
   console.log("Audio file ready at URL: " + result);
@@ -156,11 +157,15 @@ function failureCallback(error) {
 }
 createAudioFileAsync(audioSettings, successCallback, failureCallback);
 ```
+
 If _createAudioFileAsync()_ were rewritten to return a **promise**, you would attach your callbacks to it instead:
+
 ```javascript
 createAudioFileAsync(audioSettings).then(successCallback, failureCallback);
 ```
+
 In the old days, doing several asynchronous operations in a row would lead to the classic callback pyramid of doom:
+
 ```javascript
 doSomething(function(result) {
   doSomethingElse(result, function(newResult) {
@@ -172,6 +177,7 @@ doSomething(function(result) {
 ```
 
 With modern functions, we attach our callbacks to the returned promises instead, forming a promise chain:
+
 ```javascript
 doSomething()
 .then(function(result) {
@@ -187,6 +193,7 @@ doSomething()
 ```
 
 _catch(failureCallback)_ is short for _then(null, failureCallback)_. You might see this expressed with **arrow functions** instead:
+
 ```javascript
 doSomething()
 .then(result => doSomethingElse(result))
@@ -196,9 +203,11 @@ doSomething()
 })
 .catch(failureCallback);
 ```
+
 > Important: Always return results, otherwise callbacks won't catch the result of a previous promise (with arrow functions () => x is short for () => { return x; }).
 
 This symmetry with asynchronous code culminates in the **async/await** syntactic sugar in ECMAScript 2017:
+
 ```javascript
 async function foo() {
   try {
@@ -214,9 +223,11 @@ async function foo() {
 
 Whenever a promise is rejected, one of two events is sent to the global scope (generally, this is either the window or, if being used in a web worker, it's the Worker or other worker-based interface).
 ###### rejectionhandled
+
 - Sent when a promise is rejected, after that rejection has been handled by the executor's reject function.
 
 ###### unhandledrejection
+
 - Sent when a promise is rejected but there is no rejection handler available.
 
 In both cases, the event (of type **PromiseRejectionEvent**) has as members a promise property indicating the promise that was rejected, and a reason property that provides the reason given for the promise to be rejected.
@@ -228,6 +239,7 @@ process.on("unhandledRejection", (reason, promise) => {
   /* You might start here by adding code to examine the
    * "promise" and "reason" values. */
 });
+
 ```
 However, if you add that **process.on** listener but don't also have code within it to handle rejected promises, they will just be dropped on the floor and silently ignored. So ideally, you should add code within that listener to examine each rejected promise and make sure it was not caused by an actual code bug.
 

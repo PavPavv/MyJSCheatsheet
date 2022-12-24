@@ -1,43 +1,48 @@
 # Interview questions (basics)
 
 ##  1. Data types
+
 Primitives:
-1.  Boolean
-2.  Number
-3.  String
-4.  undefined
-5.  null
-6.  Symbol
-7.  BigInt
+1.Boolean
+2.Number
+3.String
+4.undefined
+5.null
+6.Symbol
+7.BigInt
 
 Reference type:
-1.  Object
-2.  Function type for functions because of the legacy
+1.Object
+2.Function type for functions because of the legacy
 
 ## 2. Faulsy values
-1.  false
-2.  0
-3.  -0
-4.  ''
-5.  undefined
-6.  null
-7.  NaN
+
+1. false
+2. 0
+3. -0
+4. ''
+5. undefined
+6. null
+7. NaN
 
 ## 3. Difference between undefined and null
+
 In JavaScript, **undefined** means a variable has been declared but has not yet been assigned a value. **null** is an assignment value. It can be assigned to a variable as a representation of no value.
 
 ## 4. Logical operator && (AND)
+
 In classical programming, AND returns true if both operands are truthy and false otherwise. AND “&&” finds the first falsy value and returns the last true value before first falsy value.
+
 ```javascript
 true && console.log("Seen");
 ```
 
 ## 5. Logical operators priority
 
-1.  !
-2.  &&
-3.  ||
-4. ??
+1.!
+2.&&
+3.||
+4.??
 
 ## 6. Type conversions
 
@@ -97,22 +102,29 @@ setTimeout(() => {
 }, 0);
 console.log("Print something");
 ```
+
 Browser engine has some web API, so when engine find some methods of that API, it is marked as asynchronous methods and placed in a call stack after the synchronous tasks.
+
 ## 8. Difference between spread and rest operators
+
 When we see **...** in the code, it is either rest parameters or the spread syntax. There’s an easy way to distinguish between them:
+
 - When **...** is at the end of function parameters, it’s “rest parameters” and gathers the rest of the list of arguments into an array.
 - When **...** occurs in a function call or alike, it’s called a “spread syntax” and expands an array into a list.
 
 Use patterns:
+
 - Rest parameters are used to create functions that accept any number of arguments.
 - The spread syntax is used to pass an array to functions that normally require a list of many arguments.
 
 ## 9. What is wrapper objects?
+
 When you interact with a primitive value like it was an object (by calling a method or reading a property from it), JavaScript creates a wrapper object on the fly. You can have access to properties and methods of wrapper objects, like they were regular objects. A wrapper object is disposed right after a single use.
 
-## 10. How to define if a certain property exists on some object? 
+## 10. How to define if a certain property exists on some object?
 
-1. **in** operator
+1.**in** operator
+
 ```javascript
 const o = {
   prop: "bwahahah",
@@ -122,14 +134,14 @@ console.log("prop" in o); // true
 console.log("prop1" in o); // false
 ```
 
-2. **hasOwnProperty** method
+2.**hasOwnProperty** method
 
 ```javascript
 console.log(o.hasOwnProperty("prop2")); // true
 console.log(o.hasOwnProperty("prop1")); // false
 ```
 
-3. array index notation:
+3.array index notation:
 
 ```javascript
 console.log(o["prop"]); // bwahahah
@@ -140,7 +152,7 @@ console.log(o["prop1"]); // undefined
 
 ## 11. How to create an object in JS?
 
-1. Type constructor (deprecated):
+1.Type constructor (deprecated):
 
 ```javascript
 const obj = new Object();
@@ -153,7 +165,7 @@ console.log(obj); // {name: "Albert", greeting: [Function]}
 console.log(obj.greeting()); //  'Hi, I'm Albert!
 ```
 
-2. Object literal (a literal is a notation for representing a fixed value in source code):
+2.Object literal (a literal is a notation for representing a fixed value in source code):
 
 ```javascript
 const obj = {
@@ -166,7 +178,7 @@ console.log(obj); // {name: "Albert", greeting: [Function: greeting]}
 console.log(obj.greeting()); // 'Hi, I'm Albert!'
 ```
 
-3. Object.create method:
+3.Object.create method:
 
 ```javascript
 const obj = {
@@ -205,10 +217,11 @@ var myObject = Object.create( anotherObject, {
 	}
 } );
 ```
+
 **Object.create(obj)** creates a new object linked to the object we specified, which gives us all the power (delegation) of the **[[Prototype]]** mechanism, but without any of the unnecessary complication of new functions acting as classes and constructor calls, confusing **.prototype** and **.constructor** references, or any of that extra stuff.
 The second argument to **Object.create(..)** specifies property names to add to the newly created object, via declaring each new property's property descriptor.
 
-4. Constructor function:
+4.Constructor function:
 
 ```javascript
 function Person(name) {
@@ -225,7 +238,7 @@ console.log(albert); // {name: "Albert"}
 console.log(albert.greeting()); // 'Hi, I'm Albert!'
 ```
 
-5. Class syntax:
+5.Class syntax:
 
 ```javascript
 class Person {
@@ -262,9 +275,9 @@ const obj = {
 const obj1 = Object.assign(obj);
 ```
 
-but then both objects connected with each other by a single link and that means if one object is changed then another one wil be changed too.
+but then both objects connected with each other via single link and that means if one object is changed then another one wil be changed too.
 
-2. Spread-operator:
+2.Spread-operator:
 
 ```javascript
 const obj = {
@@ -282,7 +295,7 @@ const obj1 = { ...obj };
 
 isolated copies, no link between objects.
 
-3. Methods **JSON.parse(JSON.stringify(obj))**:
+3.Methods **JSON.parse(JSON.stringify(obj))**:
 
 ```javascript
 const obj = {
@@ -319,7 +332,7 @@ const m1 = Object.assign(state, newS);
 
 but then both objects connected with each other by a single link and that means if one object is changed then another one wil be changed too.
 
-2. Spread-оператор:
+2.Spread-оператор:
 
 ```javascript
 const state = {
@@ -339,7 +352,7 @@ const m2 = {
 
 isolated copies, no link between objects.
 
-3. For a deep copy you need a custom recursive solution:
+3.For a deep copy you need a custom recursive solution:
 
 ```javascript
 const merge = (...arguments) => {
@@ -395,14 +408,13 @@ console.log(user);
 //     skills: ['JavaScript', 'React', 'Node']
 // }
 ```
+
 For a variety of reasons, not the least of which is terminology precedent, "inheritance" (and "prototypal inheritance") and all the other OO terms just do not make sense when considering how JavaScript actually works (not just applied to our forced mental models).
-
-Instead, "delegation" is a more appropriate term, because these relationships are not copies but delegation links.
-
+Instead, "delegation" is a more appropriate term, because these relationships are not copies but **delegation links**.
 
 ## 13. What is DOM?
 
-**Document Object Model**, or **DOM** for short, represents all page content as objects that can be modified. The document object is the main “entry point” to the page. We can change or create anything on the page using it. 
+**Document Object Model**, or **DOM** for short, represents all page content as objects that can be modified. The document object is the main “entry point” to the page. We can change or create anything on the page using it.
 
 According to the Document Object Model (DOM), every HTML tag is an object. Nested tags are “children” of the enclosing one. The text inside a tag is an object as well. All these objects are accessible using JavaScript, and we can use them to modify the page.
 
@@ -411,21 +423,24 @@ According to the Document Object Model (DOM), every HTML tag is an object. Neste
 **event.currentTarget** (equals **this** in this case) is the element to which the event handler has been attached, as opposed to **event.target**, which identifies the element on which the event occurred and which may be its descendant.
 
 ## 15. What the difference between == and === ?
+
 - The loose equality operator **==** allows us to compare two or more operands by converting their value to a common type first and then checking for the equality between them.
 
 - Strict equality operator **===** allows us to compare two or more operands by checking the equality between the values as well as their types.
 
 ## 16. What is event "bubbling" ?
-When an event happens on an element, it first runs the handlers on it, then on its parent, then all the way up on other ancestors. The most deeply nested element that caused the event is called a target element, accessible as event.target. 
+
+When an event happens on an element, it first runs the handlers on it, then on its parent, then all the way up on other ancestors. The most deeply nested element that caused the event is called a target element, accessible as **event.target**.
 A bubbling event goes from the target element straight up. Normally it goes upwards till **html**-tag, and then to document object, and some events even reach window, calling all handlers on the path. But any handler may decide that the event has been fully processed and stop the bubbling.
 The method for it is **event.stopPropagation()**.
 
 ## 16. What is "capturing" phase of event?
+
 The standard DOM Events describes 3 phases of event propagation:
 
 1. Capturing phase – the event goes down to the element.
 2. Target phase – the event reached the target element.
-3.  Bubbling phase – the event bubbles up from the element.
+3. Bubbling phase – the event bubbles up from the element.
 
 To catch an event on the capturing phase, we need to set the handler capture option to true:
 
@@ -434,7 +449,9 @@ elem.addEventListener(..., {capture: true})
 // or, just "true" is an alias to {capture: true}
 elem.addEventListener(..., true)
 ```
+
 There are two possible values of the capture option:
+
 - If it’s **false** (default), then the handler is set on the bubbling phase.
 - If it’s **true**, then the handler is set on the capturing phase.
 
@@ -451,6 +468,7 @@ No matter how you handle your event, every time it gets as a first argument  **e
 ## 18. What is hoisting?
 
 Hoisting is a behavior in JavaScript where variable and function declarations are “hoisted” to the top of their scope before code execution.
+
 ```javascript
 var myVariable;
 console.log(myVariable); // undefine
@@ -460,8 +478,10 @@ console.log(myVariable); // undefine
 var myVariable = 10;
 console.log(myVariable); // 10
 ```
-In order to run our code, the JavaScript interpreter takes two passes through the code. On the first pass it looks for variables declared with a **var** keyword and function declarations which it then “hoists” to the top of the scope; only then, on the second pass, does it make assignments and execute the code. 
+
+In order to run our code, the JavaScript interpreter takes two passes through the code. On the first pass it looks for variables declared with a **var** keyword and function declarations which it then “hoists” to the top of the scope; only then, on the second pass, does it make assignments and execute the code.
 Functions declarations are also “hoisted” to the top of the scope, which means you can call functions before they are declared in your code.
+
 ```javascript
 hoistMe();
 
@@ -469,9 +489,10 @@ function hoistMe() {
   console.log("I'm a hoisted function.");
 }
 ```
+
 A variable assignment will always take precedence over a function declaration. The internal JavaScript interpreter will always give precedence to a function declaration over **var** declaration.
 
-1. **var** assignment 
+1. **var** assignment
 2. func declaration
 3. **var** declaration
 
@@ -504,6 +525,7 @@ console.log(test) // undefined
 ```
 
 ## 19. Variables and scoping (var, let, const)
+
 A “variable” is just a property of the special internal object, **Environment Record**. “To get or change a variable” means “to get or change” a property of that object.
 
 **let** works similarly to **var**, but the variable **let** declares is block-scoped, it only exists within the current block. **var** is function-scoped. Variables created by **let** are mutable.
@@ -519,17 +541,22 @@ function order(x, y) {
     return [x, y];
 }
 ```
+
 **const** works like **let**, but the variable you declare must be immediately initialized, with a value that can’t be changed afterward. Constants, variables created by const, are immutable – you can’t assign different values to them.
+
 ```javascript
 const foo = 'abc';
 foo = 'def'; // TypeError
 ```
+
 **const** only means that a variable always has the same value, but it does not mean that the value itself is or becomes immutable. For example, _obj_ is a constant, but the value it points to is mutable – we can add a property to it.
 If you want the value of _obj_ to be immutable, you have to take care of it, yourself. For example, by freezing it:
+
 ```javascript
 const obj = Object.freeze({});
 obj.prop = 123; // TypeError
 ```
+
 **Object.freeze()** is shallow, it only freezes the properties of its argument, not the objects stored in its properties. 
 
 A variable declared by **let** or **const** has a so-called temporal dead zone (TDZ): When entering its scope, it can’t be accessed (got or set) until execution reaches the declaration.
