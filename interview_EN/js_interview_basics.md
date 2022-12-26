@@ -562,32 +562,37 @@ obj.prop = 123; // TypeError
 A variable declared by **let** or **const** has a so-called temporal dead zone (TDZ): When entering its scope, it can’t be accessed (got or set) until execution reaches the declaration.
 
 **var**:
+
 1. When the scope (its surrounding function) of a **var** variable is entered, storage space (a binding) is created for it. The variable is immediately initialized, by setting it to **undefined**.
 2. When the execution within the scope reaches the declaration, the variable is set to the value specified by the initializer (an assignment) – if there is one. If there isn’t, the value of the variable remains undefined.
 
 **let**, **conts**
+
 1. When the scope (its surrounding block) of a **let**/**const** variable is entered, storage space (a binding) is created for it. The variable remains uninitialized.
 2. Getting or setting an uninitialized variable causes a **ReferenceError**.
 
 **var**-declaring a variable in the head of a **for** loop creates a single binding (storage space) for that variable. Every _i_ in the bodies of the three arrow functions refers to the same binding, which is why they all return the same value:
+
 ```javascript
 const arr = [];
 for (var i=0; i < 3; i++) {
     arr.push(() => i);
 }
-arr.map(x => x()); // [3,3,3]
+const a = arr.map(x => x()); // [3,3,3]
 ```
 
 If you **let**-declare a variable, a new binding is created for each loop iteration:
-```javascript 
+
+```javascript
 const arr = [];
 for (let i=0; i < 3; i++) {
     arr.push(() => i);
 }
-arr.map(x => x()); // [0,1,2
+const a = arr.map(x => x()); // [0,1,2]
 ```
 
 **const** works like **var**, but you can’t change the initial value of a **const**-declared variable:
+
 ```javascript
 // TypeError: Assignment to constant variable
 // (due to i++)
@@ -595,26 +600,33 @@ for (const i=0; i<3; i++) {
     console.log(i);
 }
 ```
+
 ###### Common advices about variables in JS:
-- Avoiding global variables; hiding variables from global scope
-- Creating fresh environments; avoiding sharing
+
+- Avoiding global variables, hiding variables from global scope
+- Creating fresh environments, avoiding sharing
 - Keeping global data private to all of a constructor
 - Attaching global data to a singleton object
 - Attaching global data to a method
 
 ## 20. Closure
+
 In JavaScript, every running function, code block {...}, and the script as a whole have an internal (hidden) associated object known as the **Lexical Environment**.
 
-The Lexical Environment object consists of two parts:
+The **Lexical Environment** object consists of two parts:
+
 1. **Environment Record** – an object that stores all local variables as its properties (and some other information like the value of **this**, for example).
 2. A reference to the outer lexical environment, the one associated with the outer code.
 
 Algorithm:
+
 1. When the script starts, the **Lexical Environment** is pre-populated with all declared variables.
- -  Initially, they are in the “Uninitialized” state. That’s a special internal state, it means that the engine knows about the variable, but it cannot be referenced until it has been declared with **let**. It’s almost the same as if the variable didn’t exist.
-2. Then phase definition appears. There’s no assignment yet, so its value is **undefined**. We can use the variable from this point forward.
-3. phase is assigned a value.
-4. phase changes the value.
+
+- Initially, they are in the “Uninitialized” state. That’s a special internal state, it means that the engine knows about the variable, but it cannot be referenced until it has been declared with **let**. It’s almost the same as if the variable didn’t exist.
+
+2.Then phase definition appears. There’s no assignment yet, so its value is **undefined**. We can use the variable from this point forward.
+3.phase is assigned a value.
+4.phase changes the value.
 
 > “Lexical Environment” is a specification object: it only exists “theoretically” in the language specification to describe how things work. We can’t get this object in our code and manipulate it directly.
 
@@ -624,20 +636,23 @@ All functions have the hidden property named **[[Environment]]**, that keeps the
 
 A closure is a function that remembers its outer variables and can access them. In some languages, that’s not possible, or a function should be written in a special way to make it happen. But as explained above, in JavaScript, all functions are naturally closures (there is only one exception, to be covered in The "new Function" syntax).
 
+## 22. New scope via an IIFE
 
-##  22. New scope via an IIFE
 You typically introduce a new scope to restrict the lifetime of a variable. One example where you may want to do so is the “then” part of an if statement: it is executed only if the condition holds; and if it exclusively uses helper variables, we don’t want them to “leak out” into the surrounding scope:
+
 ```javascript
 function f() {
   if (condition) {
-      var tmp = ...;
-      ...
+      var tmp = condition.state;
+      //  code
   }
   // tmp still exists here
   // => not what we want
 }
 ```
+
 This is a workaround, a simulation of block scoping:
+
 ```javascript
 function f() {
   if (condition) {
@@ -648,7 +663,9 @@ function f() {
   }
 }
 ```
+
 This is Immediately Invoked Function Expression (IIFE):
+
 ```javascript
 (function () { // open IIFE
   // inside IIFE
@@ -656,41 +673,48 @@ This is Immediately Invoked Function Expression (IIFE):
 ```
 
 You can also enforce the expression context via prefix operators. For example, you can do so via the logical **NOT** operator:
+
 ```javascript
 !function () { // open IIFE
   // inside IIFE
 }(); // close IIFE
 ```
+
 or via the **void** operator:
+
 ```javascript
 void function () { // open IIFE
   // inside IIFE
 }(); // close IIFE
 ```
+
 ## 23. Garbage collector
+
 In JavaScript object only kept in memory while it’s reachable.
 A Lexical Environment object dies when it becomes unreachable (just like any other object). In other words, it exists only while there’s at least one nested function referencing it.
 
-
 ## 24. useStrict
+
 JavaScript's strict mode, introduced in ECMAScript 5, is a way to opt in to a restricted variant of JavaScript, thereby implicitly opting-out of "sloppy mode".
 
 - If a variable is not found anywhere, that’s an error in strict mode (without **use strict**, an assignment to a non-existing variable creates a new global variable, for compatibility with old code).
 - **this** default value is **undefined**
 - You can not assign to a new property on a non-extensible object
 - You can not create functions with **eval()**
-- strict mode prohibits **with** statement. (The **with** statement extends the scope chain for a statement.) 
+- strict mode prohibits **with** statement. (The **with** statement extends the scope chain for a statement.)
 - You cannot duplicate parameters
 - You can not delete "non-removable" object property
 - ...
 
 ## 25. This
+
 To access the object, a method can use the **this** keyword. The value of **this** is the object “before dot”, the one used to call the method.
 In JavaScript, keyword **this** behaves unlike most other programming languages. It can be used in any function, even if it’s not a method of an object.
 
 In JavaScript **this** is “free”, its value is evaluated at call-time and does not depend on where the method was declared, but rather on what object is “before the dot”. The value of **this** is defined at run-time.
 
 Arrow functions are special: they don’t have their “own” **this** and **arguments** collection. If we reference **this** from such a function, it’s taken from the outer “normal” function.
+
 ```javascript
 function getCtxName() {
   return this.name;
@@ -703,6 +727,7 @@ console.log(test()) //  Paul
 ```
 
 ## 23. Breaking loops in JS
+
 ```javascript
 let sum = 0;
 
@@ -714,6 +739,7 @@ while (true) {
 ```
 
 The **continue** directive is a “lighter version” of **break**. It doesn’t stop the whole loop. Instead, it stops the current iteration and forces the loop to start a new one (if the condition allows).
+
 ```javascript
 for (let i = 0; i < 10; i++) {
   // if true, skip the remaining part of the body
@@ -721,6 +747,7 @@ for (let i = 0; i < 10; i++) {
   alert(i); // 1, then 3, 5, 7, 9
 }
 ```
+
 ```javascript
 for (let i = 0; i < 10; i++) {
   if (i % 2) {
@@ -728,10 +755,12 @@ for (let i = 0; i < 10; i++) {
   }
 }
 ```
+
 From a technical point of view, this is identical to the example above. Surely, we can just wrap the code in an **if** block instead of using **continue**.
 But as a side-effect, this created one more level of nesting (the alert call inside the curly braces). If the code inside of **if** is longer than a few lines, that may decrease the overall readability.
 
 A **label** is an identifier with a colon(**:**) before a loop:
+
 ```javascript
 outer: for (let i = 0; i < 3; i++) {
   for (let j = 0; j < 3; j++) {
@@ -743,21 +772,27 @@ outer: for (let i = 0; i < 3; i++) {
 }
 alert('Done!');
 ```
-In the code above, **break** outer looks upwards for the **label** named outer and breaks out of that loop. So the control goes straight from (*) to _alert('Done!')_. The **continue** directive can also be used with a **label**. In this case, code execution jumps to the next iteration of the labeled loop.
+
+In the code above, **break outer** looks upwards for the **label** named _outer_ and breaks out of that loop. So the control goes straight from (*) to _alert('Done!')_. The **continue** directive can also be used with a **label**. In this case, code execution jumps to the next iteration of the labeled loop.
 
 ## 26. Object to primitive conversion
-Types convertions for **object**
+
+Types conversions for **object**
+
 1. All objects are true in a boolean context. There are only numeric and string conversions.
 2. The numeric conversion happens when we subtract objects or apply mathematical functions. For instance, **Date** objects can be subtracted, and the result of date1 - date2 is the time difference between two dates.
 3. As for the string conversion – it usually happens when we output an object like alert(obj) and in similar contexts.
 
 There are three variants of type conversion, that happen in various situations. They’re called “hints”, as described in the specification:
+
 1. "string"
 2. "number"
 3. "default"
 
 ###### Symbol.toPrimitive
+
 There’s a built-in symbol named **Symbol.toPrimitive** that should be used to name the conversion method, like this:
+
 ```javascript
 let user = {
   name: "John",
@@ -769,9 +804,11 @@ let user = {
   }
 };
 ```
+
 If the method **Symbol.toPrimitive** exists, it’s used for all hints, and no more methods are needed.
 
 If there’s no **Symbol.toPrimitive** then JavaScript tries to find methods ***toString** and **valueOf**:
+
 - For the “string” hint: **toString**, and if it doesn’t exist, then **valueOf** (so **toString** has the priority for string conversions).
 - For other hints: **valueOf**, and if it doesn’t exist, then toString (so valueOf has the priority for maths).
 
@@ -780,6 +817,7 @@ For historical reasons, if **toString** or **valueOf** returns an object, there�
 In contrast, **Symbol.toPrimitive** must return a primitive, otherwise there will be an error.
 
 ## 27. Call, apply, bind
+
 In JavaScript, everything is an object. So a function in JavaScript is a special object that has all the properties of a normal object and some special hidden properties, such as the code property and an optional name property — functions in JavaScript can be anonymous.
 **call**, **apply**, and **bind** are built-in methods in all JavaScript functions.
 The call, apply and bind functions are similar in terms that they enable us to set the **this** context. Consequently, they enable us to control the behavior of the **this** variable.
@@ -798,11 +836,13 @@ greet.apply(person); // returns Hello Lawrence Eagles
 const greet2 = greet.bind(person) // returns a new copy of greet with this binding
 greet2() // Hello Lawrence Eagles
 ```
+
 When the first argument is **null** or **undefined** the **this** variable points to the global object, but in strict mode, it would be **undefined**.
 The limitations of **call()** quickly become apparent in cases where we do not know the amount of argument a function would take.
 **apply()** shines in this scenario since it takes an array of arguments as its second argument.
 
 The **bind()** method in particular is suited for function currying because it creates a new copy of the function.
+
 ```javascript
 const multiplyByTwo = multiply.bind(this, 2)
 multiplyByTwo(4); // returns 8
@@ -810,9 +850,11 @@ const multiplyByTwo(6) // returns 12
 ```
 
 ##### Function borrowing
+
 Method or function borrowing is a way for an object to use the method of another object without redefining that method. This pattern allows an object to borrow the methods of other objects without inheriting their properties and methods.
 
-Function borrowing allows us to use the methods of one object on a different object without having to make a copy of that method and maintain it in two separate places. It is accomplished through the use of **.call()**, **.apply()**, or **.bind()**, all of which exist to explicitly set this on the method we are borrowing.
+Function borrowing allows us to use the methods of one object on a different object without having to make a copy of that method and maintain it in two separate places. It is accomplished through the use of **.call()**, **.apply()**, or **.bind()**, all of which exist to explicitly set **this** on the method we are borrowing.
+
 ```javascript
 const Vehicle = {
   name: 'Vehicle',
@@ -835,10 +877,13 @@ function test(a, b) {
 
 console.log(test('match','ball')); //   ['ball', 'match']
 ```
+
 The most important practical application of function borrowing pertains to native methods, and specifically, to **Array.prototype.slice**. There are several list-like data structures that aren’t arrays, and it’s useful to be able to treat them as arrays and operate on them as such. One of the most prevalent list-like data structures that isn’t an array is arguments. The arguments object represents all the parameters passed in to a given (non-arrow) function.
 
 ## 28. Nullish coalescing operator (??)
+
 is a logical operator that returns its right-hand side operand when its left-hand side operand is **null** or **undefined**, and otherwise returns its left-hand side operand.
+
 ```javascript
 const test = null || 'default string';
 
@@ -846,10 +891,12 @@ const foo = null ?? 'default string';
 console.log(foo);
 // expected output: "default string"
 ```
+
 Due to **||** being a boolean logical operator, the left hand-side operand was coerced to a boolean for the evaluation and any falsy value (0, '', **NaN**, **null**, **undefined**) was not returned. This behavior may cause unexpected consequences if you consider 0, '', or **NaN** as valid values.
 
 It is not possible to combine both the AND (**&&**) and OR operators (**||**) directly with **??**!
 However, providing parenthesis to explicitly indicate precedence is correct:
+
 ```javascript
 (null || undefined) ?? "foo"; // returns "foo"
 
@@ -858,6 +905,7 @@ console.log(foo.someFooProp?.toUpperCase() ?? "not available"); // "HI"
 ```
 
 ## 29. Function currying and partial functions
+
 Currying is an advanced technique of working with functions. It’s used not only in JavaScript, but in other languages as well.
 Currying is a transformation of functions that translates a function from callable as _f(a, b, c)_ into callable as _f(a)(b)(c)_.
 Currying doesn’t call a function. It just transforms it.
@@ -882,6 +930,7 @@ alert( curriedSum(1)(2) ); // 3
 ```
 
 or in ES6 syntax:
+
 ```javascript
 const sum = (a, b) => a + b;
 const curryIt = (f) => (a) => (b) => f(a,b);
@@ -891,7 +940,6 @@ console.log(curriedSum(1)(2)); // 3
 
 ```javascript
 function curry(func) {
-
   return function curried(...args) {
     if (args.length >= func.length) {
       return func.apply(this, args);
@@ -914,6 +962,7 @@ alert( curriedSum(1)(2)(3) ); // 6, full currying
 ```
 
 ## 30. Prototype
+
 Objects in JavaScript have an internal property, denoted in the specification as **[[Prototype]]**, which is simply a reference to another object. Almost all objects are given a non-**null** value for this property, at the time of their creation.
 The default **[[Get]]** operation proceeds to follow the **[[Prototype]]** link of the object if it cannot find the requested property on the object directly. This process continues until either a matching property name is found, or the **[[Prototype]]** chain ends. If no matching property is ever found by the end of the chain, the return result from the **[[Get]]** operation is **undefined**.
 
@@ -939,7 +988,9 @@ myObject.a++; // oops, implicit shadowing!
 anotherObject.a; // 2
 myObject.a; // 3
 ```
+
 > In JavaScript, there are no abstract patterns/blueprints for objects called "classes" as there are in class-oriented languages. JavaScript just has objects. All functions by default get a public, non-enumerable property on them called **prototype**, which points at an otherwise arbitrary object.
+
 ```javascript
 function test () {
   return ''
@@ -962,7 +1013,9 @@ console.log(test.prototype)
 ```
 
 "Inheritance" implies a copy operation, and JavaScript doesn't copy object properties (natively, by default). Instead, JS creates a link between two objects, where one object can essentially delegate property/function access to another object. "Delegation" is a much more accurate term for JavaScript's object-linking mechanism.
+
 > In JavaScript, it's most appropriate to say that a "constructor" is any function called with the new keyword in front of it. Functions aren't constructors, but function calls are "constructor calls" if and only if **new** is used.
+
 ```javascript
 function test(name) {
   this.name = name;
@@ -989,23 +1042,25 @@ Bar.prototype = Object.create( Foo.prototype );
 Object.setPrototypeOf( Bar.prototype, Foo.prototype );
 ```
 
-
-
 Inspecting an instance (just an object in JS) for its inheritance ancestry (delegation linkage in JS) is often called _introspection_ (or _reflection_) in traditional class-oriented environments.
 
 1. 
+
 ```javascript
 a instanceof Foo; // true
 ```
+
 The question **instanceof** answers is: in the entire **[[Prototype]]** chain of _a_, does the object arbitrarily pointed to by _Foo.prototype_ ever appear?
 If you have two arbitrary objects, say _a_ and _b_, and want to find out if the objects are related to each other through a **[[Prototype]]** chain, **instanceof** alone can't help.
 
 2. The second, and much cleaner, approach to **[[Prototype]]** reflection is:
+
 ```javascript
 Foo.prototype.isPrototypeOf( a ); // true
 ```
 
 3. 
+
 ```javascript
 a.__proto__ === Foo.prototype; // true
 
@@ -1021,9 +1076,89 @@ Object.defineProperty( Object.prototype, "__proto__", {
 	}
 } );
 ```
+
 .__ **proto** __ looks like a property, but it's actually more appropriate to think of it as a getter/setter. 
 
 > It's best to treat object **[[Prototype]]** linkage as a read-only characteristic for ease of reading your code later.
 
 For a variety of reasons, not the least of which is terminology precedent, "inheritance" (and "prototypal inheritance") and all the other OO terms just do not make sense when considering how JavaScript actually works (not just applied to our forced mental models).
 Instead, "delegation" is a more appropriate term, because these relationships are not copies but delegation links.
+
+## 31. Event loop
+
+JavaScript has a runtime model based on an event loop, which is responsible for executing the code, collecting and processing events, and executing queued sub-tasks. This model is quite different from models in other languages like C and Java.
+
+### Runtime concepts
+
+#### Stack
+
+Function calls form a stack of frames.
+
+_
+_
+_
+_
+
+#### Heap
+
+Objects are allocated in a heap which is just a name to denote a large (mostly unstructured) region of memory.
+
+-_ -   _- - -- - _
+
+#### Queue
+
+A JavaScript runtime uses a message queue, which is a list of messages to be processed. Each message has an associated function that gets called to handle the message.
+
+At some point during the event loop, the runtime starts handling the messages on the queue, starting with the oldest one. To do so, the message is removed from the queue and its corresponding function is called with the message as an input parameter. As always, calling a function creates a new stack frame for that function's use.
+
+The processing of functions continues until the stack is once again empty. Then, the event loop will process the next message in the queue (if there is one).
+
+Each message is processed completely before any other message is processed. This offers some nice properties when reasoning about your program, including the fact that whenever a function runs, it cannot be preempted and will run entirely before any other code runs (and can modify data the function manipulates). This differs from C, for instance, where if a function runs in a thread, it may be stopped at any point by the runtime system to run some other code in another thread.
+
+A downside of this model is that if a message takes too long to complete, the web application is unable to process user interactions like click or scroll. The browser mitigates this with the "a script is taking too long to run" dialog. A good practice to follow is to make message processing short and if possible cut down one message into several messages.
+
+In web browsers, messages are added anytime an event occurs and there is an event listener attached to it. If there is no listener, the event is lost. So a click on an element with a click event handler will add a message — likewise with any other event.
+
+The function **setTimeout** is called with 2 arguments: a message to add to the queue, and a time value (optional; defaults to 0). The time value represents the (minimum) delay after which the message will be pushed into the queue. If there is no other message in the queue, and the stack is empty, the message is processed right after the delay. However, if there are messages, the setTimeout message will have to wait for other messages to be processed. For this reason, the second argument indicates a minimum time — not a guaranteed time.
+
+>The execution depends on the number of waiting tasks in the queue.
+
+Note!
+A web worker or a cross-origin iframe has its own stack, heap, and message queue. Two distinct runtimes can only communicate through sending messages via the **postMessage** method. This method adds a message to the other runtime if the latter listens to **message** events.
+
+A very interesting property of the event loop model is that JavaScript, unlike a lot of other languages, never blocks. Handling I/O is typically performed via events and callbacks, so when the application is waiting for an IndexedDB query to return or an XHR request to return, it can still process other things like user input.
+
+## 32. How JavaScript Event Loop works when executing asynchronous code
+
+### Javascript is synchronous and has a single thread of execution!
+
+That is, it is only capable of executing one task at a time which blocks the execution until it is finished and can proceed to the next one.
+
+Therefore, although Javascript is not asynchronous, the inclusion of the WebAPI together with the Event Loop and the Queue Callback allow it to provide a certain aspect of asynchronicity so that the heavier tasks do not block the thread of execution.
+
+```javascript
+new Promise((res, rej) => {
+  res(console.log('y'));
+})
+.then((v) => console.log("v"));
+
+console.log("a");
+
+const p = new Promise((res, rej) => {
+  rej(console.log("d"));
+});
+
+setTimeout(() => {
+  console.log("b");
+}, 0);
+
+new Promise((res, rej) => {
+  res(console.log("c"));
+});
+
+p.then(() => console.log("e"));
+
+p.catch(() => console.log("f"));
+
+// y a d c v f b 
+```
