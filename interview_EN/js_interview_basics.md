@@ -1094,10 +1094,10 @@ JavaScript has a runtime model based on an event loop, which is responsible for 
 
 Function calls form a stack of frames.
 
-_
-_
-_
-_
+_|
+_|
+_|
+_|
 
 #### Heap
 
@@ -1124,7 +1124,7 @@ The function **setTimeout** is called with 2 arguments: a message to add to the 
 >The execution depends on the number of waiting tasks in the queue.
 
 Note!
-A web worker or a cross-origin iframe has its own stack, heap, and message queue. Two distinct runtimes can only communicate through sending messages via the **postMessage** method. This method adds a message to the other runtime if the latter listens to **message** events.
+A web worker or a cross-origin iframe has its own **stack**, **heap**, and **message queue**. Two distinct runtimes can only communicate through sending messages via the **postMessage** method. This method adds a message to the other runtime if the latter listens to **message** events.
 
 A very interesting property of the event loop model is that JavaScript, unlike a lot of other languages, never blocks. Handling I/O is typically performed via events and callbacks, so when the application is waiting for an IndexedDB query to return or an XHR request to return, it can still process other things like user input.
 
