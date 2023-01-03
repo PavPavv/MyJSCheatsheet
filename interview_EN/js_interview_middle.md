@@ -634,5 +634,11 @@ The compose function is a higher-order function. It takes functions as arguments
   const compose = (...fns) => arg => fns.reduce((composed, f) => f(composed), arg);
 ```
 
-## 8. React
-React is the library for creating views. ReactDOM is the library used to actually render the UI in the browser.
+## 9. What the difference between POST and PUT?
+
+POST is used to send data to a server to create/update a resource.
+PUT is used to send data to a server to create/update a resource.
+
+So... What the heck? What is the difference between 'em?
+
+The difference between POST and PUT is that PUT requests are idempotent. That is, calling the same PUT request multiple times will always produce the same result. In contrast, calling a POST request repeatedly have side effects of creating the same resource multiple times.
