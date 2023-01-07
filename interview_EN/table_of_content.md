@@ -7,3 +7,4 @@ Collection of questions from real interviews.
 - :page_with_curl: [JS-questions (middle)](./js_interview_middle.md)
 - :page_with_curl: [JS-questions (middle++)](./js_interview_middle_plus.md)
 - :page_with_curl: [React](./react.md)
+- :page_with_curl: [Next](./next.md)
