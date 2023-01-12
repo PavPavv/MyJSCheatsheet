@@ -25,9 +25,9 @@ const objB = {
 };
 
 const objB1 = {};
-objB1.prototype = objB;
+Object.setPrototypeOf(objB1,objB);
 
-//console.log(obj1.movie);
+console.log(objB1.movie);
 
 /////////////////////////////////////////////////////
 //  1

@@ -1044,7 +1044,7 @@ Object.setPrototypeOf( Bar.prototype, Foo.prototype );
 
 Inspecting an instance (just an object in JS) for its inheritance ancestry (delegation linkage in JS) is often called _introspection_ (or _reflection_) in traditional class-oriented environments.
 
-1. 
+1.
 
 ```javascript
 a instanceof Foo; // true

@@ -467,20 +467,7 @@ console.log(obj1.movie); // 'Interstellar'
 
 **Object.create(..)** создает новый объект (bar), связанный с объектом, который мы указали (foo), и это дает нам всю мощь (делегирование) механизма **[[Prototype]]**, но без ненужных сложностей вроде функции **new**, выступающей в роли классов и вызовов конструктора, сбивающих с толку ссылок **.prototype** и **.constructor**, и прочих лишних вещей.
 
-3. prototype
-
-```javascript
-const objB = {
-  movie: "Interstellar",
-};
-
-const objB1 = {};
-objB1.prototype = objB;
-
-console.log(obj1.movie); // 'Interstellar'
-```
-
-4. setPrototypeOf
+3. Object.setPrototypeOf()
 
 ```javascript
 const objB = {
