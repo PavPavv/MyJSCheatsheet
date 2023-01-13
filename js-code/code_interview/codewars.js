@@ -986,3 +986,48 @@ console.log(getPages(12,11,3));
 console.log(getPages(12,12,3));
 
 ////////////////////////////////////////////////////////////////////////////////////////
+
+// kata 28  Level 7
+function babySharkLyrics() {
+  var d = 'doo '.repeat(5) + 'doo';
+  var s = [
+    'Baby shark',
+    'Mommy shark',
+    'Daddy shark',
+    'Grandma shark',
+    'Grandpa shark',
+    'Let\'s go hunt',
+  ];
+  var res = '';
+  for (var m of s) {
+    var l = m + ", " + d + "\n";
+    var i = 0;
+    while(i < 3) {
+      res += l;
+      i++;
+    }
+    res += m + "!" + "\n";
+  }
+  res += "Run away,…";
+  return res; 
+}
+// console.log(babySharkLyrics());
+
+
+function babySharkLyrics1() {
+  var t = 'shark';
+  var s = [
+    'Baby '+t,
+    'Mommy '+t,
+    'Daddy '+t,
+    'Grandma '+t,
+    'Grandpa '+t,
+    'Let\'s go hunt',
+  ];
+  return s
+    .map((l) => (l+", "+"doo ".repeat(5)+"doo"+"\n")
+      .repeat(3)+l+"!"+"\n")
+      .join("")
+      .concat("Run away,…");
+}
+console.log(babySharkLyrics1());
