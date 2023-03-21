@@ -1,7 +1,7 @@
 /////////////////////////////////////// SEARCH //////////////////////////////////////////////
 
 //  Linear search
-const arr = [1,2,3,4,5];
+const arr = [1, 2, 3, 4, 5];
 
 function linearSearch(a, x) {
   let i = 0;
@@ -34,13 +34,13 @@ function bSearch(a, x) {
   const N = a.length;
   let l = 0;
   let r = N - 1;
-  while(l < r) {
+  while (l < r) {
     let m = Math.floor((l + r) / 2);
     if (a[m] < x) l = m + 1;
     else r = m;
   }
   return l;
-};
+}
 console.log(bSearch(arr, 4));
 
 //-----------------------------------------------------
@@ -51,7 +51,23 @@ console.log(bSearch(arr, 4));
 //  simple string search
 
 // my solution
-const s =  [';', 't', 't', ' ', 'o', 'n', 'e', ' ', 'o', 'r', ' ', 't', 'w', 'o', '.']; // text
+const s = [
+  ';',
+  't',
+  't',
+  ' ',
+  'o',
+  'n',
+  'e',
+  ' ',
+  'o',
+  'r',
+  ' ',
+  't',
+  'w',
+  'o',
+  '.',
+]; // text
 const p = ['t', 'w', 'o']; //  target
 
 function wordSearch(textArr, wordArr) {
@@ -60,7 +76,7 @@ function wordSearch(textArr, wordArr) {
 
   for (let i = 0; i < textArr.length; i++) {
     const textChar = textArr[i];
-    
+
     for (let j = 0; j < wordArr.length; j++) {
       const wordChar = wordArr[j];
 
@@ -81,38 +97,53 @@ function wordSearch(textArr, wordArr) {
 console.log(wordSearch(s, p));
 console.log(s[wordSearch(s, p)]);
 
-console.log(wordSearch(s, ['o','n','e']));
-console.log(s[wordSearch(s, ['o','n','e'])]);
+console.log(wordSearch(s, ['o', 'n', 'e']));
+console.log(s[wordSearch(s, ['o', 'n', 'e'])]);
 
 const simpleWirthSubStrSearch = () => {
   /**
- * 
- * @param {number} i  //  index of char in the text
- * @return {boolean} 
- */
-  const text =  [';', 't', 't', ' ', 'o', 'n', 'e', ' ', 'o', 'r', ' ', 't', 'w', 'o', '.'];
+   *
+   * @param {number} i  //  index of char in the text
+   * @return {boolean}
+   */
+  const text = [
+    ';',
+    't',
+    't',
+    ' ',
+    'o',
+    'n',
+    'e',
+    ' ',
+    'o',
+    'r',
+    ' ',
+    't',
+    'w',
+    'o',
+    '.',
+  ];
   const target = ['t', 'w', 'o'];
-  
+
   function simpleSubStrSearch(s, p) {
     const result = [];
-    
+
     function r(textCharIdx) {
       let j = 0;
-    
+
       while (j < p.length && p[j] === s[textCharIdx + j]) {
         j++;
       }
       const a = j < p.length;
       return !a;
     }
-  
+
     for (let i = 0; i < s.length; i++) {
       const test = r(i);
       if (test) result.push(i);
     }
     return result;
   }
-  
+
   console.log(simpleSubStrSearch(text, target));
 };
-

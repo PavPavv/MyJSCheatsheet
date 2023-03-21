@@ -1,4 +1,4 @@
-const now = require("performance-now");
+const now = require('performance-now');
 
 const funcSpeed = (func) => {
   const start = now();
@@ -57,12 +57,11 @@ function first() {
     for (let letter of set) {
       let currentCounter = 0;
 
-
       for (let j = 0; j < newStr.length; j++) {
         if (letter === str[j]) {
           currentCounter += 1;
         }
-      } 
+      }
 
       if (currentCounter > counter) {
         ans = letter;
@@ -99,14 +98,14 @@ function first() {
   // console.log(popularSymbolObj('ababazzzz'));
   // console.log(popularSymbolObj(bigStr));
   // console.log('popularSymbolObj', funcSpeed(popularSymbolObj(bigStr)));
-};
+}
 //  first();
 
 ///////////////////////////////////////////////////////////////////////////////////
 //  2
 //  Linear search, complexity - O(n)
 function linearSearchLection() {
-  const arr = [1,2,1,3,2,4];
+  const arr = [1, 2, 1, 3, 2, 4];
 
   function findFirstLeft(array, target) {
     let result = -1;
@@ -179,7 +178,7 @@ function linearSearchLection() {
   }
   //console.log(findMinEven(arr))
 
-  const wordsArr = ['kryliaSovetov', 'zenit', 'spartak',];
+  const wordsArr = ['kryliaSovetov', 'zenit', 'spartak'];
 
   function findShortestStr(words) {
     let minlen = words[0].length;
@@ -203,7 +202,7 @@ function linearSearchLection() {
 
   const findShortStrInArr = (arr) => {
     let minIdx = 0;
-    
+
     for (let i = 1; i < arr.length; i++) {
       if (arr[i].length < arr[minIdx].length) {
         minIdx = i;
@@ -243,7 +242,7 @@ function linearSearchLection() {
     }
     nowm = 0;
 
-    // right part 
+    // right part
     for (let i = h.length - 1; i < h.length; i--) {
       if (h[i] > nowm) {
         nowm = h[i];
@@ -273,9 +272,7 @@ function linearSearchLection() {
   }
   //console.log(preRLETest('AAAABBBCC'));
 
-
-  function  rleTest(str) {
-
+  function rleTest(str) {
     function pack(s, charCounter) {
       if (charCounter > 1) {
         return `${s}${charCounter}`;
@@ -298,7 +295,6 @@ function linearSearchLection() {
     result.push(pack(str[lastPos], str.length - lastPos));
 
     return result.join('');
-
   }
   //console.log(rleTest('AAAABBBCC'));
 }
@@ -308,19 +304,19 @@ function linearSearchLection() {
 //  3
 //  Sets, hash-function, hash-table, collision, amortized complexity
 function sets() {
-
-  const SET_SIZE = 10;  //  constant for hash function
+  const SET_SIZE = 10; //  constant for hash function
   //  hash table
-  const mySet = new Array(SET_SIZE).fill([]); 
+  const mySet = new Array(SET_SIZE).fill([]);
   //  mySet = [ [],[],[],[],[],[],[],[7,17,27,37,...,10257],[],[] ]
 
   function addToMySet(x) {
     //  x % SET_SIZE - hash function, for example: (27) -> 7
-    mySet[x % SET_SIZE].push(x);  //  mySet[7].push(27) 
+    mySet[x % SET_SIZE].push(x); //  mySet[7].push(27)
   }
 
   function isInMySet(x) {
-    for (num of mySet[x % SET_SIZE]) {  //  mySet[7]
+    for (num of mySet[x % SET_SIZE]) {
+      //  mySet[7]
       if (num === x) {
         return true;
       }
@@ -329,12 +325,12 @@ function sets() {
   }
 
   function deleteFromMySet(x) {
-    xList = mySet[x % SET_SIZE];  //  mySet[7]
+    xList = mySet[x % SET_SIZE]; //  mySet[7]
 
     for (let i = 0; i < sList.length; i++) {
       if (xList[i] === x) {
         let a = xList[i];
-        let b = xList[xList.length -1];
+        let b = xList[xList.length - 1];
         [a, b] = [b, a];
         xList.pop();
         return;
@@ -366,7 +362,7 @@ function sets() {
     }
     return [];
   }
-  console.log(findSumOfTargetOpt([1,2,3,4,5], 5));
+  console.log(findSumOfTargetOpt([1, 2, 3, 4, 5], 5));
 
   //  O(nk + m)
   function wordsInDict(dict, text) {
@@ -387,7 +383,6 @@ function sets() {
     return result;
   }
   //  console.log(wordsInDict([],''));
-
 }
 //  sets();
 
@@ -395,45 +390,45 @@ function sets() {
 //  4 Dictionaries, counting sort
 //  https://www.geeksforgeeks.org/counting-sort/
 function dictionaries() {
-  const numArr = [5,4,5,3,2,1,5];
+  const numArr = [5, 4, 5, 3, 2, 1, 5];
 
   function countSort(arr) {
-    const newArr = [...arr];  //  [5,4,5,3,2,1,5]
-    const set = new Set(newArr);  //  [5,4,3,2,1]
+    const newArr = [...arr]; //  [5,4,5,3,2,1,5]
+    const set = new Set(newArr); //  [5,4,3,2,1]
     const k = set.size;
-    const countArr = new Array(k).fill(0);  //  [0,0,0,0,0]
+    const countArr = new Array(k).fill(0); //  [0,0,0,0,0]
 
     for (let i = 0; i < newArr.length; i++) {
       const elem = newArr[i];
-      countArr[elem - 1] += 1;  //  "-1" imitating starting point in arrays (0), [0,0,0,0,1] for example
+      countArr[elem - 1] += 1; //  "-1" imitating starting point in arrays (0), [0,0,0,0,1] for example
     }
 
     let newPos = 0;
     //  countArr = [1,1,1,1,3]
     for (let i = 0; i < k; i++) {
       for (let j = 0; j < countArr[i]; j++) {
-        newArr[newPos] = i+1;
+        newArr[newPos] = i + 1;
         newPos += 1;
       }
     }
     return newArr;
-  };
+  }
 
   //  console.log(countSort(numArr));
 
   //  My initial solution
-  function isEqualDigits(a,b) {
+  function isEqualDigits(a, b) {
     function sortNum(num) {
-      const sorted = String(num).split("").sort().join("");
+      const sorted = String(num).split('').sort().join('');
       return +sorted;
     }
-    
+
     const result = sortNum(a) === sortNum(b);
     return result ? true : false;
   }
   //  console.log(isEqualDigits(2021, 1202))
 
-  function isEqualDigits(a,b) {
+  function isEqualDigits(a, b) {
     function countDigits(num) {
       const digitCountArr = new Array(10).fill(0);
       while (num > 0) {
@@ -441,9 +436,9 @@ function dictionaries() {
         digitCountArr[lastDigit] += 1;
         num = Math.floor(num / 10);
       }
-      return digitCountArr
+      return digitCountArr;
     }
-  
+
     const digitsA = countDigits(a); //  [1,1,2,0,0,0,0,0,0,0];
     const digitsB = countDigits(b); //  [1,1,2,0,0,0,0,0,0,0];
     for (let i = 0; i < 10; i++) {
@@ -468,7 +463,7 @@ function dictionaries() {
     function countPairs(rowOrCol) {
       let pairs = 0;
       for (const key in rowOrCol) {
-        console.log(key)
+        console.log(key);
         pairs += rowOrCol[key];
       }
       return pairs;
@@ -487,13 +482,21 @@ function dictionaries() {
   // console.log(countBeatingRooks([
   //   [
   //     [0,2],
-  //   ], 
+  //   ],
   //   [
   //     [2,2],
   //   ],
   // ]));
 
-  const words1 = ['eat', 'tea', 'tan', 'superLongLongWord', 'ate', 'nat', 'bat'];
+  const words1 = [
+    'eat',
+    'tea',
+    'tan',
+    'superLongLongWord',
+    'ate',
+    'nat',
+    'bat',
+  ];
   function groupWords(words) {
     const groups = {};
     const result = [];
@@ -519,7 +522,6 @@ function dictionaries() {
     return result;
   }
   //console.log(groupWords(words1));
-
 }
 //dictionaries();
 
@@ -528,8 +530,8 @@ function dictionaries() {
 //  prefixSum[i] = prefixSum[i - 1] + nums[i - 1]
 //  O(1): sum(L,R) = prefixSum[R] - prefixSum[L]
 function prefix() {
-  const nums = [5,3,8,1,4,6];
-  const numsWithZeros = [0,0,0,0,1,2,3,4,5,6,0,];
+  const nums = [5, 3, 8, 1, 4, 6];
+  const numsWithZeros = [0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 0];
 
   function makePrefixSum(arr) {
     //  [0,0,0,0,0,0,0  ]
@@ -537,7 +539,7 @@ function prefix() {
 
     for (let i = 1; i < prefixSum.length; i++) {
       prefixSum[i] = prefixSum[i - 1] + arr[i - 1];
-    } 
+    }
     return prefixSum; //  [0, 5, 8, 16, 17, 21, 27]
   }
 
@@ -545,7 +547,7 @@ function prefix() {
     return pref[r] - pref[l]; //  16 - 0
   }
 
-  //  console.log(makePrefixSum(nums)); //  
+  //  console.log(makePrefixSum(nums)); //
   //  console.log(rsq(makePrefixSum(nums), 0, 3));
 
   function makePrefixZeros(arr) {
@@ -559,7 +561,7 @@ function prefix() {
   //console.log(rsq(makePrefixZeros(numsWithZeros), 1, 5))
 
   function countPrefixSum(arr) {
-    const prefixSumByValue= {0: 1};
+    const prefixSumByValue = { 0: 1 };
     let nowSum = 0;
 
     for (let i = 0; i < arr.length; i++) {
@@ -585,15 +587,15 @@ function prefix() {
   //  console.log(countZerosSumRanges(countPrefixSum(numsWithZeros)))
 
   function twoPointers(sortedNums, k) {
-    let countPairs = 0; // 
-    let last = 0; //  
+    let countPairs = 0; //
+    let last = 0; //
 
     for (let i = 0; i < sortedNums.length; i++) {
       while (
-        last < sortedNums.length 
-        && sortedNums[last] - sortedNums[i] <= k
+        last < sortedNums.length &&
+        sortedNums[last] - sortedNums[i] <= k
       ) {
-          last += 1;
+        last += 1;
       }
       countPairs += sortedNums.length - last;
     }
@@ -602,32 +604,38 @@ function prefix() {
   }
   //  console.log(twoPointers([1,3,5,7,8], 4));
 
-  const players = [1,1,3,3,4,6,11];
+  const players = [1, 1, 3, 3, 4, 6, 11];
   function bestTeamSum(teamPlayers) {
     let bestSum = 0;
     let nowSum = 0;
     let last = 0;
 
     for (let i = 0; i < teamPlayers.length; i++) {
-      while(last < teamPlayers.length && (last === i || teamPlayers[i] + teamPlayers[i + 1] >= teamPlayers[last])) {
+      while (
+        last < teamPlayers.length &&
+        (last === i || teamPlayers[i] + teamPlayers[i + 1] >= teamPlayers[last])
+      ) {
         nowSum += teamPlayers[last];
         last += 1;
       }
       bestSum = Math.max(bestSum, nowSum);
-      nowSum = nowSum - teamPlayers[i] ; 
+      nowSum = nowSum - teamPlayers[i];
     }
     return bestSum;
   }
   //  console.log(bestTeamSum(players));
 
-  const nums1 = [1,2,3,4,5];
-  const nums2 = [3,4,5,6,7,8,9];
+  const nums1 = [1, 2, 3, 4, 5];
+  const nums2 = [3, 4, 5, 6, 7, 8, 9];
   function merged(arr1, arr2) {
     const merged = new Array(arr1.length + arr2.length).fill(0);
     let first1 = 0;
     let first2 = 0;
     for (let i = 0; i < merged.length; i++) {
-      if (first1 !== arr1.length && first2 === arr2.length || arr1[first1] <= arr2[first2]) {
+      if (
+        (first1 !== arr1.length && first2 === arr2.length) ||
+        arr1[first1] <= arr2[first2]
+      ) {
         merged[i] = arr1[first1];
         first1 += 1;
       } else {
@@ -646,24 +654,23 @@ prefix();
 
 function binarySearch() {
   /**
-   * 
+   *
    * @param {number} m // parents needs to be added to the school board's members
-   * @param {numbber[]} params 
-   * @returns 
+   * @param {numbber[]} params
+   * @returns
    */
   function checkF(m, params) {
-    const [ n, k ] = params;
+    const [n, k] = params;
     return (k + m) * 3 >= n + m;
   }
 
-
   /**
-   * 
+   *
    * @param {number} l
-   * @param {number} r 
-   * @param {function} check 
+   * @param {number} r
+   * @param {function} check
    * @param {number[]} checkparams // [allMembers, parents]
-   * @returns 
+   * @returns
    */
   function leftBinarySearch(l, r, check, checkparams) {
     while (l < r) {
@@ -681,14 +688,14 @@ function binarySearch() {
   //  Interview problem (binary search by answer)
   function checkFInterview(days, params) {
     const [n, k] = params;
-    const result = (k + (k + days - 1)) * Math.floor(days / 2)
-    return  result >= n ? result : 0;
+    const result = (k + (k + days - 1)) * Math.floor(days / 2);
+    return result >= n ? result : 0;
   }
   //  console.log(leftBinarySearch(0, 10 , checkFInterview, [10, 1]))
 
   //  Sticker board
   function rightBinarySearch(l, r, check, checkparams) {
-    while(l != r) {
+    while (l != r) {
       let middle = Math.floor((l + r + 1) / 2);
       if (check(middle, checkparams)) {
         l = middle;
@@ -703,10 +710,8 @@ function binarySearch() {
     const result = Math.floor(w / size) * Math.floor(h / size);
     return result >= n ? result : 0;
   }
-  console.log(rightBinarySearch(1, Math.min(100, 80), checkFStickers, [5, 100, 80]));
+  console.log(
+    rightBinarySearch(1, Math.min(100, 80), checkFStickers, [5, 100, 80]),
+  );
 }
 binarySearch();
-
-
-
-
