@@ -108,6 +108,41 @@ paramScope();
 ### Coercion
 
 Coercion in JavaScript is the conversion of one type of value into another type of value.
+If the hint argument is “number”, then the OrdinaryToPrimitive abstract operation first invokes the valueOf method and then the toString method, if needed.
+
+```javascript
+0 == false  // true
+
+"" == false // true
+
+0 == [] // -> 0 == "" -> 0 == 0 -> true
+
+[123] == 123  // "123" == 123 -> 123 == 123 -> true
+
+[1] < [2] // true
+
+[] == ![] // -> [] == false -> [] == 0 -> "" == 0 -> 0 == 0 -> true
+
+!!"true" == !!"false" // true
+
+[1, 2, 3] + [4, 5, 6] // "1,2,34,5,6"
+
+[undefined] == 0  // true
+
+[[]] == ''  // true
+
+[] + {} // [object Object]
+```
+
+### Closures
+
+The closure is a combination of the following two things:
+• A Function
+• A reference to the environment/scope in which that function is created
+
+Every time a javascript function is created, a closure is formed, which allows that function to access the scope chain that was in effect when that function was defined. Each time a function is created, javascript saves the reference to the surrounding environment of the function in the internal "[[Environment]]" slot on the function object. When that function is called, a new environment is created for that function call, and javascript saves the value of [[Environment]] slot on the function in the [[OuterEnv]] slot of the environment object.
+It is a common misconception among beginners that closures are only formed when any function returns a nested function. But that is not the case.
+Every time a function is created in JavaScript, it forms a closure over the environment in which that function was created. Forming a closure is a fancy way of saying that when a function is created, it saves a reference to the environment in which it was created.
 
 ## Data structures
 
