@@ -143,6 +143,51 @@ The closure is a combination of the following two things:
 Every time a javascript function is created, a closure is formed, which allows that function to access the scope chain that was in effect when that function was defined. Each time a function is created, javascript saves the reference to the surrounding environment of the function in the internal "[[Environment]]" slot on the function object. When that function is called, a new environment is created for that function call, and javascript saves the value of [[Environment]] slot on the function in the [[OuterEnv]] slot of the environment object.
 It is a common misconception among beginners that closures are only formed when any function returns a nested function. But that is not the case.
 Every time a function is created in JavaScript, it forms a closure over the environment in which that function was created. Forming a closure is a fancy way of saying that when a function is created, it saves a reference to the environment in which it was created.
+It is important to note that functions form closures over variables, not their values. Closure over variables implies that each function logs the latest value of the variable it has closed over.
+
+### Prototypes
+
+Objects in JavaScript are linked to other objects, and this linkage allows an object to use the functionality of another object to which it is linked.
+When we create an object literal in JavaScript, it is, by default, linked to the built-in Object.prototype object.
+Objects in JavaScript have a hidden internal slot named [[Prototype]] . When an object is created, it is linked to another object by saving a reference to the other object in the [[Prototype]] internal slot of the newly created object. The other object whose reference is saved in the internal slot will serve as the “prototype” of the newly created object.
+The prototype property of a function refers to an object that is used as the “prototype” of other objects when that function is invoked as a “constructor function” using the “new” keyword.
+The term “prototype” has been used in two contexts here:
+
+- The “prototype” property on functions
+- An object is referred to as a “prototype” when it is linked and shares its properties with other
+objects.
+
+```javascript
+function Car(name, model) {
+  this.name = name;
+  his.model = model;
+}
+console.log(Object.getOwnPropertyNames(Car));
+// [ "prototype", "length", "name" ]
+console.log(Car.prototype.constructor === Car); // true
+```
+
+Initially, the object pointed to by the prototype property on any function just contains a single property named “constructor”. The value of this “constructor” property is a reference to the constructor function. In the case of Car.prototype object, Car.prototype.constructor refers to the Car constructor function.
+
+When a function is invoked using the new keyword, one of the steps during the creation of a new object is that the [[Prototype]] internal slot of the newly created object is pointed to the object referenced by the function’s prototype property. As a result, the newly created object has access to the properties defined on the object referred to by the constructor function’s prototype property.
+
+Accessing the prototype of Object.prototype returns null.
+
+As of 2015, JavaScript has classes. They provide a declarative way of writing code that is less error-prone.
+The two prototype chains set up by the extends keyword serve two different purposes:
+
+- Student.prototype ---> Person.prototype allows the inheritance of the instance properties.
+- Student ---> Person allows the inheritance of the static properties.
+
+### this
+
+In the global scope, the value of this depends on the environment in which our JavaScript code is executed. JavaScript code can be executed in different environments, for example, browsers, NodeJS, etc. The value of this in global scope is different in different environments. In the case of browsers, the value of this in the global scope is the window object.
+In NodeJS, the value of this depends on whether we are using the ECMAScript modules or the CommonJS modules. In ECMAScript modules, the value of this is undefined at the top level of a module. This is because the code in ECMAScript modules is executed in strict mode. In CommonJS modules, at the top level of a module, this refers to the module.exports object. In Node.js, the JavaScript code is technically not executed in a global scope. Instead, it is executed in a module scope, where commonly used modules are CommonJS and ECMAScript modules.
+Inside web workers⁹³, the value of this at the top level refers to the global scope of the web worker, which is different from the global scope containing the window object in the browser. Code inside a web worker is executed in its own separate context with its own global scope.
+
+When a function is invoked as a constructor function using the new keyword, the this keyword inside the constructor function refers to the newly created object. The new keyword creates a new object and sets the newly created object as the value of this . As a result, we can use this inside a constructor function to add properties to the newly created object.
+
+Code inside a class in JavaScript is executed in strict mode. As a result, the value of this inside methods is either undefined if not invoked on an object or the class instance itself, which is used to invoke the method.
 
 ## Data structures
 

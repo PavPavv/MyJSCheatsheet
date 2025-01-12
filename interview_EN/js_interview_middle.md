@@ -64,14 +64,14 @@ Property descriptors:
 
 **enumerable: true** if and only if this property shows up during enumeration of the properties on the corresponding object. Defaults to **false**.
 
-#### Data descriptor
+### Data descriptor
 
 **value**
 The value associated with the property. Can be any valid JavaScript value (number, object, function, etc). Defaults to **undefined**.
 
 **writable: true** if the value associated with the property may be changed with an assignment operator. Defaults to **false**.
 
-#### Accessor descriptor
+### Accessor descriptor
 
 **get**
 A function which serves as a getter for the property, or **undefined** if there is no getter. When the property is accessed, this function is called without arguments and with this set to the object through which the property is accessed (this may not be the object on which the property is defined due to inheritance). The return value will be used as the value of the property. Defaults to **undefined**.
@@ -230,11 +230,11 @@ async function foo() {
 
 Whenever a promise is rejected, one of two events is sent to the global scope (generally, this is either the window or, if being used in a web worker, it's the Worker or other worker-based interface).
 
-###### rejectionhandled
+### rejectionhandled
 
 - Sent when a promise is rejected, after that rejection has been handled by the executor's reject function.
 
-###### unhandledrejection
+### unhandledrejection
 
 - Sent when a promise is rejected but there is no rejection handler available.
 
@@ -280,11 +280,11 @@ Promise.resolve().then(func1).then(func2).then(func3);
 Instead of running immediately, the passed-in function is put on a Microtasks queue, which means it runs later (only after the function which created it exits, and when the JavaScript execution stack is empty), just before control is returned to the event loop.
 Promise callbacks are handled as a Microtasks whereas setTimeout() callbacks are handled as Macrotasks queues.
 
-##### Promise() constructor
+### Promise() constructor
 
 Creates a new Promise object. The constructor is primarily used to wrap functions that do not already support promises.
 
-##### Static methods
+### Static methods
 
 - **Promise.resolve(value)** Returns a new Promise object that is resolved with the given value. If the value is a thenable (i.e. has a then method), the returned promise will "follow" that thenable, adopting its eventual state; otherwise, the returned promise will be fulfilled with the value. Generally, if you don't know if a value is a promise or not, **Promise.resolve(value)** it instead and work with the return value as a promise.
 
@@ -326,7 +326,7 @@ console.log("Promise (pending)", promise);
 
 Map is a collection of keyed data items, just like an Object. But the main difference is that Map allows keys of any type.
 
-##### Methods and properties are:
+### Methods and properties are:
 
 - **new Map()** – creates the map.
 - **map.set(key, value)** – stores the value by the key.
@@ -605,7 +605,8 @@ We can say that JavaScript supports functional programming because its functions
 Functional programming is a part of a larger programming paradigm: **declarative programming**. Declarative programming is a style of programming where applications are structured in a way that prioritizes describing _what_ should happen over defining _how_ it should happen. The declarative approach is more readable and, thus, easier to reason about. The details of how each of these functions is implemented are abstracted away. Those tiny functions are named well and combined in a way that describes how member data goes from being loaded to being saved and printed on a map, and this approach does not require many comments. Essentially, declarative programming produces applications that are easier to reason about, and when it’s easier to reason about an application, that application is easier to scale.
 
 ## 9. Functional Concepts
-#### Immutability
+
+### Immutability
 
 In a functional program, data is immutable. It never changes.
 
@@ -617,7 +618,7 @@ const rateColor = (color, rating) => ({
 const addColor = (title, list) => [...list, { title }];
 ```
 
-#### Pure Functions
+### Pure Functions
 
 A _pure function_ is a function that returns a value that’s computed based on its arguments. Pure functions take at least one argument and always
 return a value or another function. They do not cause side effects, set global variables, or change anything about application state. They treat their arguments as immutable data.
@@ -634,7 +635,7 @@ const selfEducate = person => ({
 2. The function should return a value or another function.
 3. The function should not change or mutate any of its arguments.
 
-#### Data Transformations
+### Data Transformations
 
 When it’s time to remove an item from an array, we should use **Array.filter** over **Array.pop** or **Array.splice** because Array.filter is immutable.
 
@@ -659,15 +660,15 @@ console.log(uniqueColors);
 // ["red", "green", "blue"]
 ```
 
-#### Higher-Order Functions
+### Higher-Order Functions
 
 The first category of higher-order functions are functions that expect other functions as arguments. **Array.map**, **Array.filter**, and **Array.reduce** all take functions as arguments. They are higher-order functions.
 
 **Currying** is a functional technique that involves the use of higher-order functions.
 
-#### Recursion
+### Recursion
 
-#### Composition
+### Composition
 
 Functional programs break up their logic into small, pure functions that are focused on specific tasks. Eventually, you’ll need to put these smaller functions together. Specifically, you may need to combine them, call them in series or parallel, or compose them into larger functions until you eventually have an application.
 The compose function is a higher-order function. It takes functions as arguments and returns a single value:
