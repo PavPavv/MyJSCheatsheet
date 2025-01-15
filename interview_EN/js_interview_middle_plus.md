@@ -179,6 +179,23 @@ The two prototype chains set up by the extends keyword serve two different purpo
 - Student.prototype ---> Person.prototype allows the inheritance of the instance properties.
 - Student ---> Person allows the inheritance of the static properties.
 
+#### Inheritance before ES6
+
+```javascript
+function Employee(name, age, id) {
+  this.name = name;
+  this.age = age;
+  this.id = id;
+}
+function BankEmployee(name, age, id, bankName) {
+  // delegate the responsibility of adding
+  // "name", "age", and "id" properties to
+  // the Employee constructor
+  Employee.call(this, name, age, id);
+  this.bankName = bankName;
+}
+```
+
 ### this
 
 In the global scope, the value of this depends on the environment in which our JavaScript code is executed. JavaScript code can be executed in different environments, for example, browsers, NodeJS, etc. The value of this in global scope is different in different environments. In the case of browsers, the value of this in the global scope is the window object.
@@ -326,6 +343,61 @@ new FormHandler(btn);
 The reason an arrow function fixed the issue is that, as discussed earlier, arrow functions do not have their own value of this ; they get it from the surrounding
 environment. The surrounding environment is the constructor in this case. What’s the value of this inside the constructor? Its value is an instance of the FormHandler
 class when the constructor is invoked using the new keyword.
+
+How React fixed this problem before hooks (before v16.8):
+
+```javascript
+class FormHandler {
+  constructor(submitBtn) {
+    submitBtn.addEventListener("click", this.submitForm.bind(this));
+  }
+
+  submitForm() {
+    console.log("form submitted");
+    console.log(this);
+  }
+}
+```
+
+#### Borrowing methods
+
+```javascript
+const john = {
+  name: "John",
+  sayHello() {
+    console.log("Hello, I am " + this.name);
+  },
+};
+
+const pav = {
+  name: "Pav",
+};
+
+// borrow method from john
+const sayHello = john.sayHello;
+sayHello.call(pav);
+// Hello, I am Pav
+```
+
+#### globalThis
+
+globalThis is a globally available property in JavaScript that allows us to access the global object regardless of which environment our JavaScript code is executed in.
+It provides us with a standard way to access the global object across different JavaScript environments.
+
+```javascript
+// before
+if (typeof window !== "undefined" && window.secretProperty) {
+  // execute code for browser
+} else if (typeof global !== "undefined" && global.secretProperty) {
+  // execute code for Node.js
+}
+
+// now
+if (globalThis.secretProperty) {
+  // execute code
+}
+```
+
 
 ## Data structures
 
