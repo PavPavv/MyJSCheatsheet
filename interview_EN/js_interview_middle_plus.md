@@ -189,6 +189,144 @@ When a function is invoked as a constructor function using the new keyword, the 
 
 Code inside a class in JavaScript is executed in strict mode. As a result, the value of this inside methods is either undefined if not invoked on an object or the class instance itself, which is used to invoke the method.
 
+The event listener callback is invoked with this set to the HTML element that triggered the event.
+
+const btn = document.querySelector("button");
+
+```javascript
+class FormHandler {
+  constructor(submitBtn) {
+    submitBtn.addEventListener("click", this.submitForm);
+  }
+
+  submitForm() {
+    console.log("form submitted");
+    console.log(this);
+    // The value of this inside this method,
+    // when it is invoked as an event listener callback, is the button element and not the instance of the
+    // class like we would normally expect.
+  }
+
+}
+new FormHandler(btn);
+```
+
+Assuming that our code is in non-strict mode, the value of this inside the increment5 function is the global object, i.e., the window object in the case of browsers. So,
+this.value is actually window.value , and it is undefined because the window object, by default, doesn’t have a value property. As a result, we get the NaN value
+when undefined is added to a number, i.e., the value of the incrementStep parameter.
+
+```javascript
+function Counter(startingValue) {
+  this.value = startingValue;
+}
+
+Counter.prototype.incrementFactory = function (incrementStep) {
+  return function () {
+    this.value += incrementStep;
+    console.log(this.value);
+  };
+};
+const counter = new Counter(0);
+const increment5 = counter.incrementFactory(5);
+increment5(); // NaN
+increment5(); // NaN
+increment5(); // NaN
+```
+
+There are multiple ways to handle this problem. One way is to save the value of this inside the incrementFactory function before returning a function, and inside
+the returned function, use the variable containing the value of this instead of directly using this .
+
+```javascript
+function Counter(startingValue) {
+  this.value = startingValue;
+}
+Counter.prototype.incrementFactory = function (incrementStep) {
+  const thisVal = this; // save `this` value
+  return function () {
+    // use `thisVar` variable instead of `this`
+    thisVal.value += incrementStep;
+    console.log(thisVal.value);
+  };
+};
+const counter = new Counter(0);
+const increment5 = counter.incrementFactory(5);
+increment5(); // 5
+increment5(); // 10
+increment5(); // 15
+```
+
+Another way to solve the problem shown above is to use an arrow function.
+
+```javascript
+function Counter(startingValue) {
+  this.value = startingValue;
+}
+Counter.prototype.incrementFactory = function (incrementStep) {
+  // use an arrow function
+  return () =>  {
+    thisVal.value += incrementStep;
+    console.log(thisVal.value);
+  };
+};
+const counter = new Counter(0);
+const increment5 = counter.incrementFactory(5);
+increment5(); // 5
+increment5(); // 10
+increment5(); // 15
+```
+
+```javascript
+function Counter(startingValue) {
+  this.value = startingValue;
+}
+
+Counter.prototype.incrementFactory = function (incrementStep) {
+  const incrementFn = function () {
+    this.value += incrementStep;
+    console.log(this.value);
+  };
+  // return a function with `this` bound
+  // to the object used to invoke the
+  // `incrementFactory` method
+  return incrementFn.bind(this);
+};
+
+const counter = new Counter(0);
+const increment5 = counter.incrementFactory(5);
+increment5(); // 5
+increment5(); // 10
+increment5(); // 15
+```
+
+Using an arrow function solves the problem because, unlike regular functions, which get their own value of this when they are invoked, arrow functions don’t
+get their own this value; instead, the value of this inside an arrow function is taken from the surrounding context.
+The surrounding context is the environment in which the arrow function is defined. In our code example, the arrow function is created when the incrementFactory
+function is invoked using the this keyword counter object. So, this inside the incrementFactory function refers to the counter object, and this
+is the surrounding context of the arrow function returned from the incrementFactory function. As a result, the value of this inside the arrow function, when
+it is invoked, is also the counter object.
+
+```javascript
+class FormHandler {
+  constructor(submitBtn) {
+    submitBtn.addEventListener("click", () => this.submitForm());
+  }
+
+  submitForm() {
+    console.log("form submitted");
+    console.log(this);
+    // The value of this inside this method,
+    // when it is invoked as an event listener callback, is the button element and not the instance of the
+    // class like we would normally expect.
+  }
+
+}
+new FormHandler(btn);
+```
+
+The reason an arrow function fixed the issue is that, as discussed earlier, arrow functions do not have their own value of this ; they get it from the surrounding
+environment. The surrounding environment is the constructor in this case. What’s the value of this inside the constructor? Its value is an instance of the FormHandler
+class when the constructor is invoked using the new keyword.
+
 ## Data structures
 
 Linear data structures are simple in direction. A linked list is a list of nodes (each containing their own data) that are linked from one node to the next (and to the previous, for a doubly linked list). A stack builds upward like a tower of data. Each node stacking atop another, and shortens in a last in first out (LIFO) manner. A queue is a line of nodes that elongate from the end of the line and shortens in a first in first out (FIFO) mechanism.
