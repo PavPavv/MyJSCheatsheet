@@ -398,6 +398,78 @@ if (globalThis.secretProperty) {
 }
 ```
 
+### Symbol
+
+Symbols allow JavaScript to add new properties to objects that cannot conflict with the existing properties on objects that others might have used in their code.
+
+Symbol values can be created using the Symbol function. It’s important to note that the Symbol
+function must be invoked without the new keyword. Attempting to use the new keyword to invoke
+the Symbol function will result in an error. This is because it prevents the creation of an object
+wrapper around the symbol. Every call to the Symbol function must create a new unique symbol
+value.
+
+```javascript
+const sym = Symbol();
+
+const obj = {};
+obj[sym] = "hello";
+
+// or
+
+const obj = {
+  [sym]: "hello"
+};
+
+console.log(obj[sym]); // "hello"
+console.log(obj["sym"]); //  undefined
+console.log(obj.sym); //  undefined
+```
+
+Symbol properties can be discovered using methods like Object.getOwnPropertyDescriptors or Object.getOwnPropertySymbols .
+JavaScript has true private properties, and symbols are not intended to be used as private properties.
+
+The description is passed as an argument to the Symbol function. The provided description can then
+be accessed using the property named description on symbols. The description property can only be used to get the property of a symbol; it cannot be used to
+set the description.
+
+```javascript
+const propSymbol = Symbol("property symbol");
+console.log(propSymbol.description);
+// property symbol
+```
+
+Symbol.toPrimitive represents a symbol property that is used by the object to primitive conversion process in JavaScript. Its value is a function that
+is passed a hint or the preferred type of the primitive value to represent the object being converted into a primitive value. The return value is used as the primitive value of the object.
+
+```javascript
+const movie = {
+  name: "Jurassic Park",
+  releaseDate: "09,June,1993",
+  [Symbol.toPrimitive](hint) {
+    if (hint === "number") {
+      return new Date(this.releaseDate).getTime();
+    } else {
+      return this.name;
+    }
+  }
+};
+
+console.log(Number(movie));
+console.log(String(movie));
+
+const task = {
+  title: "exercise",
+  isComplete: false,
+  [Symbol.toStringTag]: "Task"
+};
+console.log(task.toString()); // [object Task]
+```
+
+### Asynchronous JavaScript
+
+>> JavaScript also allows us to execute some code in another thread, independent of the main thread, using the web workers.
+
+
 
 ## Data structures
 
