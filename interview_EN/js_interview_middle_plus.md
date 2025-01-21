@@ -467,9 +467,76 @@ console.log(task.toString()); // [object Task]
 
 ### Asynchronous JavaScript
 
+#### Callbacks
+
+```javascript
+function main() {
+  function fetchData(err, cb) {
+    const isOk = false;
+    const error = 'Somwthing went wrong';
+    const data = [
+      {
+        id: 1,
+        name: "Jack",
+      },
+      {
+        id: 2,
+        name: "Mag",
+      },
+    ];
+    setTimeout(function() {
+      if (isOk) {
+        cb(data);
+      } else {
+        err(error);
+      }
+    }, 2000);
+  }
+
+  function onError(err) {
+    console.log(err);
+  }
+
+  function onSuccess(data) {
+    console.log(data);
+  }
+
+  console.log(fetchData(onError, onSuccess));
+}
+main();
+```
+
 >> JavaScript also allows us to execute some code in another thread, independent of the main thread, using the web workers.
 
+As we know already, the JavaScript language is single-threaded. Long-running code on the main thread can block the thread; in the case of browsers,
+blocking the main thread means that browsers cannot respond to user interactions and cannot render changes on the UI. This is why the screen
+freezes when some long-running code blocks the main thread. In the case of NodeJs, in the context of application servers, blocking the main thread means
+that the server cannot handle the incoming HTTP requests until the main thread is unblocked.
 
+#### Event loop
+
+The event loop helps to execute asynchronous operations in a non-blocking manner. When an asynchronous operation is completed in the background to execute
+the JavaScript callback that we provided at the time of initiating the asynchronous operation, it needs to be pushed onto the call
+stack. The call stack is a stack data structure used to keep track of the currently executing code. Every function call is added to the stack as a stack frame.
+The frame is popped off the stack when the function execution ends.
+
+> No asynchronous callback can be invoked until the synchronous execution of the code has ended. Remember, only one thing executes at a time on the main thread, and the currently executing code cannot be interrupted.
+
+Any user interaction like the click event requires scheduling a task; the same is true for executing the callbacks of timing functions like setTimeout . Tasks are queued in the task queue until the event loop processes them. The task queue is also referred to as the event queue or the callback queue.
+
+The event loop processes a single task during its single turn, commonly referred to as the “event loop tick” or just “tick”. The next task is processed during the next turn or tick of the event loop. The browser may choose to render UI updates between tasks.
+
+#### Promises
+
+Promises can be in one of the following three states in their lifecycle:
+
+- pending: the initial state in which promises typically start when they are created. It indicates that the asynchronous operation associated with the promise is in progress.
+
+- fulfilled: means that the asynchronous operation associated with the promise has been completed successfully.
+
+- rejected: means that the asynchronous operation associated with the promise has failed.
+
+During the lifecycle of a promise, its state changes from pending to either fulfilled or rejected. The state of a promise is saved in the hidden internal slot named [[PromiseState]]. A promise in the pending state is considered unsettled. Once the promise transitions from the pending state into either a fulfilled or rejected state, it is said to have settled.
 
 ## Data structures
 
