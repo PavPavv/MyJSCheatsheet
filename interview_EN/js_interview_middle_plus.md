@@ -538,6 +538,111 @@ Promises can be in one of the following three states in their lifecycle:
 
 During the lifecycle of a promise, its state changes from pending to either fulfilled or rejected. The state of a promise is saved in the hidden internal slot named [[PromiseState]]. A promise in the pending state is considered unsettled. Once the promise transitions from the pending state into either a fulfilled or rejected state, it is said to have settled.
 
+There are three instance methods we can call on promise instances:
+
+- Promise.prototype.then()
+
+- Promise.prototype.catch()
+
+- Promise.prototype.finally()
+
+```javascript
+function main() {
+  function fetchData() {
+    const isOk = true;
+    const error = 'Somwthing went wrong';
+    const data = [
+      {
+        id: 1,
+        name: "Jack",
+      },
+      {
+        id: 2,
+        name: "Mag",
+      },
+    ];
+    return new Promise((res, rej) => {
+      if (isOk) {
+        setTimeout(() => {
+          res(data);
+        }, 2000);
+      } else {
+        setTimeout(() => {
+          rej(error);
+        }, 2000);
+      }
+    })
+  }  
+
+  fetchData()
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+    // custom "catch"
+    // fakeRequest().then(null, (error) => {
+    // // handle error
+    // });
+}
+```
+
+The Promise constructor takes a callback function as an argument, referred to as the executor function, that is invoked synchronously to create the promise object.
+It is common to incorrectly assume that any code inside the executor function is executed asynchronously, but that is not the case. The executor function is invoked
+synchronously to create the promise object. The code inside the executor function should be any code that starts some asynchronous operation. The newly
+created promise object will observe that asynchronous operation. The promise object will notify us about the success or failure of the asynchronous operation that is
+initiated inside the executor function.
+
+```javascript
+
+const url1 = "https://jsonplaceholder.typicode.com/todos/1";
+const url2 = "https://jsonplaceholder.typicode.com/todos/2";
+const url3 = "https://jsonplaceholder.typicode.com/todos/3";
+
+function parseFetchResponse(response) {
+  if (response.ok) {
+    return response.json();
+  } else {
+    throw new Error("request failed");
+  }
+}
+Promise.all([
+  fetch(url1).then(parseFetchResponse),
+  fetch(url2).then(parseFetchResponse),
+  fetch(url3).then(parseFetchResponse)
+])
+  .then((dataArr) => {
+    console.log(dataArr);
+  })
+  .catch((error) => console.log(error.message))
+
+
+// returns a promise that is fulfilled
+// after approximately 1 second
+function promisifiedRandomNumber() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      // generate a random number within range: 0 - 9
+      const randomNum = Math.floor(Math.random() * 10);
+      resolve(randomNum);
+    }, 1000);
+  });
+}
+async function random() {
+  const promiseArr = [
+    promisifiedRandomNumber(),
+    promisifiedRandomNumber(),
+    promisifiedRandomNumber()
+  ];
+  const randomNumsArr = await Promise.all(promiseArr);
+  console.log(randomNumsArr);
+}
+random();
+```
+
+
 ## Data structures
 
 Linear data structures are simple in direction. A linked list is a list of nodes (each containing their own data) that are linked from one node to the next (and to the previous, for a doubly linked list). A stack builds upward like a tower of data. Each node stacking atop another, and shortens in a last in first out (LIFO) manner. A queue is a line of nodes that elongate from the end of the line and shortens in a first in first out (FIFO) mechanism.
