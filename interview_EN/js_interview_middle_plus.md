@@ -1,6 +1,6 @@
 # Middle+/Senior topics
 
-## Deep theory (from the "Advanced JavaScript Unleashed" book by Yousaf Khan)
+## From the "Advanced JavaScript Unleashed" book written by Yousaf Khan
 
 ### ECMASCript language, JIT Compiler, JavaScript Engine
 
@@ -526,6 +526,11 @@ Any user interaction like the click event requires scheduling a task; the same i
 
 The event loop processes a single task during its single turn, commonly referred to as the “event loop tick” or just “tick”. The next task is processed during the next turn or tick of the event loop. The browser may choose to render UI updates between tasks.
 
+Whereas “tasks” are executed in the order they are enqueued in the task queue, only one task is executed per one turn or tick of the event loop.
+
+Another important thing to note about microtasks is that while only one task is processed per tick of the event loop, microtasks are processed until the microtask queue is empty. If a task schedules another task, it won’t be processed until the next turn or tick of the event loop, but in the case of microtasks, if any microtask is queued by a microtask, the queued microtask will also be processed.
+This means that the event loop can get stuck in an infinite loop if each microtask keeps queuing another microtask.
+
 #### Promises
 
 Promises can be in one of the following three states in their lifecycle:
@@ -642,6 +647,131 @@ async function random() {
 random();
 ```
 
+#### Async/await
+
+```javascript
+async function foo() {
+  return 123;
+}
+foo().then(console.log); // 123
+```
+
+```javascript
+async function foo() {}
+foo().then(console.log); // undefined
+```
+
+What’s important to note is that the code inside the async function is executed synchronously until the first await expression.
+
+```javascript
+// returns a promise that is fulfilled
+// after approximately 1 second
+function promisifiedRandomNumber() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      // generate a random number within range: 0 - 9
+      const randomNum = Math.floor(Math.random() * 10);
+      resolve(randomNum);
+    }, 1000);
+  });
+}
+async function random() {
+const promiseArr = [
+  promisifiedRandomNumber(),
+  promisifiedRandomNumber(),
+  promisifiedRandomNumber()
+];
+const randomNumsArr = await Promise.all(promiseArr);
+console.log(randomNumsArr);
+}
+random();
+```
+
+The await keyword is usually used to wait for a promise to settle, but it can also be used with a non-promise value.
+
+### Iterators
+
+Iterable is an object that implements the [iterable protocol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#the_iterator_protocol). According to the iterable protocol, an object is iterable if it defines the iteration behavior that can be used by the for...of loop to iterate over the values in the object. The object can implement a method that is referred to by the property represented by Symbol.iterator133; it is one of the well-known symbols to define the iteration behavior.
+
+Iterators are objects that implement the iterator protocol134. According to the iterator protocol, an object is an iterator if it implements a method named next that takes zero or one argument and returns an object with the following properties: "done" and "next".
+
+```javascript
+const arr = [2, 4, 6, 8, 10];
+
+// get the array iterator object
+const arrayIterator = arr[Symbol.iterator]();
+
+// get the first iterator result object
+let result = arrayIterator.next();
+
+// keep getting new iterator result objects
+// until the "done" property of the iterator
+// result object is false
+while (!result.done) {
+  console.log(result.value);
+  result = arrayIterator.next();
+}
+```
+
+Each iterator object inherits from the respective iterator prototype object. For example, the array iterator inherits from the Array Iterator prototype object. Similarly, the string iterator inherits from the String Iterator prototype object. All iterator prototype objects inherit from the Iterator.prototype object.
+
+```javascript
+function Student(name, age, id, courses) {
+  this.name = name;
+  this.age = age;
+  this.id = id;
+  this.courses = courses;
+}
+
+Student.prototype[Symbol.iterator] = function () {
+  // "this" refers to the student object on which this method is called
+  const currentStudent = this;
+  const studentProps = Object.getOwnPropertyNames(currentStudent);
+  let propIndex = 0;
+
+  const studentIterator = {
+    next: () => {
+      if (propIndex < studentProps.length) {
+        const key = studentProps[propIndex];
+        const value = currentStudent[key];
+        propIndex++;
+        const formattedValue = `${key.padStart(7)} => ${value}`;
+
+        return {
+          value: formattedValue,
+          done: false
+        };
+      }
+      return {
+        value: undefined,
+        done: true
+      };
+    },
+    [Symbol.iterator]() {
+      return this;
+    }
+  };
+  return studentIterator;
+};
+
+
+const jack = new Student("Jack", 20, "21A", ["Maths", "Biology", "Physics"]);
+for (const val of jack) {
+  console.log(val);
+}
+/*
+  name => Jack
+  age => 20
+  id => 21A 
+  courses => Maths,Biology,Physics
+*/
+```
+
+### Debugging
+
+The debugger statement allows us to set up a point in our code where the debugger can pause the execution of our code. This is like setting up breakpoints in our code where the code execution can be paused, allowing us to inspect the values of different variables in our code.
+
+---------------------------------------------------------------------------------------
 
 ## Data structures
 
