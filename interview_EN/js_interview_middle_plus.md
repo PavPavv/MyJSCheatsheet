@@ -1,8 +1,26 @@
 # Middle+/Senior topics
 
+Table of content:
+
+1. ECMASCript language, JIT Compiler, JavaScript Engine
+2. Lexical and Variable environments (advanced)
+3. Infinite loop (stack overflow)
+4. Hoisting (advanced)
+5. Temporal Dead Zone (TDZ)
+6. Scope (advanced)
+7. Coercion (advanced)
+8. Closures (advanced)
+9. Prototypes (advanced)
+10. this (advanced)
+11. Symbol (advanced)
+12. Asynchronous JavaScript (advanced)
+13. Iterators
+14. Debugging
+15. Data structures (todo)
+
 ## From the "Advanced JavaScript Unleashed" book written by Yousaf Khan
 
-### ECMASCript language, JIT Compiler, JavaScript Engine
+### 1. ECMASCript language, JIT Compiler, JavaScript Engine
 
 In the case of JavaScript, the JavaScript engines do not output an executable file, which is one of the reasons it is thought of as an interpreted language.
 However, the JavaScript code is compiled into an intermediary form known as byte code, which is then executed by the virtual machine. The virtual machine interprets byte code, but modern JavaScript engines don’t just interpret the byte code; they include what’s known as the “Just-in-time (JIT) compiler” to compile the byte code into native machine code, which is executed at a faster speed than the byte code.
@@ -38,7 +56,7 @@ Execution context phases: creation phase(1) and execution phase(2).
 (1)During this phase, the variable declarations and references to functions are saved as key-value pairs inside the execution context. The value of this and a reference to the outer environment are also set during this phase. In the case of a global context, there is no outer environment, so reference to the outer environment
 is set to null , but in the case of a function context, the value of this depends on how the function is called, so the value of this is set appropriately.
 
-### Lexical and Variable environments
+### 2. Lexical and Variable environments (advanced)
 
 During the creation phase, the following two components are created:
 
@@ -47,7 +65,7 @@ During the creation phase, the following two components are created:
 
 A call stack is a structure that is used internally by the JavaScript engine to keep track of the piece of code that is currently executing. The call stack is simply a stack²² data structure that aids in the execution of the JavaScript code by keeping track of currently executing code. You can also think of a call stack in JavaScript as a collection of execution contexts. Before executing any JavaScript code, a global execution context is created and pushed on the call stack. After pushing the global execution context on the call stack, any function calls encountered during the execution of the code will lead to more entries in the call stack. For every function call, a new entry is added to the call stack before that function starts executing, and as soon as the function execution ends, that entry is popped off the stack.
 
-### Infinite loop (stack overflow)
+### 3. Infinite loop (stack overflow)
 
 Remember what happens when a function is called? A new entry is added to the call stack. In the case of the above function that just calls itself and never finishes executing, we are just adding the new entries in the call stack without ever removing any entries. This is infinite recursion, and this leads to an error known as stack overflow. This error is thrown when the call stack gets filled up to its limit and can no longer hold more entries.
 
@@ -55,7 +73,7 @@ The official ECMAScript specification doesn’t state anything about how JavaScr
 
 JavaScript values in V8 are represented as objects and allocated on the V8 heap, no matter if they are objects, arrays, numbers, or strings. This allows us to represent any value as a pointer to an object.
 
-### Hoisting
+### 4. Hoisting (advanced)
 
 In JavaScript, variables and functions can be accessed before their actual declaration. The term “hoisting” is mostly associated with function declarations and variables declared with the “var” keyword. 
 
@@ -66,14 +84,14 @@ According to the standard rules, the function declarations inside blocks are hoi
 
 Like function declarations, class declarations are also hoisted, but they are hoisted differently compared to the function declarations.
 
-#### Temporal Dead Zone (TDZ)
+#### 5. Temporal Dead Zone (TDZ)
 
 Temporal Dead Zone (TDZ) refers to the time during which the block-scoped variables ( let , const ) or class declarations cannot be accessed. The time starts from the start of the scope till the declaration is executed. TDZ is the reason class declarations cannot be accessed before their declaration is executed during
 the step-by-step execution of the code. As TDZ also applies to the let and const , are the variables declared using let or constants using const also hoisted? Yes, they are also hoisted, but, like the class declarations, they are hoisted differently because of the TDZ. It is a common misconception that block-scoped variables and constants are not hoisted, but as we discussed above, they are hoisted; it’s just that their hoisting is different as compared to the hoisting of variables declared using the var keyword.
 
 JavaScript engines don’t move the hoisted declarations to the top of the file. Instead, they simply process the declarations before the step-by-step execution of the code. In the case of var variables, they are assigned the value of undefined until their declaration is executed. In the case of block-scoped variables, they are marked as “uninitialized”.
 
-### Scope
+### 6. Scope (advanced)
 
 In JavaScript, the scope of different identifiers (variables, functions, etc.) is determined at compile time. Before the step-by-step execution of the JavaScript code starts, JavaScript engines determine the scopes of different declarations in the code.
 
@@ -105,7 +123,7 @@ function paramScope(arr = ["initial array"], buff = () => arr) {
 paramScope();
 ```
 
-### Coercion
+### 7. Coercion (advanced)
 
 Coercion in JavaScript is the conversion of one type of value into another type of value.
 If the hint argument is “number”, then the OrdinaryToPrimitive abstract operation first invokes the valueOf method and then the toString method, if needed.
@@ -134,7 +152,7 @@ If the hint argument is “number”, then the OrdinaryToPrimitive abstract oper
 [] + {} // [object Object]
 ```
 
-### Closures
+### 8. Closures (advanced)
 
 The closure is a combination of the following two things:
 • A Function
@@ -145,7 +163,7 @@ It is a common misconception among beginners that closures are only formed when 
 Every time a function is created in JavaScript, it forms a closure over the environment in which that function was created. Forming a closure is a fancy way of saying that when a function is created, it saves a reference to the environment in which it was created.
 It is important to note that functions form closures over variables, not their values. Closure over variables implies that each function logs the latest value of the variable it has closed over.
 
-### Prototypes
+### 9. Prototypes (advanced)
 
 Objects in JavaScript are linked to other objects, and this linkage allows an object to use the functionality of another object to which it is linked.
 When we create an object literal in JavaScript, it is, by default, linked to the built-in Object.prototype object.
@@ -196,7 +214,7 @@ function BankEmployee(name, age, id, bankName) {
 }
 ```
 
-### this
+### 10. this (advanced)
 
 In the global scope, the value of this depends on the environment in which our JavaScript code is executed. JavaScript code can be executed in different environments, for example, browsers, NodeJS, etc. The value of this in global scope is different in different environments. In the case of browsers, the value of this in the global scope is the window object.
 In NodeJS, the value of this depends on whether we are using the ECMAScript modules or the CommonJS modules. In ECMAScript modules, the value of this is undefined at the top level of a module. This is because the code in ECMAScript modules is executed in strict mode. In CommonJS modules, at the top level of a module, this refers to the module.exports object. In Node.js, the JavaScript code is technically not executed in a global scope. Instead, it is executed in a module scope, where commonly used modules are CommonJS and ECMAScript modules.
@@ -398,7 +416,7 @@ if (globalThis.secretProperty) {
 }
 ```
 
-### Symbol
+### 11. Symbol (advanced)
 
 Symbols allow JavaScript to add new properties to objects that cannot conflict with the existing properties on objects that others might have used in their code.
 
@@ -465,7 +483,7 @@ const task = {
 console.log(task.toString()); // [object Task]
 ```
 
-### Asynchronous JavaScript
+### 12. Asynchronous JavaScript (advanced)
 
 #### Callbacks
 
@@ -689,7 +707,7 @@ random();
 
 The await keyword is usually used to wait for a promise to settle, but it can also be used with a non-promise value.
 
-### Iterators
+### 13. Iterators
 
 Iterable is an object that implements the [iterable protocol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#the_iterator_protocol). According to the iterable protocol, an object is iterable if it defines the iteration behavior that can be used by the for...of loop to iterate over the values in the object. The object can implement a method that is referred to by the property represented by Symbol.iterator133; it is one of the well-known symbols to define the iteration behavior.
 
@@ -767,19 +785,19 @@ for (const val of jack) {
 */
 ```
 
-### Debugging
+### 14. Debugging
 
 The debugger statement allows us to set up a point in our code where the debugger can pause the execution of our code. This is like setting up breakpoints in our code where the code execution can be paused, allowing us to inspect the values of different variables in our code.
 
 ---------------------------------------------------------------------------------------
 
-## Data structures
+## 15. Data structures (todo)
 
 Linear data structures are simple in direction. A linked list is a list of nodes (each containing their own data) that are linked from one node to the next (and to the previous, for a doubly linked list). A stack builds upward like a tower of data. Each node stacking atop another, and shortens in a last in first out (LIFO) manner. A queue is a line of nodes that elongate from the end of the line and shortens in a first in first out (FIFO) mechanism.
 
 Binary data structures are like a fork in a road of data. The nodes build like the branches of a tree or a heap of rocks.
 
-## Binary Search Tree
+### Binary Search Tree
 
 Compared to a normal tree, BST has the following properties:
 

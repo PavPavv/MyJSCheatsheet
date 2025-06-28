@@ -1,6 +1,42 @@
 # Interview questions (basics)
 
-##  1. Data types
+Table of content:
+
+1. Data types
+2. Faulsy values
+3. Difference between undefined and null
+4. Logical operators
+5. Type conversions
+6. setTimeout() with zero delay
+7. Difference between spread and rest operators
+8. What is wrapper objects?
+9. How to define if a certain property exists on some object?
+10. How to create an object in JS?
+11. How to copy an object in JS?
+12. How to merge objects in JS?
+13. What is DOM?
+14. What the difference between event.target and event.currentTarget?
+15. What the difference between "==" and "===" operators?
+16. What is event "bubbling" ?
+17. What is "capturing" phase of event?
+18. Ways to handle events is JS
+19. What is hoisting?
+20. Variables and scope (var, let, const)
+21. Closure
+22. New scope via an IIFE
+23. Garbage collector
+24. useStrict
+25. This
+26. Breaking loops in JS
+27. Object to primitive conversion
+28. Call, apply, bind
+29. Nullish coalescing operator (??)
+30. Function currying and partial functions
+31. Prototype
+32. Event loop
+33. How JavaScript Event Loop works when executing asynchronous code
+
+## 1. Data types
 
 Primitives:
 1.Boolean
@@ -29,7 +65,9 @@ Reference type:
 
 In JavaScript, **undefined** means a variable has been declared but has not yet been assigned a value. **null** is an assignment value. It can be assigned to a variable as a representation of no value.
 
-## 4. Logical operator && (AND)
+## 4. Logical operators
+
+### 4.1 && (AND)
 
 In classical programming, AND returns true if both operands are truthy and false otherwise. AND “&&” finds the first falsy value and returns the last true value before first falsy value.
 
@@ -37,14 +75,14 @@ In classical programming, AND returns true if both operands are truthy and false
 true && console.log("Seen");
 ```
 
-## 5. Logical operators priority
+### 4.2. Logical operators priority
 
 1.!
 2.&&
 3.||
 4.??
 
-## 6. Type conversions
+## 5. Type conversions
 
 - ToBoolean
 - ToString
@@ -94,7 +132,7 @@ console.log(typeof test);
 
 valueOf -> toString()
 
-## 7. setTimeout() with zero delay
+## 6. setTimeout() with zero delay
 
 ```javascript
 setTimeout(() => {
@@ -105,7 +143,7 @@ console.log("Print something");
 
 Browser engine has some web API, so when engine find some methods of that API, it is marked as asynchronous methods and placed in a call stack after the synchronous tasks.
 
-## 8. Difference between spread and rest operators
+## 7. Difference between spread and rest operators
 
 When we see **...** in the code, it is either rest parameters or the spread syntax. There’s an easy way to distinguish between them:
 
@@ -117,11 +155,11 @@ Use patterns:
 - Rest parameters are used to create functions that accept any number of arguments.
 - The spread syntax is used to pass an array to functions that normally require a list of many arguments.
 
-## 9. What is wrapper objects?
+## 8. What is wrapper objects?
 
 When you interact with a primitive value like it was an object (by calling a method or reading a property from it), JavaScript creates a wrapper object on the fly. You can have access to properties and methods of wrapper objects, like they were regular objects. A wrapper object is disposed right after a single use.
 
-## 10. How to define if a certain property exists on some object?
+## 9. How to define if a certain property exists on some object?
 
 1.**in** operator
 
@@ -150,7 +188,7 @@ console.log(o["prop1"]); // undefined
 
 **\*in** operator checks if property exist even in prototypes, but **hasOwnProperty** — only in a given object.
 
-## 11. How to create an object in JS?
+## 10. How to create an object in JS?
 
 1.Type constructor (deprecated):
 
@@ -257,7 +295,7 @@ console.log(albert); //  {name: "Albert"}
 console.log(albert.greeting()); // 'Hi, I'm Albert!'
 ```
 
-## 12. How to copy an object in JS?
+## 11. How to copy an object in JS?
 
 1. Method Object.assign(target):
 
@@ -313,7 +351,7 @@ const obj3 = JSON.parse(JSON.stringify(obj2));
 
 isolated copies, no link between objects.
 
-## 13. How to merge objects in JS?
+## 12. How to merge objects in JS?
 
 1. Object.assign(targetObj, obj1, obj2...):
 
@@ -434,7 +472,7 @@ When an event happens on an element, it first runs the handlers on it, then on i
 A bubbling event goes from the target element straight up. Normally it goes upwards till **html**-tag, and then to document object, and some events even reach window, calling all handlers on the path. But any handler may decide that the event has been fully processed and stop the bubbling.
 The method for it is **event.stopPropagation()**.
 
-## 16. What is "capturing" phase of event?
+## 17. What is "capturing" phase of event?
 
 The standard DOM Events describes 3 phases of event propagation:
 
@@ -455,7 +493,7 @@ There are two possible values of the capture option:
 - If it’s **false** (default), then the handler is set on the bubbling phase.
 - If it’s **true**, then the handler is set on the capturing phase.
 
-## 17. Ways to handle events is JS.
+## 18. Ways to handle events is JS
 
 There are three ways of event handling:
 
@@ -465,7 +503,7 @@ There are three ways of event handling:
 
 No matter how you handle your event, every time it gets as a first argument  **event** object with such properties as **value**, **target**, **currentTarget** etc.
 
-## 18. What is hoisting?
+## 19. What is hoisting?
 
 Hoisting is a behavior in JavaScript where variable and function declarations are “hoisted” to the top of their scope before code execution.
 
@@ -524,7 +562,7 @@ var test; // var declaration  = undefined
 console.log(test) // undefined
 ```
 
-## 19. Variables and scoping (var, let, const)
+## 20. Variables and scope (var, let, const)
 
 A “variable” is just a property of the special internal object, **Environment Record**. “To get or change a variable” means “to get or change” a property of that object.
 
@@ -609,7 +647,7 @@ for (const i=0; i<3; i++) {
 - Attaching global data to a singleton object
 - Attaching global data to a method
 
-## 20. Closure
+## 21. Closure
 
 In JavaScript, every running function, code block {...}, and the script as a whole have an internal (hidden) associated object known as the **Lexical Environment**.
 
@@ -726,7 +764,7 @@ const test = getCtxName.bind(person)
 console.log(test()) //  Paul
 ```
 
-## 23. Breaking loops in JS
+## 26. Breaking loops in JS
 
 ```javascript
 let sum = 0;
@@ -775,7 +813,7 @@ alert('Done!');
 
 In the code above, **break outer** looks upwards for the **label** named _outer_ and breaks out of that loop. So the control goes straight from (*) to _alert('Done!')_. The **continue** directive can also be used with a **label**. In this case, code execution jumps to the next iteration of the labeled loop.
 
-## 26. Object to primitive conversion
+## 27. Object to primitive conversion
 
 Types conversions for **object**
 
@@ -816,7 +854,7 @@ The only mandatory thing: these methods must return a primitive, not an object.
 For historical reasons, if **toString** or **valueOf** returns an object, there’s no error, but such value is ignored (like if the method didn’t exist). That’s because in ancient times there was no good “error” concept in JavaScript.
 In contrast, **Symbol.toPrimitive** must return a primitive, otherwise there will be an error.
 
-## 27. Call, apply, bind
+## 28. Call, apply, bind
 
 In JavaScript, everything is an object. So a function in JavaScript is a special object that has all the properties of a normal object and some special hidden properties, such as the code property and an optional name property — functions in JavaScript can be anonymous.
 **call**, **apply**, and **bind** are built-in methods in all JavaScript functions.
@@ -880,7 +918,7 @@ console.log(test('match','ball')); //   ['ball', 'match']
 
 The most important practical application of function borrowing pertains to native methods, and specifically, to **Array.prototype.slice**. There are several list-like data structures that aren’t arrays, and it’s useful to be able to treat them as arrays and operate on them as such. One of the most prevalent list-like data structures that isn’t an array is arguments. The arguments object represents all the parameters passed in to a given (non-arrow) function.
 
-## 28. Nullish coalescing operator (??)
+## 29. Nullish coalescing operator (??)
 
 is a logical operator that returns its right-hand side operand when its left-hand side operand is **null** or **undefined**, and otherwise returns its left-hand side operand.
 
@@ -904,7 +942,7 @@ let foo = { someFooProp: "hi" };
 console.log(foo.someFooProp?.toUpperCase() ?? "not available"); // "HI"
 ```
 
-## 29. Function currying and partial functions
+## 30. Function currying and partial functions
 
 Currying is an advanced technique of working with functions. It’s used not only in JavaScript, but in other languages as well.
 Currying is a transformation of functions that translates a function from callable as _f(a, b, c)_ into callable as _f(a)(b)(c)_.
@@ -961,7 +999,7 @@ alert( curriedSum(1)(2,3) ); // 6, currying of 1st arg
 alert( curriedSum(1)(2)(3) ); // 6, full currying
 ```
 
-## 30. Prototype
+## 31. Prototype
 
 Objects in JavaScript have an internal property, denoted in the specification as **[[Prototype]]**, which is simply a reference to another object. Almost all objects are given a non-**null** value for this property, at the time of their creation.
 The default **[[Get]]** operation proceeds to follow the **[[Prototype]]** link of the object if it cannot find the requested property on the object directly. This process continues until either a matching property name is found, or the **[[Prototype]]** chain ends. If no matching property is ever found by the end of the chain, the return result from the **[[Get]]** operation is **undefined**.
@@ -1084,7 +1122,7 @@ Object.defineProperty( Object.prototype, "__proto__", {
 For a variety of reasons, not the least of which is terminology precedent, "inheritance" (and "prototypal inheritance") and all the other OO terms just do not make sense when considering how JavaScript actually works (not just applied to our forced mental models).
 Instead, "delegation" is a more appropriate term, because these relationships are not copies but delegation links.
 
-## 31. Event loop
+## 32. Event loop
 
 JavaScript has a runtime model based on an event loop, which is responsible for executing the code, collecting and processing events, and executing queued sub-tasks. This model is quite different from models in other languages like C and Java.
 
@@ -1128,9 +1166,9 @@ A web worker or a cross-origin iframe has its own **stack**, **heap**, and **mes
 
 A very interesting property of the event loop model is that JavaScript, unlike a lot of other languages, never blocks. Handling I/O is typically performed via events and callbacks, so when the application is waiting for an IndexedDB query to return or an XHR request to return, it can still process other things like user input.
 
-## 32. How JavaScript Event Loop works when executing asynchronous code
+## 33. How JavaScript Event Loop works when executing asynchronous code
 
-### Javascript is synchronous and has a single thread of execution!
+### Javascript is synchronous and has a single thread of execution
 
 That is, it is only capable of executing one task at a time which blocks the execution until it is finished and can proceed to the next one.
 

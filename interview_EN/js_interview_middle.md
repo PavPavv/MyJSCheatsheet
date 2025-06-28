@@ -1,6 +1,20 @@
 # Interview questions (middle)
 
-## 1. Ways to define property on an object
+Table of content:
+
+1. Ways to define property in an object
+2. The execution context and the call stack
+3. Promises
+4. Task queues vs microtasks
+5. Map and WeakMap
+6. Set and WaeakSet
+7. What is CORS (Cross Origin Resource Sharing)?
+8. Examples of functional programming with JS
+9. Functional programming concepts
+10. What the difference between POST and PUT methods?
+11. Understanding npm and Node Modules
+
+## 1. Ways to define property in an object
 
 1. **get** **set** internal methods
 
@@ -124,7 +138,7 @@ o.b; // 38
 // unless o.b is redefine
 ```
 
-## 2. The Execution Context And The Call Stack
+## 2. The execution context and the call stack
 
 The execution context is a wrapper around the currently executing code. It consists of the following:
 
@@ -604,7 +618,7 @@ We can say that JavaScript supports functional programming because its functions
 
 Functional programming is a part of a larger programming paradigm: **declarative programming**. Declarative programming is a style of programming where applications are structured in a way that prioritizes describing _what_ should happen over defining _how_ it should happen. The declarative approach is more readable and, thus, easier to reason about. The details of how each of these functions is implemented are abstracted away. Those tiny functions are named well and combined in a way that describes how member data goes from being loaded to being saved and printed on a map, and this approach does not require many comments. Essentially, declarative programming produces applications that are easier to reason about, and when it’s easier to reason about an application, that application is easier to scale.
 
-## 9. Functional Concepts
+## 9. Functional programming concepts
 
 ### Immutability
 
@@ -677,7 +691,7 @@ The compose function is a higher-order function. It takes functions as arguments
   const compose = (...fns) => arg => fns.reduce((composed, f) => f(composed), arg);
 ```
 
-## 9. What the difference between POST and PUT?
+## 10. What the difference between POST and PUT methods?
 
 POST is used to send data to a server to create/update a resource.
 PUT is used to send data to a server to create/update a resource.
@@ -685,3 +699,25 @@ PUT is used to send data to a server to create/update a resource.
 So... What the heck? What is the difference between 'em?
 
 The difference between POST and PUT is that PUT requests are _idempotent_. That is, calling the same PUT request multiple times will always produce the same result. In contrast, calling a POST request repeatedly have side effects of creating the same resource multiple times.
+
+## 11. Understanding npm and Node Modules
+
+npm (Node Package Manager) is the default package manager for JavaScript's Node.js runtime environment. It serves several key purposes:
+
+1. Dependency Management: Helps you install, update, and manage third-party libraries your project needs
+2. Package Registry: Provides access to over a million open-source packages
+3. Script Running: Allows you to define and run project scripts
+
+When you run _npm i some-package_, you're not just installing _some-package_ - you're installing its entire **dependency tree**.
+
+1. Dependencies of dependencies: Webpack itself depends on many other packages (like terser for minification, lodash for utilities)
+2. Transitive dependencies: Those dependencies may have their own dependencies, and so on
+3. Version isolation: npm installs specific versions of each dependency to ensure compatibility
+
+Key points about node_modules:
+
+- The folder structure is flat by default (npm v3+), with some nesting for version conflicts
+- Each package maintains its own dependencies
+- The folder can get large because JavaScript packages tend to be small and modular
+
+This design allows for precise version control while handling complex dependency graphs in the JavaScript ecosystem.
